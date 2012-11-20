@@ -1,0 +1,63 @@
+<?php
+/*
+* PinaCMS
+* 
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+* OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+* LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+* DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+* THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+* OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*
+* @copyright © 2010 Dobrosite ltd.
+*/
+
+if (!defined('PATH')){ exit; }
+
+
+
+    require_once PATH_CORE.'classes/TableDataGateway.php';
+
+    class AddressGateway extends TableDataGateway
+    {
+        var $table = 'cody_address';
+	var $primaryKey = 'address_id';
+
+	var $fields = array(
+		"user_id", 'address_title', 'address_firstname',
+		'address_lastname', 'address_middlename', 'address_street',
+		'address_city', 'address_county', 'address_state_key', 'address_country_key',
+		'address_zip', 'address_zip4', 'address_phone', 'address_fax'
+	);
+
+        public function getShortByid($id)
+        {
+		$id = intval($id);
+                return $this->db->row("SELECT user_zipcode, user_country_key, user_state_key, user_address
+                                       FROM ".$this->table."
+                                       WHERE user_id = '".$id."'
+                                       LIMIT 1");
+        }
+
+	public function getByType($type, $user_id)
+	{
+		if (empty($type)) return false;
+
+		$type = $this->db->escape($type);
+		$user_id = intval($user_id);
+
+		return $this->db->row("
+			SELECT a.* FROM
+				cody_user_config c, cody_address a
+			WHERE
+				c.".$type."_address_id = a.address_id
+				AND c.user_id = '".$user_id."'
+			LIMIT 1
+		");
+	}
+    }

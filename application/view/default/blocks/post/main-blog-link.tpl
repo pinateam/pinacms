@@ -1,0 +1,1 @@
+<a href="{link action="blog.view" blog_id=$blog.blog_id}">{$blog.blog_title}</a>

@@ -1,0 +1,1 @@
+<li><a class="{iflocation action="subscription.manage.home"}active{/iflocation}" href="{link action="subscription.manage.home"}">{lng lng="subscribers"}</a></li>

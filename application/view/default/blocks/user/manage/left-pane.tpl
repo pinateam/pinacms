@@ -1,0 +1,1 @@
+<li><a class="{iflocation action="user.manage.home"}active{/iflocation}" href="{link action="user.manage.home"}">{lng lng="users"}</a></li>

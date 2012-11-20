@@ -1,0 +1,1 @@
+{lng lng="hello"}, <strong>{$user.user_login}</strong>! [<a href="{link api="user.logout"}">{lng lng="sign_out"}</a>]

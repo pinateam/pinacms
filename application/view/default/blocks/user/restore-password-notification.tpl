@@ -1,0 +1,1 @@
+{lng lng="new_password_has_been_generated_for_you"}: {$password}

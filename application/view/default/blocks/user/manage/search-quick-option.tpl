@@ -1,0 +1,1 @@
+<option value="user.manage.search-quick">{lng lng="users"}</option>

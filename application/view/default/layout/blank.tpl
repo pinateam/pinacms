@@ -1,0 +1,1 @@
+{block view=$main printable=1}

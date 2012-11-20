@@ -1,0 +1,1 @@
+{lng lng="account_balance"} <strong>{$account.account_balance|default:"0.00"|format_price}</strong> [<a href="{link action="account.manage.balance"}">{lng lng="make_deposit"}</a>]

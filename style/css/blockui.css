@@ -1,0 +1,10 @@
+.ui-corner-all {
+	border-radius: 4px 4px 4px 4px;
+}
+
+.ui-widget-header {
+	font-weight: bold;
+	padding: 5px;
+}
+
+.ui-widget-content { border: 1px solid #dddddd; background-color: #fff; color: #333333; padding: 5px; }

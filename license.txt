@@ -1,0 +1,81 @@
+Software License Agreement
+
+This Software License Agreement ("Agreement") is made by and between you (“User”) and Dobrosite LLC ("Developer"). The Agreement contains the terms, under which the User has the right to use PinaCMS software (“Software”).
+
+By using the product you agree to be bound by the terms of this Agreement.
+
+License
+
+The Developer grants the User a non-exclusive license to use one copy of the Software to create a web-site on one web server for one domain name.
+
+The User may:
+-    Use the Software free of charge, provided the original link to the web-site of the Software http://pinacms.com is preserved on all the pages of the web-site.
+-    Modify the source code of their copy of the Software.
+
+ The User must:
+-    Inform the Developer about the domain name, which the User is going to use the Software for, prior to using the Software.
+-   Pay the Developer the sum of the license fee prior to removing the link to the Software web-site.
+The Developer may:
+-    Store the User’s contact information, and information about the domain name, that the User is using the Software for.
+-    Inform the User about the Software updates.
+
+Warranties
+
+The Software is provided “AS IS” without warranties of performance, buying capacity, data safety or any other warranties, explicit or implied.
+
+The Developer shall not be responsible for any amount of incidental, consequential or other indirect damages to you, your information or your business, arising out of using or a failure to use the Software.
+
+Term of Agreement
+
+The Agreement is in effect until the User or the Developer terminates it. The User can terminate it at any time after ceasing to use the Software and deleting all its original and modified copies.
+
+**********
+
+Лицензионное соглашение на использование программного продукта PinaCMS
+
+Настоящее лицензионное соглашение (далее, Соглашение) является договором между
+Вами (далее, Пользователь) и ООО "Добросайт" (далее, Автор). Соглашение содержит
+условия при которых Пользователь имеет право использовать Программный продукт
+PinaCMS (далее, Программа).
+
+Использование Программы означает согласие с настоящим лицензионным соглашением
+
+Предоставление лицензии
+
+Автор предоставляет Пользователю неисключительное право использовать одну копию
+Программы для создания веб-сайта на одном веб-сервере для одного домена.
+
+Пользователь имеет право:
+- Использовать программу бесплатно в случае сохранения оригинальной ссылки на веб-сайт
+Программы http://pinacms.com на всех страницах веб-сайта.
+- Вносить изменения в исходный код своей копии Программы.
+
+Пользователь обязан:
+- Перед использованием Программы сообщить Автору доменное имя, на котором Пользователь
+собирается использовать Программу.
+- В случае удаления ссылки на веб-сайт Программы предварительно оплатить стоимость
+лицензии.
+
+Автор имеет право:
+- Хранить контактные данные Пользователя, информацию о доменном имени, на котором
+Пользователь использует Программу.
+- Информировать пользователя об обновлениях Программы.
+
+Гарантии
+
+Программа предоставлеяется КАК ЕСТЬ без предоставления гарантий производительности,
+покупательной способности, сохранности данных, а также иных явно выраженных или
+предполагаемых гарантий.
+
+Автор не несет какой-либо ответственности за причинение или возможность причинения
+вреда Вам, Вашей информации или Вашему бизнесу вследствие использования или
+невозможности использования Программы.
+
+Срок действия Соглашения
+
+Соглашение действует до тех пор пока Пользователь или Автор не расторгнут его.
+Пользователь может расторгнуть его в любой момент после прекращения использования
+Программы, удаления всех ее оригинальных и измененных копий.
+
+
+

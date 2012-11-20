@@ -1,0 +1,1 @@
+<p><a href={link action="feedback.contactus"}>{lng lng="contacts"}</a></p>

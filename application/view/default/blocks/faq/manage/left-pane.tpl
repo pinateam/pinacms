@@ -1,0 +1,1 @@
+<li><a class="{iflocation action="faq.manage.home"}active{/iflocation}" href="{link action="faq.manage.home"}">FAQ</a></li>

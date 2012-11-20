@@ -1,0 +1,1 @@
+<li><a class="{iflocation action="access.manage.home"}active{/iflocation}" href="{link action="access.manage.home"}">{lng lng="accesses"}</a></li>

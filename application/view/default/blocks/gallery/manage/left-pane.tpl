@@ -1,0 +1,1 @@
+<li><a class="{iflocation action="gallery.manage.home"}active{/iflocation}" href="{link action="gallery.manage.home"}">{lng lng="gallery"}</a></li>

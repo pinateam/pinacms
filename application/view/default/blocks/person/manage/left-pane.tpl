@@ -1,0 +1,1 @@
+<li><a class="{iflocation action="person.manage.home"}active{/iflocation}" href="{link action="person.manage.home"}">{lng lng="team"}</a></li>

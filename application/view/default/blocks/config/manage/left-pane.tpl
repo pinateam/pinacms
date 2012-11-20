@@ -1,0 +1,1 @@
+<a class="icon-asterix {iflocation action="config.manage.home"}active{/iflocation}" href="{link action="config.manage.home"}">{lng lng="settings"}</a>

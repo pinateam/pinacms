@@ -1,0 +1,1 @@
+<h1 class="shop-cat-title whereAmI">{$title}</h1>

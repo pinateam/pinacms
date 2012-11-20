@@ -1,0 +1,37 @@
+/*
+*
+* I did everything reasonably possible to have a decent layout on IE6. Anything beyond this is upto you.
+* 
+*/
+
+
+/*IE6 does recognize attribute selectors*/
+.input_image, .formbutton, .input_reset, .input_button, .input_submit, .input_checkbox, .input_radio {cursor: pointer;width:auto;float:left;margin-right:6px;}
+.input_image  {padding:0;}
+.widget_email_subscriptions .subscriptions form .input_text  {width:180px;margin-right:8px;}
+
+/*searchWrap enclose float (does not recognize overflow:hiden;)*/
+.searchWrap {display:inline-block;}
+
+/*Customer Navi fix position*/
+#header .customer_navi {clear:both;}
+
+
+/*too much vertical whitespace in lists and links in lists*/
+.pageCont .c_box li, .widget ul li {display:inline-block;}
+
+/*single page view*/
+.related .tabs, .single_post .tabs {display:inline-block;}/*enclose float (does not recognize overflow:hiden;)*/
+.related .tabs li a, .single_post .tabs li a {border-color:#f9f9f9;border-bottom-color:#cacaca;}/*does not accept transparency on border*/
+.adjacentImg  {width:160px;}/*needs set width*/
+.previousProd .adjacentImg {left:0;}
+
+/*shopping cart*/
+.order_form .update_cart {margin-left:285px;}
+
+/*the overlays*/
+.overlay {background:url(../images/offwhite_ie6.png) no-repeat;}
+.mediumoverlay {background:url(../images/offwhitemedium_ie6.png) no-repeat;}
+.largeoverlay {background:url(../images/offwhitelarge_ie6.png) no-repeat;}
+.overlay .close {background:url(../images/close_ie6.png) no-repeat;}
+

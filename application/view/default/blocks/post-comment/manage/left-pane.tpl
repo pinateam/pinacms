@@ -1,0 +1,1 @@
+<li><a class="{iflocation action="post-comment.manage.home"}active{/iflocation}" href="{link action="post-comment.manage.home"}">{lng lng="comments"}</a></li>

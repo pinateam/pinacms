@@ -1,0 +1,1 @@
+{include file="skin/admin/splitter-input.tpl" name="blog_enabled" id="blog_enabled" items=$statuses value=$status sid=$sid}

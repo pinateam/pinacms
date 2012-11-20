@@ -1,0 +1,1 @@
+<li><a class="{iflocation action='menu.manage.home'}active{/iflocation}" href="{link action='menu.manage.home'}">{lng lng="menu"}</a></li>
