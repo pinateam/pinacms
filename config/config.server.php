@@ -25,7 +25,7 @@ if (!defined('PATH')){ exit; }
     define('DB_PORT', '3306');
     define('DB_USER', '');
     define('DB_PASS', '');
-    define('DB_BASE', 'auction3');
+    define('DB_BASE', '');
     define('DB_CONNECTION_CHARSET', 'utf8');
     define('DB_DEFAULT_ENGINE', 'InnoDB');
 
@@ -59,4 +59,4 @@ if (!defined('PATH')){ exit; }
     define('CATALOG_ADMIN_SUBCATEGORIES_PRODUCTS_SHOW', true);
     define('BLOCK_EXCEPTIONS', true);
 
-    define('TEMPLATE_DEFAULT', 'radio');
+    define('TEMPLATE_DEFAULT', '');
