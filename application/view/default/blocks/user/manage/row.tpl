@@ -8,14 +8,14 @@
 		<li><a href="#" class="icon-delete" sid="{$user.user_id}" data-message="{lng lng="are_you_sure_to_delete_user_"} '{$user.user_title|default:$user.user_login}'?" title="{lng lng="delete"}"></a></li>
 	</ul>
 </td>
-<td>
+<td class="editable">
 
 	<a href="{link action="user.manage.edit" user_id=$user.user_id}">{$user.user_login|mark_substring:$search_rules.substring}</a>
 </td>
-<td>
+<td class="editable">
 	<a href="{link action="user.manage.edit" user_id=$user.user_id}">{$user.user_title|mark_substring:$search_rules.substring}</a>
 </td>
-<td>
+<td class="editable">
 	<a href="mailto:{$user.user_email}">{$user.user_email|mark_substring:$search_rules.substring}</a>
 </td>
 

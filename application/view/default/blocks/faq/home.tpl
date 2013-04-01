@@ -1,3 +1,3 @@
-<h1>{lng lng="faq"}</h1>
+{include file="skin/content-header.tpl" title="faq"|lng}
 
 {module action="faq.list"}

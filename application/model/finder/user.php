@@ -33,7 +33,10 @@ class UserFinder extends BaseFinder
 
 		$this->addField("cody_user.*");
 		$this->setFrom("cody_user");
+
+		
 		$this->addWhere("cody_user.account_id = '".intval(Site::accountId())."'");
+		
 
 		$this->addField("cody_access_group.access_group");
 		$this->addJoin("left", "cody_access_group", array(

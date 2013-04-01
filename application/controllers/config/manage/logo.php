@@ -22,12 +22,17 @@ if (!defined('PATH')){ exit; }
 
 
 	require_once PATH_DOMAIN . "image.php";
-	ImageDomain::init("logo_".Site::id());
+	ImageDomain::init("logo");
 	
 	require_once PATH_TABLES."logo.php";
 	$logoGateway = new LogoGateway();
 
-	$logo = $logoGateway->getBy("site_id", Site::id());
+	
+	$logo = $logoGateway->get(Site::id());
+	
+
+	
+
 	if (!empty($logo["logo_filename"]))
 	{
 		$logo["logo_filename"] = $logo["logo_filename"]."?rnd=".rand();

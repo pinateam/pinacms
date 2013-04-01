@@ -26,11 +26,11 @@ require_once PATH_TABLES."module.php";
 $moduleGateway = new ModuleGateway();
 $moduleGateway->put(array(
 	"module_key" => "work",
-	"site_id" => Site::id(),
 	"module_enabled" => "Y",
 	"module_version" => "1.00",
 	"module_config_action" => "",
-	"module_title" => lng("works"),
+	"module_group" => "content",
+	"module_title" => lng_key("works"),
 	"module_description" => "",
 ));
 
@@ -38,13 +38,13 @@ require_once PATH_TABLES."access.php";
 $accessGateway = new AccessGateway();
 $accessGateway->put(array(
 	"module_key" => "work.manage",
-	"access_title" => lng("work_management"),
+	"access_title" => lng_key("work_management"),
 	"access_group_id" => 2,//admin
     	"access_enabled" => "Y"
 ));
 $accessGateway->put(array(
 	"module_key" => "work.manage",
-	"access_title" => lng("work_management"),
+	"access_title" => lng_key("work_management"),
 	"access_group_id" => 3,//merchant
     	"access_enabled" => "Y"
 ));

@@ -57,6 +57,6 @@ function smarty_function_site($params, &$view)
 
 	if (!empty($params["lib"]))
 	{
-		return Site::baseUrl(Site::domain()?Site::id():0).'lib/'.$params["lib"];
+		return Site::baseUrl().'lib/'.$params["lib"];
 	}
 }

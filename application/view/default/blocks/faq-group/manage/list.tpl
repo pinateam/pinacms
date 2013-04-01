@@ -21,11 +21,5 @@
 			</tr>
 		{/foreach}
 
-
-		<tr class="button-bar">
-			<td colspan="3" >
-				<button class="css3 button-add">Добавить группу</button>
-			</td>
-		</tr>
 	</tbody>
 </table>

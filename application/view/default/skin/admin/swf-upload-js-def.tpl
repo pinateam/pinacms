@@ -21,7 +21,7 @@ var swfuSettingsDef = {
 	button_cursor: SWFUpload.CURSOR.HAND,
 	button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
 	button_text: '<span class="swfupload-button">{/literal}{lng lng="upload"}{literal}</span>',
-	button_text_style: '.swfupload-button {color: #96194A; font-weight: bold; font-size: 14px;}',
+	button_text_style: '.swfupload-button {color: #444444; font-weight: bold; font-size: 14px;}',
 	button_text_left_padding: 12,
 	button_text_top_padding: 5,
 

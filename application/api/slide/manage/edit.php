@@ -29,13 +29,12 @@ validateNotEmpty($request, "slide_id", lng('internal_error'));
 $request->trust();
 
 $data = $request->params("slide_id slide_enabled slide_alt slide_href");
-$data["site_id"] = Site::id();
 
 require_once PATH_TABLES.'slide.php';
 $slideGateway = new SlideGateway();
 $slideGateway->edit($request->param("slide_id"), $data);
 
 require_once PATH_DOMAIN.'image.php';
-ImageDomain::save("slide_".Site::id(), "slide", $slideGateway, $request->param("slide_id"), $data);
+ImageDomain::save("slide", $slideGateway, $request->param("slide_id"), $data);
 
 $request->ok();

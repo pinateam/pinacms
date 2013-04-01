@@ -21,28 +21,35 @@ if (!defined('PATH')){ exit; }
 
 
 
-function getColumn(&$data, $name)
+function getColumn(&$data, $name, $key = false)
 {
-    $result = array();
+	$result = array();
 
-    if (is_array($data))
-    foreach ($data as $d)
-    {
-        $result [] = $d[$name];
-    }
+	if (is_array($data))
+	foreach ($data as $d)
+	{
+		if (empty($key))
+		{
+			$result [] = $d[$name];
+		}
+		else
+		{
+			$result [$d[$key]] = $d[$name];
+		}
+	}
 
-    return $result;
+	return $result;
 }
 
-function joinData($data, $join, $name)
+function joinData($data, $join, $name, $id = "id")
 {
     if (empty($data) || empty($join) || empty($name)) return $data;
 
     foreach ($data as $k=>$v)
     {
-        if (isset($join[$v["id"]]))
+        if (isset($join[$v[$id]]))
         {
-            $data[$k][$name] = $join[$v["id"]];
+            $data[$k][$name] = $join[$v[$id]];
         }
     }
     return $data;
@@ -139,14 +146,15 @@ function href($params = array())
 {
     if (empty($params['action']) && empty($params['api'])) return '';
 
-    if (empty($params["site_id"]) && Site::id()) $params["site_id"] = Site::id();
+    $base_url = Site::baseUrl();
 
-    $base_url = SITE;
+    
     if (!empty($params["site_id"]))
     {
 	    $base_url = Site::baseUrl($params["site_id"]);
 	    unset($params["site_id"]);
     }
+    
 
     if (!empty($params['api']))
     {
@@ -399,7 +407,7 @@ function isModuleActive($module)
 		"system",
 		"home", "dashboard", "access-denied", "fatal-error", "version",
 	        "image", "string",
-		"config", "cart", "user", "post"
+		"config", "module", "cart", "user", "post"
 	);
 
 	static $enabled_modules = false;
@@ -411,7 +419,11 @@ function isModuleActive($module)
 		$disabled_modules = array();
 
 		$db = GetDB();
+		
 		$modules = $db->table("SELECT module_key, module_enabled FROM cody_module WHERE site_id = '".Site::id()."'");
+		
+
+		
 		foreach ($modules as $v)
 		{
 			if ($v["module_enabled"] == 'Y')
@@ -464,6 +476,7 @@ function isModulePermitted($module)
 		$as = $db->table("SELECT a.module_key, access_group_id, a.access_enabled FROM cody_access a");
 	}
 
+	
 	$siteId = Site::id();
 	$agid = 0;
 	if (Session::get('auth_user_id'))
@@ -473,6 +486,9 @@ function isModulePermitted($module)
 		else
 			$agid = $agids[$siteId][Session::get('auth_user_id')] = $db->one("SELECT access_group_id FROM cody_user LEFT JOIN cody_site ON cody_site.account_id = cody_user.account_id  WHERE cody_user.user_id = '".Session::get('auth_user_id')."' AND (cody_site.site_id = '".$siteId."' OR access_group_id = 2)");
 	}
+	
+
+	
 
 	$enabled_modules = array();
 	$disabled_modules = array();
@@ -562,13 +578,18 @@ function lng_rewrite_cached($content)
 	return $content;
 }
 
+function lng_key($key)
+{
+	return "#$!".$key."!$#";
+}
+
 function lng($key)
 {
 	$db = getDB();
 	$value = $db->one("SELECT string_value FROM cody_string WHERE string_key = '".$key."'
 		AND language_code = '".Language::code()."'");
 
-	if (empty($value)) return "#$!".$key."!$#";
+	if (empty($value)) return lng_key($key);
 
 	return $value;
 }
@@ -741,3 +762,64 @@ function parseDate($str)
 
 		return trim($s);
 	}
+
+	function prepareDir($file)
+	{
+		$pos = 1;
+		while ($pos = strpos($file, "/", $pos))
+		{
+			$dir = substr($file, 0, $pos);
+			//echo "mkdir ".$dir."\r\n";
+			@mkdir($dir, 0777);
+                        @chmod($dir, 0777);
+			$pos = $pos + 1;
+		}
+	}
+        
+        function fileExistsByUrl($url)
+        {
+                $headers = @get_headers($url);
+                // проверяем ли ответ от сервера с кодом 200 - ОК
+                if(strpos('200', $Headers[0])) 
+                {
+                        return true;
+                }
+                
+                return false;
+        }
+        
+        function getFiles($dir, $extension = '')
+        {
+                if(!file_exists($dir))
+                {
+                    return false;
+                }
+                
+                $dh  = opendir($dir);
+                $files = array();
+                while (false !== ($filename = readdir($dh)))
+                {
+                        if(($filename == '.') || ($filename == '..') || (is_dir($dir.$filename)))
+                        {
+                                continue;
+                        }
+                        $path_parts = pathinfo($dir . $filename);
+                        if($path_parts['extension'] == $extension)
+                        {
+                                $files[] = $filename;
+                        }
+                }
+                return $files;
+        }
+
+        function extractZip($extractDir, $zipFile)
+        {
+                $zipArchive = new ZipArchive();
+                if(!$zipArchive->open($zipFile))
+                {
+                        return false;
+                }
+
+                $zipArchive->extractTo($extractDir);
+                $zipArchive->close();
+        }

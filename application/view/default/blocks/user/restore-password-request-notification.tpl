@@ -1,4 +1,4 @@
-Вы запросили восстановление пароля на сайте {$smarty.const.SITE}
+{lng lng="you_have_requested_password_recovery"} {link action="home"}
 
-Чтобы сгенерировать новый пароль и авторизоваться на сайте перейдите по ссылке:
+{lng lng="use_link_to_generate_new_password"}:
 {link api="user.restore-password" token=$token}

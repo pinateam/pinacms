@@ -32,8 +32,11 @@ class PostFinder extends BaseFinder
 
                 $this->addField('`cody_post`.*');
                 $this->setFrom('`cody_post`');
-                
+
+		
                 $this->addWhere("`site_id` = '".Site::id()."'");
+		
+
 		if (isset($rules["blog_id"]) && $rules["blog_id"] != "" && $rules["blog_id"] != "N")
 		{
 			$this->addWhere("`blog_id` = '".(int)$rules["blog_id"]."'");
@@ -103,7 +106,10 @@ class PostFinder extends BaseFinder
                 $this->addField('`cody_post`.`post_id`');
                 $this->setFrom('`cody_post`');
 
+		
                 $this->addWhere("`site_id` = '".Site::id()."'");
+		
+
 		if (isset($rules["blog_id"]))
 		{
 			$this->addWhere("`blog_id` = '".(int)$rules["blog_id"]."'");

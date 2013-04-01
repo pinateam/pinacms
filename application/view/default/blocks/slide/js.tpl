@@ -1,4 +1,3 @@
-<script type='text/javascript' src='{site js="slides.min.jquery.js"}'></script>
 {literal}
 <script type="text/javascript">
 	$(function(){

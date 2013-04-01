@@ -7,16 +7,16 @@
         <li><a href="javascript:void(0);" class="icon-delete"  sid="{$site.site_id}" title="{lng lng="delete"}"></a></li>
     </ul>
 </td>
-<td>
+<td class="editable">
 	#{$site.account_id}
 </td>
-<td>
+<td class="editable">
 	{$site.site_domain|default:"-"}
 </td>
-<td>
+<td class="editable">
 	{$site.site_path}
 </td>
-<td>
+<td class="editable">
 	{$site.site_template|default:"-"}
 </td>
 <td style="white-space:nowrap;">

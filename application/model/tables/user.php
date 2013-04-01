@@ -26,10 +26,26 @@ require_once PATH_CORE.'classes/TableDataGateway.php';
 class UserGateway extends TableDataGateway
 {
 	var $table = "cody_user";
-	var $fields = array
-	(
-		"account_id", "user_title", "user_login", "user_password", "user_email", "activation_token", "restore_token",
-		"user_status", "access_group_id", "user_gender", "user_created", "user_updated"
+	var $fields = array(
+		'user_id' => "int(10) NOT NULL AUTO_INCREMENT",
+		'account_id' => "int(10) NOT NULL DEFAULT '0'",
+		'user_title' => "varchar(255) NOT NULL DEFAULT ''",
+		'user_login' => "varchar(32) NOT NULL DEFAULT ''",
+		'user_password' => "varchar(64) NOT NULL DEFAULT ''",
+		'user_email' => "varchar(64) NOT NULL DEFAULT ''",
+		'activation_token' => "varchar(32) NOT NULL DEFAULT ''",
+		'restore_token' => "varchar(32) NOT NULL DEFAULT ''",
+		'user_status' => "enum('new','active','suspensed','disabled') NOT NULL DEFAULT 'new'",
+		'access_group_id' => "int(10) NOT NULL DEFAULT '1'",
+		'user_gender' => "enum('male','female','unspecified') NOT NULL DEFAULT 'unspecified'",
+		'user_created' => "timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP",
+		'user_updated' => "timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'",
+	);
+
+	var $indexes = array(
+                'PRIMARY KEY' => 'user_id',
+		'UNIQUE KEY user_login' => 'user_login',
+		'UNIQUE KEY user_email' => 'user_email'
 	);
 
 	var $useAccountId = true;
@@ -80,4 +96,28 @@ class UserGateway extends TableDataGateway
                                        LIMIT 1
                                       ");
         }
+
+	public function reportAutocomplete($q)
+	{
+		$fields = array(
+			'user_id',
+			'user_title',
+			'user_login'
+		);
+
+		$q = $this->db->escape($q);
+
+		$query = "";
+		foreach($fields as $field)
+		{
+			if (!empty($query)) $query .= " UNION ";
+
+			$query .= "
+				(SELECT `". $field ."` as v
+				FROM `".$this->table."`
+				WHERE `". $field ."` LIKE '".$q."%' ".$this->getBySiteAndAccount().")";
+		}
+
+		return $this->db->col($query);
+	}
 }

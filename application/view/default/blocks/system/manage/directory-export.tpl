@@ -12,14 +12,14 @@
 <script type="text/javascript">
 
     $(".button-export").bind("click", function(){
-        showBlockUI('{/literal}{lng lng="action_executed"}', '{lng lng="please_wait_"}{literal}');
+        PinaSkin.showModalMessage('{/literal}{lng lng="action_executed"}', '{lng lng="please_wait_"}{literal}');
 
         $.ajax({
                 type: 'post',
                 url: 'api.php',
                 data: {action: 'system.manage.directory-export'},
                 success: function(result) {
-                        hideBlockUI(function() {
+                        PinaSkin.hideModalMessage(function() {
                                 if(result.r == 'ok') {
                                             alert('{/literal}{lng lng="action_completed"}{literal}');
                                             $('#result').html();

@@ -30,7 +30,6 @@ validateNotEmpty($request, "work_title", lng('enter_title'));
 $request->trust();
 
 $data = $request->params("work_title work_description work_enabled work_group_id");
-$data["site_id"] = Site::id();
 
 require_once PATH_TABLES.'work.php';
 $workGateway = new WorkGateway();
@@ -42,7 +41,7 @@ $workImageGateway = new WorkImageGateway();
 $data['work_id'] = $work_id;
 
 require_once PATH_DOMAIN.'image.php';
-ImageDomain::save("work_image_".Site::id(), "work_image", $workImageGateway, $work_id, $data);
+ImageDomain::save("work_image", $workImageGateway, $work_id, $data);
 
 $request->setRedirect(href(array("action" => "work.manage.edit", "work_id" => $work_id)));
 $request->ok();

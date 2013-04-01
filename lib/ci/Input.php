@@ -893,13 +893,6 @@ class CI_Input {
 	*/
 	function _sanitize_naughty_html($matches)
 	{
-		if ($matches[2] == "iframe")
-		{
-			if (strpos($matches[3], 'src="http://www.youtube.com/embed/') !== false)
-			{
-				return $matches[0];
-			}
-		}
 		// encode opening brace
 		$str = '&lt;'.$matches[1].$matches[2].$matches[3];
 
@@ -977,7 +970,7 @@ class CI_Input {
 	function _html_entity_decode_callback($match)
 	{
 #		$CFG =& load_class('Config');
-		$charset = SITE_CHARSET;//$CFG->item('charset');
+		$charset = DB_CONNECTION_CHARSET;//$CFG->item('charset');
 
 		return $this->_html_entity_decode($match[0], strtoupper($charset));
 	}

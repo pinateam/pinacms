@@ -7,6 +7,7 @@
 	<div class="left-wide-column">
 		{block view="post.manage.form-common"}
 		{module action="menu.manage.form-menu" url_action="post.view" url_params="post_id="}
+		{module action="meta.manage.form-meta" url_action="post.view" url_params="post_id="}
 	</div>
 
 </form>

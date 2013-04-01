@@ -31,8 +31,6 @@ validateUrlNotUsed($request, "work-group.view", "work_group_id=");
 
 $request->trust();
 
-$request->set("site_id", Site::id());
-
 require_once PATH_TABLES .'work_group.php';
 $workGroupGateway = new WorkGroupGateway();
 $work_group_id = $workGroupGateway->add($request->params());
@@ -43,7 +41,7 @@ require_once PATH_TABLES.'work_group_image.php';
 $workGroupImageGateway = new WorkGroupImageGateway();
 
 require_once PATH_DOMAIN.'image.php';
-ImageDomain::save("work_group_image_".Site::id(), "work_group_image", $workGroupImageGateway, 
+ImageDomain::save("work_group_image", $workGroupImageGateway, 
 	$work_group_id, $request->params()
 );
 

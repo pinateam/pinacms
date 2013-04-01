@@ -26,25 +26,25 @@ require_once PATH_TABLES."module.php";
 $moduleGateway = new ModuleGateway();
 $moduleGateway->put(array(
 	"module_key" => "post-comment",
-	"site_id" => Site::id(),
 	"module_enabled" => "Y",
 	"module_version" => "1.00",
 	"module_config_action" => "",
-	"module_title" => lng("comments"),
-	"module_description" => lng("post_comment_module_explanation"),
+	"module_group" => "content",
+	"module_title" => lng_key("comments"),
+	"module_description" => lng_key("post_comment_module_explanation"),
 ));
 
 require_once PATH_TABLES."access.php";
 $accessGateway = new AccessGateway();
 $accessGateway->put(array(
 	"module_key" => "post-comment.manage",
-	"access_title" => lng("post_comment_management"),
+	"access_title" => lng_key("post_comment_management"),
 	"access_group_id" => 2,//admin
     	"access_enabled" => "Y"
 ));
 $accessGateway->put(array(
 	"module_key" => "post-comment.manage",
-	"access_title" => lng("post_comment_management"),
+	"access_title" => lng_key("post_comment_management"),
 	"access_group_id" => 3,//merchant
     	"access_enabled" => "Y"
 ));

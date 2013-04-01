@@ -47,7 +47,7 @@
 		<tbody>
 	{if $users}
 			{foreach from=$users item=user}
-			<tr class="user-{$user.user_id}">
+			<tr class="user-{$user.user_id}" sid="{$user.user_id}">
 				{block view="user.manage.row" user=$user}
 			</tr>
 			{/foreach}

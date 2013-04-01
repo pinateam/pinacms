@@ -25,7 +25,6 @@ $request->filterParams("strip_tags trim", "slide_alt slide_href");
 $request->filterParams("filter_only_y_n", "slide_enabled");
 
 $data = $request->params("slide_enabled slide_alt slide_href");
-$data["site_id"] = Site::id();
 
 require_once PATH_TABLES.'slide.php';
 $slideGateway = new SlideGateway();
@@ -34,7 +33,7 @@ $slideId = $slideGateway->add($data);
 $data["slide_id"] = $slideId;
 
 require_once PATH_DOMAIN.'image.php';
-ImageDomain::save("slide_".Site::id(), "slide", $slideGateway, $slideId, $data);
+ImageDomain::save("slide", $slideGateway, $slideId, $data);
 
 $request->setRedirect(href(array("action" => "slide.manage.edit", "slide_id" => $slideId)));
 $request->ok();

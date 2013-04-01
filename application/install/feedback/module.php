@@ -26,25 +26,25 @@ require_once PATH_TABLES."module.php";
 $moduleGateway = new ModuleGateway();
 $moduleGateway->put(array(
 	"module_key" => "feedback",
-	"site_id" => Site::id(),
 	"module_enabled" => "Y",
 	"module_version" => "1.00",
 	"module_config_action" => "feedback.manage.config",
-	"module_title" => lng("contact_us_form"),
-	"module_description" => lng("contact_us_form_explanation"),
+	"module_group" => "common",
+	"module_title" => lng_key("contact_us_form"),
+	"module_description" => lng_key("contact_us_form_explanation"),
 ));
 
 require_once PATH_TABLES."access.php";
 $accessGateway = new AccessGateway();
 $accessGateway->put(array(
 	"module_key" => "feedback.manage",
-	"access_title" => lng("contact_us_form_management"),
+	"access_title" => lng_key("contact_us_form_management"),
 	"access_group_id" => 2,//admin
     	"access_enabled" => "Y"
 ));
 $accessGateway->put(array(
 	"module_key" => "feedback.manage",
-	"access_title" => lng("contact_us_form_management"),
+	"access_title" => lng_key("contact_us_form_management"),
 	"access_group_id" => 3,//merchant
     	"access_enabled" => "Y"
 ));

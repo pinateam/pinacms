@@ -30,12 +30,30 @@ class MenuItemGateway extends TableDataGateway
 	var $orderBy = 'menu_item_order ASC';
 	var $useSiteId = true;
 
+	var $fields = array(
+		'menu_item_id' => "int(11) NOT NULL AUTO_INCREMENT",
+		'menu_id' => "int(11) NOT NULL DEFAULT '0'",
+		'site_id' => "int(11) NOT NULL DEFAULT '0'",
+		'menu_item_title' => "varchar(255) NOT NULL DEFAULT ''",
+		'menu_item_link' => "varchar(255) NOT NULL DEFAULT ''",
+		'url_action' => "varchar(32) NOT NULL DEFAULT ''",
+		'url_params' => "varchar(128) NOT NULL DEFAULT ''",
+		'menu_item_enabled' => "varchar(1) NOT NULL DEFAULT 'Y'",
+		'menu_item_order' => "int(11) NOT NULL DEFAULT '0'",
+	);
+
+	var $indexes = array(
+		'PRIMARY KEY' => 'menu_item_id',
+		'KEY action_params' => array('url_action', 'url_params', 'site_id'),
+		'KEY menu_id' => array('menu_id', 'site_id')
+	);
+
 	function reportMenuIdsByActionAndParams($action, $params)
 	{
 		$action = $this->db->escape($action);
 		$params = $this->db->escape($params);
 
-		return $this->db->col("SELECT menu_id FROM ".$this->table." WHERE site_id = '".$this->siteId."' AND url_action = '".$action."' AND url_params = '".$params."'");
+		return $this->db->col("SELECT menu_id FROM ".$this->table." WHERE url_action = '".$action."' AND url_params = '".$params."'".$this->getBySiteAndAccount());
 	}
 
 	function removeByActionAndParams($action, $params)
@@ -43,7 +61,7 @@ class MenuItemGateway extends TableDataGateway
 		$action = $this->db->escape($action);
 		$params = $this->db->escape($params);
 
-		return $this->db->query("DELETE FROM ".$this->table." WHERE site_id = '".$this->siteId."' AND url_action = '".$action."' AND url_params = '".$params."'");
+		return $this->db->query("DELETE FROM ".$this->table." WHERE url_action = '".$action."' AND url_params = '".$params."'".$this->getBySiteAndAccount());
 	}
 
 
@@ -53,12 +71,12 @@ class MenuItemGateway extends TableDataGateway
 		$action = $this->db->escape($action);
 		$params = $this->db->escape($params);
 
-		return $this->db->query("DELETE FROM ".$this->table." WHERE site_id = '".$this->siteId."' AND menu_id = '".$menuId."' AND url_action = '".$action."' AND url_params = '".$params."'");
+		return $this->db->query("DELETE FROM ".$this->table." WHERE menu_id = '".$menuId."' AND url_action = '".$action."' AND url_params = '".$params."'".$this->getBySiteAndAccount());
 	}
 
 	function reportMaxOrder()
 	{
-		return $this->db->one("SELECT max(menu_item_order) FROM ".$this->table." WHERE site_id = '".$this->siteId."'");
+		return $this->db->one("SELECT max(menu_item_order) FROM ".$this->table." WHERE 1".$this->getBySiteAndAccount());
 	}
 
 	function editByActionAndParams($action, $params, $data)
@@ -66,6 +84,6 @@ class MenuItemGateway extends TableDataGateway
 		$action = $this->db->escape($action);
 		$params = $this->db->escape($params);
 
-		$this->db->query($q = "UPDATE `".$this->table."` ".$this->constructSetCondition($data)." WHERE `".$this->table."`.`site_id` = '".$this->siteId."' AND `".$this->table."`.`url_action` = '".$action."' AND `".$this->table."`.`url_params` = '".$params."'");
+		$this->db->query($q = "UPDATE `".$this->table."` ".$this->constructSetCondition($data)." WHERE `".$this->table."`.`url_action` = '".$action."' AND `".$this->table."`.`url_params` = '".$params."'".$this->getBySiteAndAccount());
 	}
 }

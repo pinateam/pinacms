@@ -10,7 +10,7 @@
 {literal}
     <script type="text/javascript">
         $(".button-generator").bind("click", function(){
-            showBlockUI('{/literal}{lng lng="action_executed"}', '{lng lng="please_wait_"}{literal}');
+            PinaSkin.showModalMessage('{/literal}{lng lng="action_executed"}', '{lng lng="please_wait_"}{literal}');
 
             $.ajax({
                     type: 'post',
@@ -19,7 +19,7 @@
                         action: 'xml-sitemap.manage.generate',
                     },
                     success: function(result) {
-                            hideBlockUI(function(){
+                            PinaSkin.hideModalMessage(function(){
                                     if(result.r == 'ok') {
                                         alert('{/literal}{lng lng="action_completed"}{literal}');
                                     } else {

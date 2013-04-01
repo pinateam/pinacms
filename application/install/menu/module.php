@@ -26,11 +26,11 @@ require_once PATH_TABLES."module.php";
 $moduleGateway = new ModuleGateway();
 $moduleGateway->put(array(
 	"module_key" => "menu",
-	"site_id" => Site::id(),
 	"module_enabled" => "Y",
 	"module_version" => "1.00",
 	"module_config_action" => "menu.manage.home",
-	"module_title" => lng("menu_links"),
+	"module_group" => "common",
+	"module_title" => lng_key("menu_links"),
 	"module_description" => "",
 ));
 
@@ -38,13 +38,13 @@ require_once PATH_TABLES."access.php";
 $accessGateway = new AccessGateway();
 $accessGateway->put(array(
 	"module_key" => "menu.manage",
-	"access_title" => lng("menu_links_management"),
+	"access_title" => lng_key("menu_links_management"),
 	"access_group_id" => 2,//admin
     	"access_enabled" => "Y"
 ));
 $accessGateway->put(array(
 	"module_key" => "menu.manage",
-	"access_title" => lng("menu_links_management"),
+	"access_title" => lng_key("menu_links_management"),
 	"access_group_id" => 3,//merchant
     	"access_enabled" => "Y"
 ));
@@ -52,22 +52,19 @@ $accessGateway->put(array(
 require_once PATH_TABLES."menu.php";
 $menuGateway = new MenuGateway;
 $menuGateway->put(array(
-	"site_id" => Site::id(),
 	"menu_key" => "main",
-	"menu_title" => lng("main_menu"),
+	"menu_title" => lng_key("main_menu"),
 	"menu_order" => 0
 ));
 
 $menuGateway->put(array(
-	"site_id" => Site::id(),
 	"menu_key" => "help",
-	"menu_title" => lng("help"),
+	"menu_title" => lng_key("help"),
 	"menu_order" => 1
 ));
 
 $menuGateway->put(array(
-	"site_id" => Site::id(),
 	"menu_key" => "about_us",
-	"menu_title" => lng("about_us"),
+	"menu_title" => lng_key("about_us"),
 	"menu_order" => 2
 ));

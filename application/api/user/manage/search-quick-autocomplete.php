@@ -21,32 +21,10 @@ if (!defined('PATH')){ exit; }
 
 
 
-	$db = getDB();
+	require_once PATH_TABLES."user.php";
 
-	$fields = array(
-		'user_id',
-		'user_title',
-		'user_login'
-	);
-
-	$q = $request->param("q");
-	$q = $db->escape($q);
-
-	$query = "";
-	foreach($fields as $field)
-	{
-		if (!empty($query)) $query .= " UNION ";
-
-		$query .= "
-			(SELECT `". $field ."` as v
-			FROM `cody_user`
-			WHERE account_id = '".intval(Site::accountId())."' AND `". $field ."` LIKE '".$q."%')";
-
-
-		
-	}
-
-	$search_result = $db->col($query);
+	$gw = new UserGateway;
+	$search_result = $gw->reportAutocomplete($request->param("q"));
 
 	if(count($search_result)>0)
 	foreach($search_result as $r)

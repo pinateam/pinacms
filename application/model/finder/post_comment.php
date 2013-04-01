@@ -70,13 +70,17 @@ class PostCommentFinder extends BaseFinder
 
 		$this->setFrom('cody_post_comment');
 
+		
 		$this->addWhere("cody_post_comment.`site_id` = '".Site::id()."'");
+		
 		
 		$this->addField('cody_post.post_title');
 		$this->addJoin('left', 'cody_post',
 			array(
 				'post_id' => array('cody_post_comment' => 'post_id'),
+				
 				'site_id' => array('cody_post_comment' => 'site_id')
+				
 			)
 		);
 

@@ -25,8 +25,14 @@ class UserConfigGateway extends TableDataGateway
 {
 	var $table = "cody_user_config";
 	var $primaryKey = "user_id";
-	var $fields = array
-	(
-		"user_id" ,"register_address_id", "shipping_address_id", "preferred_shipping_id"
+	var $fields = array(
+		'user_id' => "int(10) NOT NULL DEFAULT '0'",
+		'register_address_id' => "int(10) NOT NULL DEFAULT '0'",
+		'shipping_address_id' => "int(10) NOT NULL DEFAULT '0'",
+		'preferred_shipping_id' => "int(10) NOT NULL DEFAULT '0'",
+	);
+
+	var $indexes = array(
+                'PRIMARY KEY' => 'user_id'
 	);
 }

@@ -26,25 +26,25 @@ require_once PATH_TABLES."module.php";
 $moduleGateway = new ModuleGateway();
 $moduleGateway->put(array(
 	"module_key" => "subscription",
-	"site_id" => Site::id(),
 	"module_enabled" => "Y",
 	"module_version" => "1.00",
 	"module_config_action" => "",
-	"module_title" => lng("subscriptions"),
-	"module_description" => lng("subscription_module_explanation"),
+	"module_group" => "content",
+	"module_title" => lng_key("subscriptions"),
+	"module_description" => lng_key("subscription_module_explanation"),
 ));
 
 require_once PATH_TABLES."access.php";
 $accessGateway = new AccessGateway();
 $accessGateway->put(array(
 	"module_key" => "subscription.manage",
-	"access_title" => lng("subscription_management"),
+	"access_title" => lng_key("subscription_management"),
 	"access_group_id" => 2,//admin
     	"access_enabled" => "Y"
 ));
 $accessGateway->put(array(
 	"module_key" => "subscription.manage",
-	"access_title" => lng("subscription_management"),
+	"access_title" => lng_key("subscription_management"),
 	"access_group_id" => 3,//merchant
     	"access_enabled" => "Y"
 ));

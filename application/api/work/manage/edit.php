@@ -38,9 +38,8 @@ require_once PATH_TABLES.'work_image.php';
 $workImageGateway = new WorkImageGateway();
 
 $data = $request->params();
-$data["site_id"] = Site::id();
 
 require_once PATH_DOMAIN.'image.php';
-ImageDomain::save("work_image_".Site::id(), "work_image", $workImageGateway, $request->param("work_id"), $data);
+ImageDomain::save("work_image", $workImageGateway, $request->param("work_id"), $data);
 
 $request->ok();

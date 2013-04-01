@@ -32,7 +32,6 @@ validateNotEmpty($request, "person_title" , lng('enter_text'));
 $request->trust();
 
 $data = $request->params();
-$data['site_id'] =  Site::id();
 
 require_once PATH_TABLES.'person.php';
 $personGateway = new PersonGateway();
@@ -44,7 +43,7 @@ require_once PATH_TABLES.'person_photo.php';
 $photoGateway = new PersonPhotoGateway();
 
 require_once PATH_DOMAIN.'image.php';
-ImageDomain::save("person_photo_".Site::id(), "person_photo", $photoGateway, $person_id, $data);
+ImageDomain::save("person_photo", $photoGateway, $person_id, $data);
 
 $request->setRedirect(href(array("action" => "person.manage.edit", "person_id" => $person_id)));
 $request->ok();

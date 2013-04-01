@@ -14,6 +14,9 @@
 	<!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
 	<script src="{site js="admin/modernizr-1.5.min.js"}"></script>
 
+	<script src="{site js="admin/pina.skin.js"}"></script>
+	<script src="{site js="pina.request.js"}"></script>
+
 	<script src="{site js="admin/jquery.row-edit.js"}"></script>
 	<script src="{site js="admin/jquery.page-edit.js"}"></script>
 	<script src="{site js="admin/jquery.category-tree.js"}"></script>

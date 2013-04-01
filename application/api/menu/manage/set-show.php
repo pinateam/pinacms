@@ -55,7 +55,6 @@ foreach ($toAdd as $menuId)
 {
 	$order ++;
 	$menuItemGateway->add(array(
-		"site_id" => Site::id(),
 		"menu_id" => $menuId,
 		"menu_item_title" => $request->param("menu_item_title"),
 		"menu_item_link" => "",

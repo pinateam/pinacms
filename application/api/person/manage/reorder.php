@@ -25,7 +25,7 @@ require_once PATH_TABLES.'person.php';
 require_once PATH_DOMAIN.'reorder.php';
 
 ReorderDomain::reorder(
-	$request->param('person_sort_ids'),
+	mineArray('person_sort_ids_', $request->params()),
 	"person",
 	new PersonGateway()
 );

@@ -22,12 +22,15 @@ if (!defined('PATH')){ exit; }
 
 
 class Site {
+	
 	private static $id = 0;
 	private static $accountId = 0;
 	private static $domain = "";
 	private static $path = "";
+	
 	private static $template = "";
 
+	
 	static function id()
 	{
 		return self::$id;
@@ -37,15 +40,24 @@ class Site {
 	{
 		return self::$accountId;
 	}
+	
 
 	static function path()
 	{
+		
+
+		
 		return self::$path;
+		
 	}
 
 	static function domain()
 	{
-		return self::$domain;
+		
+		if (!empty(self::$domain)) return self::$domain;
+		
+
+		return SITE_HOST;
 	}
 
 	static function template()
@@ -53,8 +65,13 @@ class Site {
 		return self::$template;
 	}
 
-	static function baseUrl($id)
+	static function baseUrl($id = false)
 	{
+		
+
+		
+		if ($id === false) $id = self::$id;
+
 		$id = intval($id);
 		if (empty($id)) return SITE;
 
@@ -80,8 +97,10 @@ class Site {
 		}
 		
 		return $domain.$path;
+		
 	}
 
+	
 	static function initById($siteId)
 	{
 		$siteId = intval($siteId);
@@ -102,7 +121,9 @@ class Site {
 	{
 		if (empty($host)) return false;
 
-		if (strcasecmp($host, SITE_HOST) == 0)
+		$host = str_replace("www.", "", $host);
+
+		if (strcasecmp($host, SITE_HOST) == 0 || strcasecmp("www.".$host, SITE_HOST) == 0)
 		{
 			self::$id = 0;
 			self::$domain = SITE_HOST;
@@ -114,14 +135,13 @@ class Site {
 		{
 			self::$id = 0;
 			self::$domain = SITE_HOST;
-                        self::$path = 'root';
+			self::$path = 'root';
 			return true;
 		}
 
 		#echo "HOST: ".$host."<br />";
 		#echo "PATH: ".$path."<br />";
 
-		$host = str_replace("www.", "", $host);
 		$db = getDB();
 		$site = $db->row("SELECT * FROM cody_site WHERE site_domain = '".$db->escape($host)."' OR site_domain = 'www.".$db->escape($host)."'");
 		if (empty($site)) return false;
@@ -134,4 +154,5 @@ class Site {
 
 		return true;
 	}
+	
 }

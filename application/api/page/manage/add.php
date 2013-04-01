@@ -34,7 +34,6 @@ validateUrlNotUsed($request, "post.view", "post_id=");
 $request->trust();
 
 $data = array(
-	'site_id' => Site::id(),
 	'post_title' => $request->param('page_title'),
 	'post_text' => $request->param('page_text'),
 	'post_enabled' => $request->param('page_enabled'),

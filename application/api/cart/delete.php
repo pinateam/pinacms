@@ -25,9 +25,9 @@ if (!defined('PATH')){ exit; }
 
 	$cart = new CartDomain();
 
-	$product_id = $request->param('product_id');
-	if (empty($product_id)) $request->stop();
+	$key = $request->param('key');
+	if (empty($key)) $request->stop();
 
-	$cart->delete($product_id);
+	$cart->delete($key);
 
 	$request->ok();

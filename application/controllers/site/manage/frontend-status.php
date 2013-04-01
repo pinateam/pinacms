@@ -23,12 +23,15 @@ if (!defined('PATH')){ exit; }
 
 	$config = getConfig();
 	$frontend_status = $config->get("core", "frontend_status");
+
+	
 	if ($request->param("sid") && $request->param("sid") != Site::id())
 	{
 		$db = getDb();
 		$siteId = intval($request->param("sid"));
 		$frontend_status = $db->one($q = "SELECT config_value FROM cody_config WHERE site_id = '".$siteId."' AND config_key = 'frontend_status'");
 	}
+	
 
 	$request->result("frontend_status", $frontend_status);
 

@@ -26,9 +26,16 @@ require_once PATH_CORE.'classes/TableDataGateway.php';
 class StringGateway extends TableDataGateway
 {
 	var $table = 'cody_string';
-	var $fields = array
-	(
-		"string_key", "language_code", "string_value", "module_key"
+	var $fields = array(
+		'language_code' => "varchar(2) NOT NULL DEFAULT ''",
+		'string_key' => "varchar(255) NOT NULL DEFAULT ''",
+		'string_value' => "text NOT NULL",
+		'module_key' => "varchar(32) NOT NULL DEFAULT ''",
+	);
+
+	var $indexes = array(
+                'PRIMARY KEY' => array('language_code', 'string_key'),
+		'KEY language_code' => array('language_code', 'module_key')
 	);
 
 	function remove($string_key, $language_code)

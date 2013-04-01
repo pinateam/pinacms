@@ -1,10 +1,27 @@
 <?php
+/*
+* PinaCMS
+* 
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+* OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+* LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+* DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+* THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+* OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*
+* @copyright © 2010 Dobrosite ltd.
+*/
 
 include "init.php";
 
 if (Site::domain() && Site::domain() != $_SERVER["HTTP_HOST"])
 {
-	redirect(Site::baseUrl(Site::id()));
+	redirect(Site::baseUrl().trim($_SERVER["REQUEST_URI"],"/"));
 }
 
 include PATH_CORE."core.dispatcher.php";
@@ -43,6 +60,9 @@ if ($config->get("core", "frontend_status") == "closed" && strpos($action, "mana
 
 $request->run();
 
-#$db = GetDB();
-#$debug = $db->getDebug();
-#file_put_contents(PATH."var/temp/page-".$data["action"]."-".date("Y-m-d-H-i-s").".txt", print_r($db->getDebug(), 1));
+if (DEFINED("DEBUG_DB") && DEBUG_DB)
+{
+	$db = GetDB();
+	$debug = $db->getDebug();
+	file_put_contents(PATH."var/temp/page-".$data["action"]."-".date("Y-m-d-H-i-s").".txt", print_r($db->getDebug(), 1));
+}

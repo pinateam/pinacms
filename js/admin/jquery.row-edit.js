@@ -86,10 +86,19 @@ $.fn.manageTable = function(options)
 
 	if (options["action_edit"])
 	{
-		elem.find(".icon-edit").live("click", function()
+		elem.find(".editable a").live("click", function()
+		{
+			var link = $(this).attr("href");
+			if (!link) return true;
+			document.location = link;
+			return false;
+		});
+		elem.find(".icon-edit, .editable").live("click", function()
 		{
 			var id = $(this).attr("sid");
-			if (!id) alert("Please specify SID");
+			if (!id)id = $(this).parent().attr("sid");
+			if (!id)id = $(this).parent().attr("id");
+			if (!id)alert("Please specify SID");
 			var params = {};
 			params["action"] = options['action_edit'];
 			params[object_id] = id;
@@ -271,8 +280,9 @@ $.fn.manageTable = function(options)
 			if (sortableItems.length)
 			{
 				var settings = {
-					columns : 'div.table div.tbody',
-					handleSelector: 'li'
+					columns : 'div.table div.tbody'
+					//,
+					//handleSelector: 'li'
 				}
 
 				sortableItems.find(settings.handleSelector).css({
@@ -313,11 +323,12 @@ $.fn.manageTable = function(options)
 						params[param_object] = {};
 						$(elem).find("ul.tr").each(function(){
 							var id = $(this).attr("id");
-							params[param_object][id] = id;
+							params[param_object + "_" + id] = id;
 						});
 
 						$(elem).fadeTo(0, 0.5);
 						$.ajax({
+							type: 'post',
 							url: 'api.php',
 							data: params,
 							dataType: 'text',

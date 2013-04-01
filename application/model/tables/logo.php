@@ -26,10 +26,31 @@ require_once PATH_CORE.'classes/TableDataGateway.php';
 class LogoGateway extends TableDataGateway
 {
 	var $table = "cody_logo";
+	
 	var $primaryKey = 'site_id';
-	var $fields = array
-	(
-		"site_id", "logo_filename", "logo_width", "logo_height", "logo_type", "logo_size", "logo_alt"
+	
+
+	
+
+	var $fields = array(
+		
+		'site_id' => "int(10) NOT NULL DEFAULT '0'",
+		
+		
+		'logo_filename' => "varchar(255) NOT NULL DEFAULT '0'",
+		'logo_width' => "int(1) NOT NULL DEFAULT '0'",
+		'logo_height' => "int(1) NOT NULL DEFAULT '0'",
+		'logo_type' => "varchar(20) NOT NULL DEFAULT ''",
+		'logo_size' => "int(10) NOT NULL DEFAULT '0'",
+		'logo_alt' => "varchar(32) NOT NULL DEFAULT ''",
+	);
+
+
+	var $indexes = array(
+		
+		'PRIMARY KEY' => 'site_id'
+		
+		
 	);
 
 	var $useSiteId = true;

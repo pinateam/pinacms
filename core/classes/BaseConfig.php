@@ -29,7 +29,11 @@ class BaseConfig
 	var $baseName = 'base_config';
 
 	function  __construct() {
-		$this->fileName = $this->baseName.".".Site::id().".php";
+		$this->fileName = $this->baseName;
+		
+		$this->fileName .= ".".Site::id();
+		
+		$this->fileName .= ".php";
 		$this->init();
 	}
 
@@ -37,11 +41,18 @@ class BaseConfig
 	{
 		$this->data[$module_key][$key] = $value;
 		$db = getDB();
+
+		$cond = '';
+
+		
+		$cond .= "site_id = '".Site::id()."',";
+		
+
 		$db->query("
 			INSERT INTO
 				cody_".$this->baseName."
 			SET
-				site_id = '".Site::id()."',
+				".$cond."
 				module_key = '".$db->escape($module_key)."',
 				".$this->baseName."_key = '".$db->escape($key)."',
 				".$this->baseName."_value = '".$db->escape($value)."'
@@ -67,24 +78,24 @@ class BaseConfig
 
 	function init()
 	{
-		if (file_exists(PATH_CACHE.$this->fileName))
+		if (file_exists(PATH_VAR_CACHE.$this->fileName))
 		{
 			//кеш существует
 			//проверка актуальности кеша
 			$today = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
-			$data_create_file = filemtime(PATH_CACHE.$this->fileName);
+			$data_create_file = filemtime(PATH_VAR_CACHE.$this->fileName);
 
 			if ((floor(($today - $data_create_file) / 86400 )) >= 1)
 			{
 				//генерация нового кеша
-				unlink(PATH_CACHE.$this->fileName);
+				unlink(PATH_VAR_CACHE.$this->fileName);
 				$this->load();
 				//инклудим кеш
-				require_once PATH_CACHE.$this->fileName;
+				require_once PATH_VAR_CACHE.$this->fileName;
 			}
 			else
 			{
-				require_once PATH_CACHE.$this->fileName;
+				require_once PATH_VAR_CACHE.$this->fileName;
 			}
 		}
 		else
@@ -92,7 +103,7 @@ class BaseConfig
 			//генерация нового кеша
 			$this->load();
 			//инклудим кеш
-			require_once PATH_CACHE.$this->fileName;
+			require_once PATH_VAR_CACHE.$this->fileName;
 		}
 	}
 
@@ -100,14 +111,19 @@ class BaseConfig
 	{
 		$db = getDB();
 
+		$cond = "";
+
+		
+		$cond .= " AND site_id = '".Site::id()."'";
+		
+
 		$lines = $db->table("
 			SELECT
 				module_key, ".$this->baseName."_key, ".$this->baseName."_value
                         FROM
 				cody_".$this->baseName."
-			WHERE
-				site_id = '".Site::id()."'
-		");
+			WHERE 1 ".$cond
+		);
 
 		$this->data = array();
 		foreach($lines as $key => $value)
@@ -128,14 +144,14 @@ class BaseConfig
 			}
 		}
 
-		$f = fopen(PATH_CACHE.$this->fileName, "w");
+		$f = fopen(PATH_VAR_CACHE.$this->fileName, "w");
 		fwrite($f, '<?php '."\n".$body."\n?>");
 		fclose($f);
 	}
 
 	function retireCache()
 	{
-		unlink(PATH_CACHE.$this->fileName);
+		unlink(PATH_VAR_CACHE.$this->fileName);
 	}
 
 	function fetch()

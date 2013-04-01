@@ -60,7 +60,7 @@
 					}
 					else
 					{
-						$("#ask_a_question").html("Сообщение отправлено");
+						$("#ask_a_question").html("{/literal}{lng lng="your_message_has_been_sent"}{literal}");
 					}
 							
 				}

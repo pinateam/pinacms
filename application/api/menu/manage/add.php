@@ -35,7 +35,6 @@ $menuItemGateway = new MenuItemGateway();
 $order = $menuItemGateway->reportMaxOrder();
 
 $data = array(
-	'site_id' => Site::id(),
 	'menu_id' => $request->param("menu_id"),
 	'menu_item_title' => $request->param('menu_item_title'),
 	'menu_item_link' => $request->param('menu_item_link'),

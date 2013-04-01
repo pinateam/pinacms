@@ -42,7 +42,6 @@ $request->trust();
 
 $data = $request->params();
 $data['user_password'] = passwordHash($data['user_password']);
-$data['account_id'] = Site::accountId();
 
 include_once PATH_TABLES."user.php";
 $user = new UserGateway;

@@ -25,39 +25,53 @@ if (!defined('PATH')){ exit; }
 
     class AddressGateway extends TableDataGateway
     {
-        var $table = 'cody_address';
-	var $primaryKey = 'address_id';
+            var $table = 'cody_address';
+            var $primaryKey = 'address_id';
 
-	var $fields = array(
-		"user_id", 'address_title', 'address_firstname',
-		'address_lastname', 'address_middlename', 'address_street',
-		'address_city', 'address_county', 'address_state_key', 'address_country_key',
-		'address_zip', 'address_zip4', 'address_phone', 'address_fax'
-	);
+            var $fields = array(
+                    'address_id' => "int(10) NOT NULL AUTO_INCREMENT",
+                    'user_id' => "int(10) NOT NULL DEFAULT '0'",
+                    'address_title' => "varchar(32) NOT NULL DEFAULT ''",
+                    'address_firstname' => "varchar(128) NOT NULL DEFAULT ''",
+                    'address_lastname' => "varchar(128) NOT NULL DEFAULT ''",
+                    'address_middlename' => "varchar(128) NOT NULL DEFAULT ''",
+                    'address_street' => "varchar(255) NOT NULL DEFAULT ''",
+                    'address_city' => "varchar(255) NOT NULL DEFAULT ''",
+                    'address_county' => "varchar(64) NOT NULL DEFAULT ''",
+                    'address_state_key' => "varchar(2) NOT NULL DEFAULT ''",
+                    'address_country_key' => "varchar(2) NOT NULL DEFAULT ''",
+                    'address_zip' => "varchar(32) NOT NULL DEFAULT ''",
+                    'address_zip4' => "varchar(32) NOT NULL DEFAULT ''",
+                    'address_phone' => "varchar(32) NOT NULL DEFAULT ''",
+                    'address_fax' => "varchar(32) NOT NULL DEFAULT ''",
+            );
+            var $indexes = array(
+                    'PRIMARY KEY' => 'address_id'
+            );
 
-        public function getShortByid($id)
-        {
-		$id = intval($id);
-                return $this->db->row("SELECT user_zipcode, user_country_key, user_state_key, user_address
-                                       FROM ".$this->table."
-                                       WHERE user_id = '".$id."'
-                                       LIMIT 1");
-        }
+	    public function getShortByid($id)
+	    {
+	    	$id = intval($id);
+	        return $this->db->row("SELECT user_zipcode, user_country_key, user_state_key, user_address
+	                               FROM ".$this->table."
+	                               WHERE user_id = '".$id."'
+	                               LIMIT 1");
+	    }
 
-	public function getByType($type, $user_id)
-	{
-		if (empty($type)) return false;
+		public function getByType($type, $user_id)
+		{
+			if (empty($type)) return false;
 
-		$type = $this->db->escape($type);
-		$user_id = intval($user_id);
+			$type = $this->db->escape($type);
+			$user_id = intval($user_id);
 
-		return $this->db->row("
-			SELECT a.* FROM
-				cody_user_config c, cody_address a
-			WHERE
-				c.".$type."_address_id = a.address_id
-				AND c.user_id = '".$user_id."'
-			LIMIT 1
-		");
-	}
+			return $this->db->row("
+				SELECT a.* FROM
+					cody_user_config c, cody_address a
+				WHERE
+					c.".$type."_address_id = a.address_id
+					AND c.user_id = '".$user_id."'
+				LIMIT 1
+			");
+		}
     }

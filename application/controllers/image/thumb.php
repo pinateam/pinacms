@@ -29,6 +29,11 @@ if (!defined('PATH')){ exit; }
 	$width = $request->param('width');
 	$height = $request->param('height');
 
-	ImageDomain::resize(PATH_IMAGES.Site::id()."/".$src, $width, $height);
+	$target = PATH_IMAGES;
+	
+	$target .= Site::id()."/";
+	
+	$target .= $src;
+	ImageDomain::resize($target, $width, $height);
 	
 	exit;

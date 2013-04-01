@@ -26,19 +26,19 @@ require_once PATH_TABLES."module.php";
 $moduleGateway = new ModuleGateway();
 $moduleGateway->put(array(
 	"module_key" => "site",
-	"site_id" => Site::id(),
 	"module_enabled" => "Y",
 	"module_version" => "1.00",
 	"module_config_action" => "",
-	"module_title" => lng("site_list_management"),
-	"module_description" => lng("site_management_module_explanation"),
+    	"module_group" => "common",
+	"module_title" => lng_key("site_list_management"),
+	"module_description" => lng_key("site_management_module_explanation"),
 ));
 
 require_once PATH_TABLES."access.php";
 $accessGateway = new AccessGateway();
 $accessGateway->put(array(
 	"module_key" => "site.manage",
-	"access_title" => lng("site_list_management"),
+	"access_title" => lng_key("site_list_management"),
 	"access_group_id" => 2,//admin
     	"access_enabled" => "Y"
 ));

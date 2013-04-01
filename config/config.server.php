@@ -28,6 +28,9 @@ if (!defined('PATH')){ exit; }
     define('DB_BASE', '');
     define('DB_CONNECTION_CHARSET', 'utf8');
     define('DB_DEFAULT_ENGINE', 'InnoDB');
+
+    define ('MEMCACHE_HOST', '127.0.0.1');
+
     define('SITE_HOST', 'localhost');
     define('SITE_PATH', '');
     define('SITE_BASE', 'http://'.SITE_HOST.'/');
@@ -50,5 +53,10 @@ if (!defined('PATH')){ exit; }
     define('PRODUCT_THUMB_WIDTH',  160);
     define('PRODUCT_THUMB_HEIGHT', 107);
 
+    define ('CATEGORY_THUMB_WIDTH', '100');
+    define ('CATEGORY_THUMB_HEIGHT', '100');
+
     define('CATALOG_ADMIN_SUBCATEGORIES_PRODUCTS_SHOW', true);
     define('BLOCK_EXCEPTIONS', true);
+
+    define('TEMPLATE_DEFAULT', '');

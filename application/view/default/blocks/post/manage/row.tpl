@@ -4,7 +4,7 @@
         <li><a href="javascript:void(0);" class="icon-delete"  sid="{$post.post_id}" title="{lng lng="delete"}"></a></li>
     </ul>
 </td>
-<td>
+<td class="editable">
     <a href="{if $post.blog_id == 0}
                 {link action="page.manage.edit" page_id=$post.post_id}
             {else}

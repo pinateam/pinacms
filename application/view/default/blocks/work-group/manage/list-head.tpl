@@ -1,15 +1,6 @@
-<tr>
-	<th>
-		&nbsp;
-	</th>
-	<th>
+	<li class="w10">
 		{lng lng="act_"}
-	</th>
-	<th>
+	</li>
+	<li class="w70">
 		{lng lng="title_portfolio"}
-	</th>
-
-	<th>
-		{lng lng="status"}
-	</th>
-</tr>
+	</li>

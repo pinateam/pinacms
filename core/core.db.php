@@ -41,6 +41,8 @@ class DB
 
 	public function query($sql)
 	{
+		if (empty($this->conn)) return false;
+		
 		list($msec, $sec) = explode(' ', microtime());
 		$s_time = (float)$msec + (float)$sec;
 
@@ -54,10 +56,13 @@ class DB
 			$this->outError($sql);
 		}
 
-		$debug['query'] = $sql;
-		$debug['time'] = $time_total;
+		if (DEFINED("DEBUG_DB") && DEBUG_DB)
+		{
+			$debug['query'] = $sql;
+			$debug['time'] = $time_total;
 
-		$this->debug[] = $debug;
+			$this->debug[] = $debug;
+		}
 
 		return $rc;
 	}
@@ -70,21 +75,21 @@ class DB
 
 		$result = array();
 
-        if (!empty($key))
-        {
-            while ($row = mysql_fetch_assoc($rc))
-            {
-                $id = $row[$key];
-                unset($row[$key]);
-                $result[$id] [] = $row;
-            }
-        }
-        else
-        {
-            while ($row = mysql_fetch_assoc($rc))
-            {
-                $result [] = $row;
-            }
+		if (!empty($key))
+		{
+		    while ($row = mysql_fetch_assoc($rc))
+		    {
+			$id = $row[$key];
+			unset($row[$key]);
+			$result[$id] [] = $row;
+		    }
+		}
+		else
+		{
+		    while ($row = mysql_fetch_assoc($rc))
+		    {
+			$result [] = $row;
+		    }
 		}
 
 		mysql_free_result($rc);
@@ -176,8 +181,10 @@ class DB
 		echo '</div>';
 		flush();
 
-		file_put_contents(PATH."var/log/mysql-".date("Y-m-d-H-i-s").".log", $err."\r\n\r\n".$sql);
-
+		$fp = fopen(PATH."var/log/mysql-".date("Y-m-d-H-i-s").".log", "a");
+		fwrite($fp, "\r\n\r\n".$err."\r\n\r\n".$sql);
+		fclose($fp);
+		//exit;
 	}
 
 	function errno()
@@ -243,8 +250,12 @@ function getDB($alias = 'default')
             'default' => array('host' => DB_HOST, 'base' => DB_BASE, 'port' => DB_PORT, 'user' => DB_USER, 'pass' => DB_PASS),
         );
 
-	$rc = mysql_pconnect($configDB[$alias]['host'].':'.$configDB[$alias]['port'], $configDB[$alias]['user'], $configDB[$alias]['pass']);//, true);
+	$rc = @mysql_pconnect($configDB[$alias]['host'].':'.$configDB[$alias]['port'], $configDB[$alias]['user'], $configDB[$alias]['pass']);//, true);
+	if (empty($rc) || mysql_errno($rc)) die('db connect error');
+
 	mysql_select_db($configDB[$alias]['base'], $rc);
+	if (empty($rc) || mysql_errno($rc)) die('db access error');
+
 	mysql_query('SET NAMES '. DB_CONNECTION_CHARSET, $rc);
 
 	$db = new DB($rc);

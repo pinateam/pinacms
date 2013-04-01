@@ -30,11 +30,13 @@ if (!defined('PATH')){ exit; }
 	$address = new AddressGateway();
 	$u["register_address"] = $address->getByType('register', $u["user_id"]);
 	$u["shipping_address"] = $address->getByType('shipping', $u["user_id"]);
+
 	
 	include_once PATH_TABLES."account.php";
 	$accountGateway = new AccountGateway();
 	$a = $accountGateway->getBy("user_id", $u["user_id"]);
 	$u["account_id"] = $a["account_id"];
+	
 	
 	$request->result('user', $u);
 
@@ -44,5 +46,5 @@ if (!defined('PATH')){ exit; }
 	));
 
 	$request->setLayout('admin');
-	$request->addLocation("Пользователи", href(array("action" => "user.manage.home")));
+	$request->addLocation(lng("users"), href(array("action" => "user.manage.home")));
 	$request->ok(!empty($u["user_title"])?$u["user_title"]:$u["user_login"]);

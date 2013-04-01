@@ -25,12 +25,16 @@ if (!defined('PATH')){ exit; }
 	require_once PATH_DOMAIN.'image.php';
 	
 	$data = array(
-		'site_id' => Site::id(),
 		'logo_alt' => $request->param("logo_alt")
 	);
 
 	$logoGateway = new LogoGateway();
-	ImageDomain::save("logo_".Site::id(), "logo", $logoGateway, "logo", $data);
+	ImageDomain::save("logo", $logoGateway, "logo", $data);
+
+	
 	$logoGateway->edit(Site::id(), $data);
+	
+
+	
 
 	$request->ok();

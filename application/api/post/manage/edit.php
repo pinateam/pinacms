@@ -47,6 +47,9 @@ PhotoDomain::updatePhotosPostId($request->param('post_text'), $postId);
 $request->set('url_action', 'post.view');
 $request->set('url_params', 'post_id='.$postId);
 
+$request->run('meta.manage.set');
+$request->run('config.manage.url-set');
+
 $request->set('menu_item_title', $request->param("post_title"));
 $request->set('menu_item_enabled', $request->param("post_enabled"));
 $request->run('menu.manage.set-show');

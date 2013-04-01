@@ -25,15 +25,20 @@ require_once PATH_CORE.'classes/TableDataGateway.php';
 
 class AccountGateway extends TableDataGateway
 {
-	var $table = "cody_account";
-	var $fields = array
-	(
-		"user_id", "account_balance", "account_created"
+	var $table = 'cody_account';
+	var $fields = array(
+		'account_id' => "int(10) NOT NULL AUTO_INCREMENT",
+		'user_id' => "int(10) NOT NULL DEFAULT '0'",
+		'account_balance' => "decimal(12,2) NOT NULL DEFAULT '0.00'",
+		'account_created' => "timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP",
+	);
+	var $indexes = array(
+		'PRIMARY KEY' => 'account_id'
 	);
 
 	public function reportUserId($accountId)
 	{
 		$accountId = intval($accountId);
-		return $this->db->one("SELECT user_id FROM ".$this->table." WHERE account_id = '".$accountId."'");
+		return $this->db->one("SELECT `user_id` FROM $this->table WHERE account_id = '.$accountId.'");
 	}
 }

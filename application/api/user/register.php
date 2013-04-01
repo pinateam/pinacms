@@ -38,32 +38,34 @@ $request->trust();
 $data = $request->params();
 unset($data['new_password2']);
 
-$data["account_id"] = Site::accountId();
 $data['activation_token'] = randomToken();
 $data['user_password'] = passwordHash($data['new_password']);
 
 require_once PATH_TABLES."user.php";
 $user = new UserGateway;
-if (!$user_id = $user->add($data))
+if (!$userId = $user->add($data))
 {
-    $request->stop(lng('internal_error'));
+        $request->stop(lng('internal_error'));
 }
+
+$request->set('user_id', $userId);
+$request->run('custom-field.add-value');
 
 include_once PATH_TABLES."account.php";
 $accountGateway = new AccountGateway();
-$accountId = $accountGateway->add(array("user_id" => $user_id));
+$accountId = $accountGateway->add(array("user_id" => $userId));
 
-Session::set('auth_user_id', $user_id);
+Session::set('auth_user_id', $userId);
 
 require_once PATH_MODEL .'mailer/MailFactory.php';
 $mailer = MailFactory::getMailer();
 $mailer->setTo($request->param('user_email'));
-$mailer->setSubject('Спасибо за регистрацию.');
+$mailer->setSubject(lng('you_have_registered_on_site'));
 $mailer->setBodyAction("user.register-notification", array("token" => $data["activation_token"]));
 $mailer->send();
 
 $mailer->setTo(MAIL_ADMIN);
-$mailer->setSubject(SITE.': Новый пользователь');
+$mailer->setSubject(SITE.': '.lng('you_have_new_registered_user'));
 $mailer->setBodyAction("user.register-notification-admin", array("user_login" => $data["user_login"]));
 $mailer->send();
 

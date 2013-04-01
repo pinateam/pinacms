@@ -34,11 +34,8 @@ $request->trust();
 
 require_once PATH_TABLES .'blog.php';
 $blogGateway = new BlogGateway();
-$blogId = $blogGateway->add(array(
-	'site_id' => Site::id(),
-	'blog_title' => $request->param('blog_title'),
-	'blog_enabled' => $request->param('blog_enabled'),
-));
+$blogId = $blogGateway->add($request->params("blog_title blog_enabled"));
+
 if (!$blogId) $request->stop(lng('internal_error'));
 
 $request->set('url_action', 'blog.view');

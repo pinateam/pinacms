@@ -26,16 +26,23 @@ require_once PATH_CORE.'classes/TableDataGateway.php';
 class SubscriptionGateway extends TableDataGateway
 {
 	var $table = "cody_subscription";
-	var $fields = array
-	(
-		"user_id", "site_id", "subscription_email", "subscription_created"
+	var $fields = array(
+		'subscription_id' => "int(10) NOT NULL AUTO_INCREMENT",
+		'site_id' => "int(10) NOT NULL DEFAULT '0'",
+		'user_id' => "int(10) NOT NULL DEFAULT '0'",
+		'subscription_email' => "varchar(64) NOT NULL DEFAULT ''",
+		'subscription_created' => "timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP"
+	);
+
+	var $indexes = array(
+                'PRIMARY KEY' => 'subscription_id',
+		'KEY site_id' => 'site_id'
 	);
 
 	var $useSiteId = true;
 
         public function getByEmail($email)
         {
-		$siteId = intval($this->siteId);
-            return $this->db->one("SELECT `subscription_id` FROM `$this->table` WHERE `site_id` = '".(int)$siteId."' AND `subscription_email` = '".$this->db->escape(trim($email))."'");
+		return $this->db->one("SELECT `subscription_id` FROM `$this->table` WHERE `subscription_email` = '".$this->db->escape(trim($email))."'".$this->getBySiteAndAccount());
         }
 }

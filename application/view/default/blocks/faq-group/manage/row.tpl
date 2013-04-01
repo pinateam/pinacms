@@ -6,7 +6,7 @@
 	</ul>
 </td>
 	
-<td>		
+<td class="editable">
 	<a href="{link action="faq-group.manage.edit" faq_group_id=$group.faq_group_id}">{$group.faq_group_title|htmlall}</a>
 </td>
 <td>

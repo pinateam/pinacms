@@ -27,22 +27,27 @@ class WorkGateway extends TableDataGateway
 	var $table = "cody_work";
 	var $primaryKey = "work_id";
 	var $fields = array(
-		"work_id",
-		"work_group_id",
-		"site_id",
-		"work_title",
-		"work_description",	    
-		"work_enabled",
-	        "work_order"
-	
+		'work_id' => "INT(11) NOT NULL AUTO_INCREMENT",
+		'site_id' => "INT(11) NOT NULL DEFAULT '0'",
+		'work_group_id' => "INT(11) NOT NULL DEFAULT '0'",
+		'work_order' => "INT(11) NOT NULL DEFAULT '0'",
+
+		'work_description' => "TEXT NOT NULL",
+		'work_title' => "varchar(256) NOT NULL DEFAULT ''",
+		'work_enabled' => "VARCHAR(1) NOT NULL DEFAULT 'Y'",
 	);
+
+	var $indexes = array(
+                'PRIMARY KEY' => 'work_id',
+		'KEY site_id' => 'site_id'
+	);
+
 	var $orderBy = 'work_order ASC';
 	var $useSiteId = true;
 
 	function findAvailableBySiteAnd($field, $needle, $paging = false)
 	{
-		$siteId = intval($this->siteId);
-		return $this->db->table("SELECT * FROM ".$this->table." WHERE ".$this->constructByCondition($field, $needle)." AND site_id = '".$siteId."' AND work_enabled = 'Y'".$this->getOrderBy());
+		return $this->db->table("SELECT * FROM ".$this->table." WHERE ".$this->constructByCondition($field, $needle)." AND work_enabled = 'Y'".$this->getBySiteAndAccount().$this->getOrderBy());
 	}
 }
 

@@ -27,13 +27,18 @@ class PersonPhotoGateway extends TableDataGateway
 	var $table = "cody_person_photo";
 	var $primaryKey = "person_id";
 	var $fields = array(
-		"person_id",
-		"site_id",
-		"person_photo_filename",		  
-		"person_photo_width",     
-		"person_photo_height",
-		"person_photo_type",
-		"person_photo_size"
+		'person_id' => "INT(10) NOT NULL default '0'",
+		'site_id' => "INT(10) NOT NULL default '0'",
+		'person_photo_filename' => "VARCHAR(255) NOT NULL default '0'",
+		'person_photo_width' => "INT(1) NOT NULL default '0'",
+		'person_photo_height' => "INT(1) NOT NULL default '0'",
+		'person_photo_type' => "VARCHAR(20) NOT NULL default ''",
+		'person_photo_size' => "INT(10) NOT NULL default '0'",
+	);
+
+	var $indexes = array(
+		'PRIMARY KEY' => 'person_id',
+		'KEY site_id' => 'site_id'
 	);
 
 	var $useSiteId = true;

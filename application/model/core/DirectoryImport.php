@@ -29,7 +29,9 @@ if (!defined('PATH')){ exit; }
         {
             parent::__construct();
             $this->fields = array(
+		
                 'site_id',
+		
                 'module_key',
                 'directory_key',
                 'directory_value',

@@ -142,33 +142,12 @@
 			$node.toggleClass("expanded");
 		}
 		
-		function showBlockUI(title, message) {
-			$.blockUI({
-				theme: true,
-				title: title,
-				message: message,
-				overlayCSS: {
-					backgroundColor: '#fff'
-				}
-			});
-		}
-		
-		function hideBlockUI(callback) {
-			$.unblockUI({
-				onUnblock: function() {
-					if (callback) {
-						callback.call();
-					}
-				}
-			});
-		}
-
 			// Переключение элементов сплиттера
 			$("ul.splitter li a,ul.filter li a").live("click", function () {
 				var $splitter = $(this).parent().parent();
 				
 				if ($("a", $splitter).hasClass('disabled')) {
-					alert('Данный элемент не может быть изменен.');
+					alert('Can not be changed.');
 					return false;
 				}
 				

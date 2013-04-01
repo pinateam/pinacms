@@ -25,13 +25,13 @@ require_once PATH_TABLES."access.php";
 $accessGateway = new AccessGateway();
 $accessGateway->put(array(
 	"module_key" => "dashboard",
-	"access_title" => lng("dashboard_access"),
+	"access_title" => lng_key("dashboard_access"),
 	"access_group_id" => 2,//admin
     	"access_enabled" => "Y"
 ));
 $accessGateway->put(array(
 	"module_key" => "dashboard",
-	"access_title" => lng("dashboard_access"),
+	"access_title" => lng_key("dashboard_access"),
 	"access_group_id" => 3,//merchant
     	"access_enabled" => "Y"
 ));

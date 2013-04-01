@@ -26,10 +26,10 @@ require_once PATH_TABLES."module.php";
 $moduleGateway = new ModuleGateway();
 $moduleGateway->put(array(
 	"module_key" => "search",
-	"site_id" => Site::id(),
 	"module_enabled" => "Y",
 	"module_version" => "1.00",
 	"module_config_action" => "",
-	"module_title" => lng("search"),
+	"module_group" => "common",
+	"module_title" => lng_key("search"),
 	"module_description" => "",
 ));

@@ -25,15 +25,15 @@ include_once PATH_CORE."core.latin.php";
 include_once PATH_DOMAIN."image.php";
 include_once PATH_TABLES."photo.php";
 
-@mkdir(PATH_IMAGES.Site::id()."/common/");
+ImageDomain::prepareDir("common");
 
 $pathinfo = pathinfo($_FILES['userfile']['name']);
 $ext = strtolower($pathinfo["extension"]);
 
 $souce_filename = latin_generateToken($pathinfo["filename"]);
 
-$filename = ImageDomain::newFileName(Site::id(), 'common', $souce_filename, $ext);
-$filepath = ImageDomain::getFilePath(Site::id(), 'common', $filename, $ext);
+$filename = ImageDomain::newFileName('common', $souce_filename, $ext);
+$filepath = ImageDomain::getFilePath('common', $filename, $ext);
 
 if (!move_uploaded_file($_FILES['userfile']['tmp_name'], $filepath))
 {
@@ -42,9 +42,9 @@ if (!move_uploaded_file($_FILES['userfile']['tmp_name'], $filepath))
 
 if (isModuleActive("gallery"))
 {
-	$photoFilename = ImageDomain::newFileName(Site::id(), 'photo', $souce_filename, $ext);
-	ImageDomain::saveCopy(Site::id(), 'photo', $filepath, new PhotoGateway(), $photoFilename,
-		array("site_id" => Site::id(), "common_filename" => $filename.".".$ext)
+	$photoFilename = ImageDomain::newFileName('photo', $souce_filename, $ext);
+	ImageDomain::saveCopy('photo', $filepath, new PhotoGateway(), $photoFilename,
+		array("common_filename" => $filename.".".$ext)
 	);
 }
 
@@ -66,7 +66,7 @@ if ($maxWidth || $maxHeight)
 	}
 }
 
-$resultFilename = Site::baseUrl(Site::id())."images/".Site::id()."/common/".$filename.".".$ext;
+$resultFilename = ImageDomain::getFileUrl("common", $filename, $ext);
 $result = "Файл загружен";
 $resultcode = "ok";
 

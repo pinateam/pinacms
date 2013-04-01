@@ -17,7 +17,7 @@
 			{module action="user.register-address-country-select" wrapper="user-register-address-country-select-wrapper"}
 		</div>
 		<div class="form-line-item-2">
-			{module action="user.register-address-state-select" country_key=$address.address_country_key}
+			{module action="user.register-address-state-select" country_key=$address.address_country_key wrapper="user-register-address-state-select-wrapper"}
 		</div>
 	</div>
 
@@ -43,12 +43,14 @@
 
 	<div class="form-line">
 		<div class="form-line-item-2">
-			{include file="skin/form-line-input.tpl" required=1 field="address_phone" label="Телефон" fill=$address}
+			{include file="skin/form-line-input.tpl" required=1 field="address_phone" label="phone"|lng fill=$address}
 		</div>
 		<div class="form-line-item-2">
 			{include file="skin/form-line-input.tpl" required=1 field="address_email" label="Email" fill=$address}
 		</div>
 	</div>
+                
+        {*module action="custom-field.list"*}
 
 </fieldset>
 

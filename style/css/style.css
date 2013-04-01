@@ -564,7 +564,7 @@ input.error {border-color:#cc3333 !important;color: #000000;}
 .order_table tr.sums td{vertical-align:top;}
 .order_table input {margin:0;}
 .order_table textarea {width:350px; height:150px;}
-.order_table input.text {width:30px;}
+.order_table input.text {width:30px;display:inline-block;}
 .order_table dl dt {margin:0;}
 .order_table dd {margin-left:0;}
 

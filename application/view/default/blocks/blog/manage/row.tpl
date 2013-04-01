@@ -4,7 +4,7 @@
         <li><a href="javascript:void(0);" class="icon-delete"  sid="{$blog.blog_id}" title="{lng lng="delete"}"></a></li>
     </ul>
 </td>
-<td>
+<td class="editable">
     <a href="{link action="blog.manage.edit" blog_id=$blog.blog_id}">{$blog.blog_title}</a>
 </td>
 <td>

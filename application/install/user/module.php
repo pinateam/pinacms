@@ -25,13 +25,13 @@ require_once PATH_TABLES."access.php";
 $accessGateway = new AccessGateway();
 $accessGateway->put(array(
 	"module_key" => "user.manage",
-	"access_title" => lng("user_management"),
+	"access_title" => lng_key("user_management"),
 	"access_group_id" => 2,//admin
     	"access_enabled" => "Y"
 ));
 $accessGateway->put(array(
 	"module_key" => "user.manage",
-	"access_title" => lng("user_management"),
+	"access_title" => lng_key("user_management"),
 	"access_group_id" => 3,//merchant
     	"access_enabled" => "Y"
 ));
@@ -46,7 +46,9 @@ if (empty($userAdmin))
 if (empty($userAdmin))
 {
 	$userGateway->add(array(
+	    
 	    "account_id" => 0,
+	    
 	    "user_login" => "admin",
 	    "user_password" => passwordHash("admin"),
 	    "access_group_id" => 2,

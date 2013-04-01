@@ -27,13 +27,18 @@ class WorkImageGateway extends TableDataGateway
 	var $table = "cody_work_image";
 	var $primaryKey = "work_id";
 	var $fields = array(
-		"work_id",
-		"site_id",
-		"work_image_filename",		  
-		"work_image_width",     
-		"work_image_height",
-		"work_image_type",
-		"work_image_size"
+		'work_id' => "INT(10) NOT NULL default '0'",
+		'site_id' => "INT(10) NOT NULL default '0'",
+		'work_image_filename' => "VARCHAR(255) NOT NULL default '0'",
+		'work_image_width' => "INT(1) NOT NULL default '0'",
+		'work_image_height' => "INT(1) NOT NULL default '0'",
+		'work_image_type' => "VARCHAR(20) NOT NULL default ''",
+		'work_image_size' => "INT(10) NOT NULL default '0'",
+	);
+
+	var $indexes = array(
+                'PRIMARY KEY' => 'work_id',
+		'KEY site_id' => 'site_id'
 	);
 
 	var $useSiteId = true;

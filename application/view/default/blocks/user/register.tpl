@@ -13,6 +13,8 @@
         {include file="skin/form-line-input.tpl" required=1 field="new_password" label="password"|lng type="password"}
 
         {include file="skin/form-line-input.tpl" required=1 field="new_password2" label="repeat_password"|lng type="password"}
+        
+        {module action="custom-field.list"}
 
         {include file="skin/captcha.tpl"}
 

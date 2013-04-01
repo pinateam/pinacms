@@ -22,7 +22,7 @@ if (!defined('PATH')){ exit; }
 
 
 	$request->result("slide_statuses", array(
-	    array("value" => "y", "caption" => lng("enabled"), "color" => "green"),
+	    array("value" => "Y", "caption" => lng("enabled"), "color" => "green"),
 	    array("value" => "N", "caption" => lng("disabled"), "color" => "red"),
 	));
 

@@ -28,32 +28,29 @@ class ModuleGateway extends TableDataGateway
 	var $table = "cody_module";
 	var $primaryKey = "module_key";
 	var $orderBy = "module_title";
-	var $fields = array
-	(
-		"module_key", "site_id", "module_title", "module_description", "module_enabled", "module_version", "module_config_action",
+	var $fields = array(
+		'module_key' => "varchar(32) NOT NULL DEFAULT ''",
+		'site_id' => "int(10) NOT NULL DEFAULT '0'",
+		'module_title' => "varchar(255) NOT NULL DEFAULT ''",
+		'module_description' => "varchar(255) NOT NULL DEFAULT ''",
+		'module_enabled' => "varchar(1) NOT NULL DEFAULT 'N'",
+		'module_version' => "varchar(16) NOT NULL DEFAULT '1.00'",
+		'module_config_action' => "varchar(64) NOT NULL DEFAULT ''",
+		'module_group' => "varchar(32) NOT NULL DEFAULT ''",
+	);
+
+	var $indexes = array(
+		'PRIMARY KEY' => array('module_key','site_id'),
+		'KEY module_enabled' => array('module_enabled', 'site_id')
 	);
 
 	var $useSiteId = true;
 
-	public function edit($id, $data)
-	{
-		Cache::retire($this->table, $id);
-		$siteId = intval($this->siteId);
-		return $this->db->query("UPDATE `".$this->table."` ".$this->constructSetCondition($data)." WHERE `".$this->table."`.`".$this->primaryKey."` = '".$id."' AND `".$this->table."`.`site_id` = '".$siteId."'");
-	}
-
 	public function findConfigurable()
 	{
-		$siteId = intval($this->siteId);
-		return $this->db->table("SELECT * FROM `".$this->table."` WHERE module_config_action != '' AND site_id = '".$siteId."'");
+		return $this->db->table("
+			SELECT * FROM `".$this->table."`
+			WHERE module_config_action != ''".$this->getBySiteAndAccount()
+		);
 	}
-
-        public function findKeysBaseSite()
-        {
-                return $this->db->col("
-                    SELECT `module_key`
-                    FROM `".$this->table."`
-                    WHERE `site_id` = '0';
-                ");
-        }
 }

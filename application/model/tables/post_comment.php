@@ -28,10 +28,24 @@ class PostCommentGateway extends TableDataGateway
 	var $table = "cody_post_comment";
 	var $primaryKey = "comment_id";
 	var $fields = array(
-		"site_id","post_id","visitor_name","visitor_email", "visitor_ip",
-		"comment_message","comment_approved","comment_created","user_id",
-		"visitor_site","comment_updated","answer_comment_id","rating"
+		'comment_id' => "int(11) NOT NULL AUTO_INCREMENT",
+		'answer_comment_id' => "int(11) NOT NULL DEFAULT '0'",
+		'site_id' => "int(11) NOT NULL DEFAULT '0'",
+		'post_id' => "int(11) NOT NULL DEFAULT '0'",
+		'visitor_name' => "varchar(32) NOT NULL DEFAULT ''",
+		'visitor_email' => "varchar(32) NOT NULL DEFAULT ''",
+		'visitor_ip' => "varchar(32) NOT NULL DEFAULT ''",
+		'visitor_site' => "varchar(32) NOT NULL DEFAULT ''",
+		'comment_message' => "text NOT NULL",
+		'comment_approved' => "varchar(1) NOT NULL DEFAULT 'N'",
+		'comment_created' => "timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP",
+		'comment_updated' => "timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'",
+		'user_id' => "int(11) NOT NULL DEFAULT '0'"
+	);
 
+	var $indexes = array(
+		'PRIMARY KEY' => 'comment_id',
+		'KEY post_id' => array('post_id', 'site_id')
 	);
 
 	var $useSiteId = true;
@@ -39,7 +53,6 @@ class PostCommentGateway extends TableDataGateway
 	public function findBySiteAndPostAndApproved($post_id, $comment_approved)
 	{
 		$post_id = intval($post_id);
-		$siteId = intval($this->siteId);
 
 		$approved = '';
 
@@ -47,7 +60,7 @@ class PostCommentGateway extends TableDataGateway
 
 		$sql = "SELECT *
 			FROM `$this->table`
-			WHERE `post_id` = '".$post_id."' AND `site_id` = '".$siteId."' AND $approved
+			WHERE `post_id` = '".$post_id."' AND ".$approved.$this->getBySiteAndAccount()."
 			ORDER BY `comment_created`";
 
 		return $this->db->table($sql);

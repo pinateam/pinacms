@@ -23,7 +23,7 @@ if (!defined('PATH')){ exit; }
 
 	require_once PATH_DOMAIN . "image.php";
 
-	$sitepath = ImageDomain::upload("logo_".Site::id());
+	$sitepath = ImageDomain::upload("logo");
 
 	echo "OK|".$sitepath;exit;
 

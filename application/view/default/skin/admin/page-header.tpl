@@ -11,7 +11,7 @@
 	<div class="left-block" style="width:130px;">
 		<menu>
 			<ul class="speed-bar clearfix">
-				<li class="speed-bar-item"><a href="javascript:UserVoice.showPopupWidget();"" class="css3">{lng lng="forum"}</a></li>
+				<li class="speed-bar-item"><a href="javascript:UserVoice.showPopupWidget();" class="css3">{lng lng="forum"}</a></li>
 				<li class="speed-bar-item"><a href="http://www.pinacms.com/" class="css3">{lng lng="about_cms"}</a></li>
 			</ul>
 		</menu>

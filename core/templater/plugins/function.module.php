@@ -24,24 +24,11 @@ if (!defined('PATH')){ exit; }
 function smarty_function_module($__params, &$__view)
 {
 	if (!isset($__params['action'])) return '';
-
-	if (!isModuleActive($__params['action'])) return '';
-	if (!isModulePermitted($__params['action'])) return '';
-
-	$request = new BlockRequest($__view, $__params);
-	$action = $request->getHandler();
-
+	
 	$vars_backup = $__view->_tpl_vars;
 
-	try
-	{
-		include PATH_CONTROLLERS.$action.'.php';
-	}
-	catch (Exception $e)
-	{
-		echo "<p>".$e->getMessage()."</p>";
-		return;
-	}
+	$request = new BlockRequest($__view, $__params);
+	$result = $request->run();
 
 	if (is_array($request->error_messages) && count($request->error_messages))
 	{
@@ -49,11 +36,12 @@ function smarty_function_module($__params, &$__view)
 		return;
 	}
 
-	$result = $__view->fetch('blocks/'.$action.'.tpl');
 	$__view->_tpl_vars = $vars_backup;
 
-	return
-		(!empty($__params['wrapper'])?('<div class="'.$__params['wrapper'].'">'):'').
-                $result.
-		(!empty($__params['wrapper'])?('</div>'):'');
+	if (!empty($__params['wrapper']))
+	{
+		return '<div class="'.$__params['wrapper'].'">'.$result.'</div>';
+	}
+		
+        return $result;
 }

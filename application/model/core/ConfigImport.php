@@ -71,7 +71,9 @@ if (!defined('PATH')){ exit; }
                             {
                                     $config_group[$myrow_array[7]]['start'] = 0;
                                     $config_group[$myrow_array[7]]['end'] = 0;
+				    
                                     $config_group[$myrow_array[7]]['site_id'] = $myrow_array[0];
+				    
                                     $config_group[$myrow_array[7]]['module_key'] = $myrow_array[1];
                             }
 
@@ -104,8 +106,13 @@ if (!defined('PATH')){ exit; }
                                         }
                                     }
 
+				    $cond = '';
+				    
+				    $cond .= "site_id='$myrow_array[0]',";
+				    
+
                                     $db->query("INSERT INTO cody_config
-                                                SET site_id='$myrow_array[0]',
+                                                SET $cond
                                                 module_key='$myrow_array[1]',
                                                 config_key='$myrow_array[2]',
                                                 config_value='$myrow_array[3]',
@@ -124,9 +131,9 @@ if (!defined('PATH')){ exit; }
                                 }
                             }
                         }
-                        echo "Данные из файла ". $fvalue ." загружены!<br />";
+                        echo "File ". $fvalue ." has been processed<br />";
                     }
-                    else echo "Ошибка при открытии файла";
+                    else echo 'done';
                     fclose($fp);
                 }
             }

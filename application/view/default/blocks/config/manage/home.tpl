@@ -4,8 +4,8 @@
 		<h2>{lng lng="general_settings"}</h2>
 
 		<div class="field  help-section w50">
-			<h3><a href="{link action="config.manage.modules"}">{lng lng="modules_management"}</a></h3>
-			<a class="section-icon icon-blocks" href="{link action="config.manage.modules"}"></a>
+			<h3><a href="{link action="module.manage.home"}">{lng lng="modules_management"}</a></h3>
+			<a class="section-icon icon-blocks" href="{link action="module.manage.home"}"></a>
 			<div>
 				{lng lng="modules_management_explanation"}
 			</div>
@@ -14,25 +14,53 @@
 		{block view="string.manage.config-home"}
 
 		{block view="config.manage.seo-config-home"}
+
+		{foreach from=$modules item=m}
+			{if $m.module_group eq "common"}
+				{block view=$m.module_config_block config_action=$m.module_config_action nowrapper=1}
+			{/if}
+		{/foreach}
+	</fieldset>
+
+	<fieldset>
+		<h2>{lng lng="content"}</h2>
+
+		{foreach from=$modules item=m}
+			{if $m.module_group eq "content"}
+				{block view=$m.module_config_block config_action=$m.module_config_action nowrapper=1}
+			{/if}
+		{/foreach}
+	</fieldset>
+
+	<fieldset>
+		<h2>{lng lng="orders"}</h2>
+
+		{foreach from=$modules item=m}
+			{if $m.module_group eq "order"}
+				{block view=$m.module_config_block config_action=$m.module_config_action nowrapper=1}
+			{/if}
+		{/foreach}
 	</fieldset>
 
 
 	<fieldset>
 		<h2>{lng lng="catalog"}</h2>
 
-		{block view="product-type.manage.config-home"}
-		{block view="category.manage.config-home"}
-
+		{foreach from=$modules item=m}
+			{if $m.module_group eq "catalog"}
+				{block view=$m.module_config_block config_action=$m.module_config_action nowrapper=1}
+			{/if}
+		{/foreach}
 	</fieldset>
 
 	<fieldset>
 		<h2>{lng lng="shipping"}</h2>
 
-		{block view="shipping.manage.config-home"}
-
-		{block view="shipping-zone-cost.manage.config-home" nowrapper=1}
-
-		{block view="zone.manage.config-home" nowrapper=1}
+		{foreach from=$modules item=m}
+			{if $m.module_group eq "shipping"}
+				{block view=$m.module_config_block config_action=$m.module_config_action nowrapper=1}
+			{/if}
+		{/foreach}
 	</fieldset>
 
 	{module action="payment.manage.config-home"}
@@ -48,11 +76,14 @@
 		<h2>{lng lng="modules_settings"}</h2>
 
 		{foreach from=$modules item=m}
-			{block view=$m.module_config_block config_action=$m.module_config_action nowrapper=1}
+			{if $m.module_group eq ""}
+				{block view=$m.module_config_block config_action=$m.module_config_action nowrapper=1}
+			{/if}
 		{/foreach}
 	</fieldset>
 
 
+	{block view="directory.manage.config-home"}
 	{block view="system.manage.config-home"}
 
 </div>

@@ -25,10 +25,20 @@ require_once PATH_CORE.'classes/TableDataGateway.php';
 
 class AccessGateway extends TableDataGateway
 {
-	var $table = "cody_access";
-	var $orderBy = "module_key ASC";
-	var $fields = array
-	(
-		"module_key", "access_title", "access_group_id", "access_enabled"
+	var $table = 'cody_access';
+	var $orderBy = 'module_key ASC';
+
+	var $fields = array(
+		'access_id' => "int(11) NOT NULL AUTO_INCREMENT",
+		'module_key' => "varchar(32) NOT NULL DEFAULT ''",
+		'access_title' => "varchar(255) NOT NULL DEFAULT ''",
+		'access_group_id' => "int(11) NOT NULL DEFAULT '0'",
+		'access_enabled' => "varchar(1) NOT NULL DEFAULT 'N'",
+	);
+
+	var $indexes = array(
+		'PRIMARY KEY' => 'access_id',
+		'KEY access_group_id' => 'access_group_id',
+		'UNIQUE KEY module_key' => array('module_key', 'access_group_id')
 	);
 }

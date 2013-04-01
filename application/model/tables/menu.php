@@ -30,6 +30,19 @@ class MenuGateway extends TableDataGateway
 
 	var $useSiteId = true;
 
+	var $fields = array(
+		'menu_id' => "int(11) NOT NULL AUTO_INCREMENT",
+		'site_id' => "int(10) NOT NULL DEFAULT '0'",
+		'menu_key' => "varchar(64) NOT NULL DEFAULT ''",
+		'menu_title' => "varchar(255) NOT NULL DEFAULT ''",
+		'menu_order' => "int(11) NOT NULL DEFAULT '0'",
+	);
+
+	var $indexes = array(
+		'PRIMARY KEY' => 'menu_id',
+		'UNIQUE KEY menu_key' => array('menu_key', 'site_id')
+	);
+
 	public function put($data)
 	{
 		$this->db->query("

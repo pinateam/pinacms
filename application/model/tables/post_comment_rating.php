@@ -28,8 +28,17 @@ class PostCommentRatingGateway extends TableDataGateway
 	var $table = "cody_post_comment_rating";
 	var $primaryKey = "rating_id";
 	var $fields = array(
-		"rating_id","comment_id","user_id","rating","site_id"
-	);    
+		'rating_id' => "INT(11) NOT NULL AUTO_INCREMENT",
+		'comment_id' => "INT(11) NOT NULL DEFAULT '0'",
+		'user_id' => "INT(11) NOT NULL DEFAULT '0'",
+		'rating' => "INT(1) NOT NULL DEFAULT '0'",
+		'site_id' => "INT(11) NOT NULL DEFAULT '0'",
+	);
+
+	var $indexes = array(
+		'PRIMARY KEY' => 'rating_id',
+		'KEY comment_id' => array('comment_id', 'site_id')
+	);
 
 	var $useSiteId = true;
 

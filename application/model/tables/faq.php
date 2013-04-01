@@ -28,9 +28,18 @@ class FaqGateway extends TableDataGateway
 	var $table = "cody_faq";
 	var $primaryKey = "faq_id";
 	var $fields = array(
-		"faq_id", "faq_group_id", "site_id",
-		"faq_question", "faq_answer",
-		"faq_enabled", "faq_order"
+		'faq_id' => "int(11) NOT NULL AUTO_INCREMENT",
+		'faq_group_id' => "INT(11) NOT NULL DEFAULT '0'",
+		'site_id' => "int(11) NOT NULL DEFAULT '0'",
+		'faq_question' => "varchar(255) NOT NULL DEFAULT '0'",
+		'faq_answer' => "text NOT NULL",
+		'faq_order' => "INT(11) NOT NULL DEFAULT '0'",
+		'faq_enabled' => "varchar(1) NOT NULL DEFAULT 'N'",
+	);
+
+	var $indexes = array(
+		'PRIMARY KEY' => 'faq_id',
+		'KEY site_id' =>  'site_id'
 	);
 	
 	var $orderBy = 'faq_order ASC';

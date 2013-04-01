@@ -57,9 +57,10 @@
 			<ul>
 				{block view="access.manage.left-pane"}
 				{block view="site.manage.left-pane"}
-				{block view="config.manage.modules-left-pane"}
+				{block view="module.manage.left-pane"}
 				{block view="directory.manage.left-pane"}
 				{block view="system.manage.left-pane"}
+                                {block view="custom-field.manage.left-pane"}
 			</ul>
 		</li>
 	</ul>

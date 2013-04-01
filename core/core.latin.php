@@ -35,7 +35,8 @@ function latin_generateToken($title)
 	$title = htmlentities($title);
 	
 	$title = preg_replace("'&[^;]*;'", "", $title);
-	$title = preg_replace("/[^\w^\.]+/", "-", $title);
+	$title = preg_replace("/[^\w]+/", "-", $title);
+	$title = preg_replace("/-[-]+/", "-", $title);
 
 	$title = trim($title, '_-');
 	return $title;

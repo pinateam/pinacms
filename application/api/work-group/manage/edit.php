@@ -50,10 +50,8 @@ $request->run('menu.manage.set-show');
 require_once PATH_TABLES.'work_group_image.php';
 $workGroupImageGateway = new WorkGroupImageGateway();
 
-$request->set("site_id", Site::id());
-
 require_once PATH_DOMAIN.'image.php';
-ImageDomain::save("work_group_image_".Site::id(), "work_group_image", 
+ImageDomain::save("work_group_image", 
 	$workGroupImageGateway, $request->param("work_group_id"), $request->params()
 );
 

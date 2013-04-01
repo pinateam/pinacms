@@ -1,0 +1,1 @@
+{include file="skin/form-line-select.tpl" required=1 name="address_country_key" fill=$address list=$countries}

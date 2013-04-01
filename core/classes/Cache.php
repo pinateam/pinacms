@@ -60,11 +60,11 @@ class Cache
 	{
 		if (defined("DEBUG")) $time_start = microtime(1);
 
-		if (defined("CACHE_DISK_MAKE_PATHS")) @mkdir(PATH_CACHE.$subject);
+		if (defined("CACHE_DISK_MAKE_PATHS")) @mkdir(PATH_VAR_CACHE.$subject);
 
 		if (defined("DEBUG")) self::$debug[] = array("query" => "create dir ".$subject."(".$key.")", "time" => microtime(1) - $time_start);
 
-		return PATH_CACHE.$subject."/".$key.".cache";
+		return PATH_VAR_CACHE.$subject."/".$key.".cache";
 	}
 
 	static public function save($subject, $key, $value)

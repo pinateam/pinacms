@@ -26,23 +26,34 @@ class DirectoryGateway extends TableDataGateway
 {
 	var $table = "cody_directory";
 	var $fields = array(
-		"site_id", "module_key","directory_key",
-		"directory_value", "directory_title"
+		'site_id' => "int(10) NOT NULL DEFAULT '0'",
+		'module_key' => "varchar(32) NOT NULL DEFAULT ''",
+		'directory_key' => "varchar(32) NOT NULL DEFAULT ''",
+		'directory_value' => "varchar(255) NOT NULL DEFAULT ''",
+		'directory_title' => "varchar(255) NOT NULL DEFAULT ''",
+	);
+
+	var $indexes = array(
+		'PRIMARY KEY' => array('site_id','module_key','directory_key','directory_value'),
+		'KEY language_code' => array('site_id','module_key','directory_key')
 	);
 
 	var $useSiteId = true;
 
-	public function reportTitle($subject, $value)
+	public function reportTitle($key, $value)
 	{
-		$subject = $this->db->escape($subject);
-		$value = $this->db->escape($subject);
-		return $this->db->one("SELECT directory_title
-                                   FROM ".$this->table."
-                                   WHERE
-                                        directory_value = '".$value."'
-                                   AND
-                                        directory_key='".$subject."'
-                                   LIMIT 1");
+		$key = $this->db->escape($key);
+		$value = $this->db->escape($value);
+		return $this->db->one
+		("
+			SELECT directory_title
+			FROM ".$this->table."
+			WHERE
+				directory_key='".$key."' AND
+				directory_value = '".$value."'".
+				$this->getBySiteAndAccount()."
+			LIMIT 1"
+		);
 	}
 
 	public function findByKey($key)
@@ -52,7 +63,8 @@ class DirectoryGateway extends TableDataGateway
 			SELECT directory_value, directory_title
 			FROM ".$this->table."
 			WHERE
-				directory_key='".$key."'"
+				directory_key='".$key."'".
+				$this->getBySiteAndAccount()
 		);
 	}
 	public function edit($directory_key, $directory_value, $data)
@@ -60,41 +72,57 @@ class DirectoryGateway extends TableDataGateway
 		$directory_key = $this->db->escape($directory_key);
 		$directory_value = $this->db->escape($directory_value);
 		
-		return $this->db->query("UPDATE `".$this->table."` ".$this->constructSetCondition($data)." WHERE directory_key= '".$directory_key."' AND directory_value='".$directory_value."'");
+		return $this->db->query("
+			UPDATE `".$this->table."` ".$this->constructSetCondition($data)."
+			WHERE directory_key= '".$directory_key."' AND directory_value='".$directory_value."'
+			".$this->getBySiteAndAccount()
+		);
 	}
 	public function remove($directory_key, $directory_value)
 	{
 		$directory_key = $this->db->escape($directory_key);
 		$directory_value = $this->db->escape($directory_value);
 
-		return $this->db->query("DELETE FROM `".$this->table."` WHERE directory_key= '".$directory_key."' AND directory_value='".$directory_value."'");
+		return $this->db->query("
+			DELETE FROM `".$this->table."`
+			WHERE directory_key= '".$directory_key."' AND directory_value='".$directory_value."'
+			".$this->getBySiteAndAccount()
+		);
 	}
 	
-	public function findBySiteCountry()
+	public function getByKeyAndValue($directory_key, $directory_value)
 	{
-		$siteId = intval($this->siteId);
-
-		return $this->db->table("SELECT * FROM `".$this->table."` WHERE `directory_key`='country' AND `site_id` = '$siteId'".$this->getOrderBy());
+		return $this->db->row("
+			SELECT * FROM `".$this->table."`
+			WHERE
+				".$this->constructByCondition("directory_value", $directory_value)." AND
+				".$this->constructByCondition("directory_key", $directory_key)."
+				".$this->getBySiteAndAccount()."
+			LIMIT 1"
+		);
 	}
 	
-	public function getBySiteAndKey($directory_key, $directory_value)
+	public function findNotDirectory()
 	{
-		$siteId = intval($this->siteId);
-		return $this->db->row("SELECT * FROM `".$this->table."` WHERE ".$this->constructByCondition("directory_value", $directory_value)." AND ".$this->constructByCondition("directory_key", $directory_key)." AND `site_id` = '$siteId' LIMIT 1");
+		return $this->db->table("
+			SELECT * FROM `".$this->table."`
+			WHERE
+				`directory_key` <> 'directory'
+				".$this->getBySiteAndAccount().
+			$this->getOrderBy()
+		);
 	}
 	
-	public function findBySiteAndNotDirectory()
+	public function getDirectoryByValue($value)
 	{
-		$siteId = intval($this->siteId);
-
-		return $this->db->table("SELECT * FROM `".$this->table."` WHERE `directory_key`<> 'directory'AND `site_id` = '$siteId'".$this->getOrderBy());
-	}
-	
-	public function getBySiteAndDirectory($value)
-	{
-		$siteId = intval($this->siteId);
-
-		return $this->db->row("SELECT * FROM `".$this->table."` WHERE ".$this->constructByCondition("directory_value", $value)." AND directory_key='directory' AND `site_id` = '$siteId' LIMIT 1");
+		return $this->db->row("
+			SELECT * FROM `".$this->table."`
+			WHERE
+				".$this->constructByCondition("directory_value", $value)." AND
+				directory_key = 'directory'
+				".$this->getBySiteAndAccount()."
+			LIMIT 1"
+		);
 	}
 
 

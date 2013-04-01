@@ -37,7 +37,7 @@ if (!defined('PATH')){ exit; }
 		'mbstring'  => array('title' => 'Multibyte String', 'info' => lng('env_test_ext_mbstring_info'), 'loaded' => extension_loaded('mbstring')),
 		'mysql'     => array('title' => 'MySQL', 'info' => lng('env_test_ext_mysql_info'), 'loaded' => extension_loaded('mysql')),
 		'tokenizer' => array('title' => 'Tokenizer', 'info' => lng('env_test_ext_tokenizer_info'), 'loaded' => extension_loaded('tokenizer')),
-		'iconv'     => array('title' => 'Функция iconv', 'info' => lng('env_test_ext_iconv_info'), 'loaded' => function_exists('iconv')),
+		'iconv'     => array('title' => 'Iconv', 'info' => lng('env_test_ext_iconv_info'), 'loaded' => function_exists('iconv')),
 		'simplexml' => array('title' => 'SimpleXML', 'info' => lng('env_test_ext_simplexml_info'), 'loaded' => extension_loaded('simplexml')),
 	);
 	

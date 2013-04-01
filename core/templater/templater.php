@@ -34,6 +34,10 @@ class Templater extends Smarty
 		$this->use_sub_dirs = false;
 		$this->template_dir = array();
 		$this->template_dir[] = PATH_VIEW."sites/".Site::path().'/';
+		if (defined("TEMPLATE_DEFAULT") && TEMPLATE_DEFAULT != '')
+		{
+			$this->template_dir[] = PATH_VIEW."templates/".TEMPLATE_DEFAULT."/";
+		}
 		if (Site::template())
 		{
 			$this->template_dir[] = PATH_VIEW."templates/".Site::template().'/';
@@ -43,7 +47,7 @@ class Templater extends Smarty
 		$this->compile_dir = PATH_COMPILED_TEMPLATES.md5(Site::path());
 		@mkdir($this->compile_dir);
 
-		$this->cache_dir = PATH_CACHE;
+		$this->cache_dir = PATH_VAR_CACHE;
 		$this->secure_dir = PATH_LAYOUTS;
 
 		$config = getConfig();

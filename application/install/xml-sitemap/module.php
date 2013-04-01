@@ -26,11 +26,11 @@ require_once PATH_TABLES."module.php";
 $moduleGateway = new ModuleGateway();
 $moduleGateway->put(array(
 	"module_key" => "xml-sitemap",
-	"site_id" => Site::id(),
 	"module_enabled" => "Y",
 	"module_version" => "1.00",
 	"module_config_action" => "xml-sitemap.manage.config",
-	"module_title" => lng("xml_sitemap"),
+	"module_group" => "common",
+	"module_title" => lng_key("xml_sitemap"),
 	"module_description" => "",
 ));
 
@@ -39,7 +39,7 @@ require_once PATH_TABLES."access.php";
 $accessGateway = new AccessGateway();
 $accessGateway->put(array(
 	"module_key" => "xml-sitemap.manage",
-	"access_title" => lng("xml_sitemap_management"),
+	"access_title" => lng_key("xml_sitemap_management"),
 	"access_group_id" => 2,//admin
     	"access_enabled" => "Y"
 ));

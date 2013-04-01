@@ -25,7 +25,7 @@ require_once PATH_TABLES."access.php";
 $accessGateway = new AccessGateway();
 $accessGateway->put(array(
 	"module_key" => "system",
-	"access_title" => lng("system_settings"),
+	"access_title" => lng_key("system_settings"),
 	"access_group_id" => 2,//admin
     	"access_enabled" => "Y"
 ));

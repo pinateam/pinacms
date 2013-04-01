@@ -1,46 +1,23 @@
 <?php
+/*
+* PinaCMS
+* 
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+* OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+* LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+* DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+* THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+* OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*
+* @copyright © 2010 Dobrosite ltd.
+*/
 
-    include "init.php";
-    include PATH_TABLES .'category.php';
-    include PATH_TABLES .'product.php';
+    
 
-    if (Site::domain() && Site::domain() != $_SERVER["HTTP_HOST"])
-    {
-	    redirect(Site::baseUrl(Site::id()));
-    }
-
-    $categoryGateway = new CategoryGateway();
-    $productGateway = new ProductGateway();
-
-    switch (Site::path())
-    {
-        case 'radioniks-ru':
-            $requestUri = $_SERVER['REQUEST_URI'];
-
-            preg_match('#cPath=([^&]*)#', $requestUri, $matches);
-            if(isset($matches[1]) && !empty($matches[1]))
-            {
-                $cPath = explode('_', $matches[1]);
-                $importedId = array_pop($cPath);
-                $catId = $categoryGateway->getIdByImortedId($importedId);
-                redirect(href(array(
-                        'action' => 'category.view',
-                        'category_id' => $catId
-                )));
-            }
-
-            preg_match('#products_id=([^&]*)#', $requestUri, $matches);
-            if(isset($matches[1]) && !empty($matches[1]))
-            {
-                $prodId = $productGateway->getIdByImortedId($matches[1]);
-                redirect(href(array(
-                        'action' => 'product.view',
-                        'product_id' => $prodId
-                )));
-            }
-
-        break;
-        default:
-            redirect(Site::baseUrl(Site::id()));
-        break;
-    }
+    $action = $_GET["action"] = "home";
+    include "page.php";

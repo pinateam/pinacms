@@ -43,7 +43,6 @@ if (!defined('PATH')){ exit; }
 	'comment_message' => $request->param("comment_message"),
 	'visitor_site' => $request->param("visitor_site"),
 	'answer_comment_id' => $request->param("answer_comment_id"),
-	'site_id' => Site::id(),
 	'post_id'=> $postId,
 	'visitor_ip' => $_SERVER['REMOTE_ADDR'],
 	'comment_approved' => 'Y',

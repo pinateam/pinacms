@@ -45,7 +45,6 @@ if (!defined('PATH')){ exit; }
     }
     
     $data = array(
-	'site_id' => Site::id(),
 	'post_id'=> $postId,
 	  
 	'user_id' => Session::get("auth_user_id")?Session::get("auth_user_id"):0,

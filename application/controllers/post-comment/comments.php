@@ -35,8 +35,6 @@ $postCommentRatingGateway  = new PostCommentRatingGateway();
 $ratings=$postCommentRatingGateway->findAll();
 $request->result('ratings', $ratings);
 
-//Добавляем поле emailGravatar
-//----------------------------------------------------------------------------
 $ind=0;
 $size = 40;
 foreach ($comments as $value)
@@ -59,13 +57,10 @@ foreach ($comments as $value)
 	
 }
 
-//-------------------------------------------------------------------------------
-//Выбираем для текущего пользователя email и логин по умолчянию
-//------------------------------------------------------------------------------
 $userGateway = new UserGateway();
 $login=$userGateway->reportTitle(Session::get("auth_user_id"));
 $email=$userGateway->reportEmailByid(Session::get("auth_user_id"));
-//------------------------------------------------------------------------------
+
 $comments1=$comments;
 $id=0;
  

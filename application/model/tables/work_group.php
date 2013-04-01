@@ -27,13 +27,18 @@ class WorkGroupGateway extends TableDataGateway
 	var $table = "cody_work_group";
 	var $primaryKey = "work_group_id";
 	var $fields = array(
-		"work_group_id",
-		"site_id",
-		"work_group_title",		     
-		"work_group_enabled",
-	        "work_group_order"
-	
+		'work_group_id' => "INT(11) NOT NULL AUTO_INCREMENT",
+		'work_group_order' => "INT(11) NOT NULL DEFAULT '0'",
+		'site_id' => "INT(11) NOT NULL DEFAULT '0'",
+		'work_group_title' => "varchar(256) NOT NULL DEFAULT ''",
+		'work_group_enabled' => "VARCHAR(1) NOT NULL DEFAULT 'Y'",
 	);
+
+	var $indexes = array(
+                'PRIMARY KEY' => 'work_group_id',
+		'KEY site_id' => 'site_id'
+	);
+
 	var $orderBy = 'work_group_order ASC';
 	var $useSiteId = true;
 }

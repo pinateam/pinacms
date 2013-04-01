@@ -23,8 +23,8 @@ if (!defined('PATH')){ exit; }
 
 require_once PATH_DOMAIN . "image.php";
 
-$sitepath = ImageDomain::upload("person_photo_".Site::id());
-$path = Session::get("person_photo_".Site::id()."_uploaded_file");
+$sitepath = ImageDomain::upload("person_photo");
+$path = ImageDomain::getUploadedPath("person_photo");
 
 $config = getConfig();
 $width = $config->get("image", "person_photo_width");

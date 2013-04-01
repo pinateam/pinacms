@@ -29,7 +29,10 @@ class Config extends BaseConfig
 function getConfig($siteId = false)
 {
 	static $config = '';
-	if (!empty($config)) return $config;
+	if (!empty($config)) 
+        {
+                return $config;
+        }
 
 	$config = new Config;
 	return $config;

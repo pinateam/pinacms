@@ -31,11 +31,9 @@ validateUrlNotUsed($request, 'faq-group.view', 'faq_group_id=');
 
 $request->trust();
 
-$request->set("site_id", Site::id());
-
 require_once PATH_TABLES .'faq_group.php';
 $faqGroupGateway = new FaqGroupGateway();
-$faq_group_id = $faqGroupGateway->add($request->params("faq_group_title faq_group_enabled site_id"));
+$faq_group_id = $faqGroupGateway->add($request->params("faq_group_title faq_group_enabled"));
 
 $request->set('url_action', 'faq-group.view');
 $request->set('url_params', 'faq_group_id='.$faq_group_id);

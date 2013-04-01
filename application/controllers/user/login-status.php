@@ -26,12 +26,16 @@ if (!defined('PATH')){ exit; }
 	{
 		require_once PATH_TABLES.'user.php';
 		$user = new UserGateway;
+		
 		$user->useAccountId = false;
+		
 		$u = $user->get($id);
+		
 		if ($u["access_group_id"] != "2" && $u["account_id"] != Site::accountId())
 		{
 			$u = false;
 		}
+		
 		$request->result("user", $u);
 	}
 	else

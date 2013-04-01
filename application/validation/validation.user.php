@@ -127,14 +127,17 @@ function validateUserLogin($request)
 
 function validateUserOperationPermitted($request, $key = 'user_id')
 {
+	
 	$user_id = $request->param("user_id");
 	$user_id = intval($user_id);
 
 	require_once PATH_TABLES."user.php";
 	$user = new UserGateway;
 	$u = $user->get($user_id);
+
 	if ($u["account_id"] != Site::accountId())
 	{
 		$request->stop(lng("access-denied"));
 	}
+	
 }

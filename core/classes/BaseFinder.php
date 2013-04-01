@@ -233,6 +233,8 @@ class BaseFinder
 		
 		foreach ($this->where as $where)
 		{
+			if (empty($where)) continue;
+			
 			$wheres[] = '('.$where.')';
 		}
 		

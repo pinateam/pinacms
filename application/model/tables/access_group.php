@@ -25,9 +25,12 @@ require_once PATH_CORE.'classes/TableDataGateway.php';
 
 class AccessGroupGateway extends TableDataGateway
 {
-	var $table = "cody_access_group";
-	var $fields = array
-	(
-		"access_group_id", "access_group"
+	var $table = 'cody_access_group';
+	var $fields = array(
+		'access_group_id' => "int(10) NOT NULL AUTO_INCREMENT",
+		'access_group'    => "varchar(255) NOT NULL DEFAULT ''"
+	);
+	var $indexes = array(
+		'PRIMARY KEY' => 'access_group_id'
 	);
 }

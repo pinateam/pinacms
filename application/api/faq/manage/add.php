@@ -29,7 +29,6 @@ validateNotEmpty($request, "faq_answer", lng('enter_text'));
 $request->trust();
 
 $data = $request->params();
-$data['site_id'] = Site::id();
 
 require_once PATH_TABLES .'faq.php';
 $faqGateway = new FaqGateway();

@@ -27,22 +27,11 @@
 		</td>
 	</tr>
 	{/if}
-    <tr class="button-bar">
-        <td colspan="3">
-            <button class="css3 page_add" type="reset">{lng lng="add_static_page"}</button>
-        </td>
-    </tr>
 </tbody>
 </table>
 
 {literal}
 <script type="text/javascript">
-
-    $(document).ready(function(){
-        $(".page_add").bind("click", function(){
-            location.href = 'page.php?action=page.manage.add';
-        });
-    });
 
     $(document).ready(function() {
 	$(".splitter-input a").bind("click", function() {

@@ -12,10 +12,10 @@
 
 		<thead>
 			<tr>
-				<th>Опер.</th>
-				<th>{include file="skin/admin/table-header-sort.tpl" value="string_key" title="Мнемоника"}</th>
-				<th>{include file="skin/admin/table-header-sort.tpl" value="string_value_base" title="Текст на базовом языке"}</th>
-				<th>{include file="skin/admin/table-header-sort.tpl" value="string_value" title="Текст перевода"}</th>
+				<th>{lng lng="act_"}</th>
+				<th>{include file="skin/admin/table-header-sort.tpl" value="string_key" title="mnemonics"|lng}</th>
+				<th>{include file="skin/admin/table-header-sort.tpl" value="string_value_base" title="source_language_text"|lng}</th>
+				<th>{include file="skin/admin/table-header-sort.tpl" value="string_value" title="translation_text"|lng}</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -28,11 +28,6 @@
 			{/foreach}
 			<tr class="string-add" sid="add">
 				<td>
-					{*
-					<ul class="operation-toolbar">
-						<li><a href="#" class="icon-add" sid="add" title="Сохранить"></a></li>
-						<li><a href="#" class="icon-delete" title="Отмена"></a></li>
-					</ul>*}
 					<input type="hidden" name="language_code" value="{$search_rules.language_code}" />
 				</td>
 				<td>
@@ -49,7 +44,7 @@
 			<tr class="button-bar">
 				<td colspan="4">
 
-					<button class="css3 button-add" sid="add">Добавить перевод</button>
+					<button class="css3 button-add" sid="add">{lng lng="add"}</button>
 
 					{* TODO: Появляется после первого редактирования *}
 					<button class="css3 edit-few">Сохранить</button>

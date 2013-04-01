@@ -27,8 +27,10 @@ function dispatch($page)
 {
     include PATH."config/config.dispatcher.php";
 
-    $db = getDB();
-    $data = $db->row("SELECT * FROM cody_url WHERE site_id = '".Site::id()."' AND url_key = '".$page."'");
+    require_once PATH_TABLES."url.php";
+    $urlGateway = new UrlGateway;
+    $data = $urlGateway->getBy("url_key", $page);
+
     if ($data)
     {
 	    $result = array("action" => $data["url_action"]);
@@ -81,10 +83,17 @@ function dispatch_getPattern($pattern)
     return $pattern;
 }
 
-function url_rewrite($content)
+function url_rewrite($content, $onlyAHref = true)
 {
 	#return preg_replace_callback('/(<a[^<>]+href[ ]*=[ ]*["\'])([^"\']*page.php)\?(action=[^"\'>]+)((#[^"\'>]+)?["\'])/iUS', "url_rewrite_callback", $content);
-	preg_match_all('/(<a[^<>]+href[ ]*=[ ]*["\'])([^"\']*page.php)\?(action=([^&^"^\']*?)[&]*?([^"\'>]*?))((#[^"\'>]+)?["\'])/iUS', $content, $matches);
+	if($onlyAHref)
+        {
+                preg_match_all('/<a[^<>]+href[ ]*=[ ]*["\']([^"\']*page.php)\?(action=([^&^"^\']*?)[&]*?([^"\'>]*?))(#[^"\'>]+)?["\']/iUS', $content, $matches);
+        }
+        else
+        {
+                preg_match_all('/([^"\']*page.php)\?(action=([^&^"^\']*?)[&]*?([^"\'>]*?))["\']?/iUS', $content, $matches);
+        }
 	$replaces = array();
 
 	$domain = Site::domain();
@@ -93,16 +102,16 @@ function url_rewrite($content)
 	if (is_array($matches))
 	foreach ($matches[0] as $k => $v)
 	{
-		if (trim($matches[2][$k], "/") != "page.php" && strpos($matches[2][$k], "://".$domain."/") === false)
+		if (trim($matches[1][$k], "/") != "page.php" && strpos($matches[1][$k], "://".$domain."/") === false)
 		{
 			continue;
 		}
 
-		$key = md5($matches[4][$k].":".$matches[5][$k]);
+		$key = md5($matches[3][$k].":".$matches[4][$k]);
 		$replaces[$key] = array(
 		    "from" => $v,
-		    "action" => $matches[4][$k],
-		    "params" => $matches[5][$k]
+		    "action" => $matches[3][$k],
+		    "params" => $matches[4][$k]
 		);
 	}
 
@@ -112,11 +121,38 @@ function url_rewrite($content)
 	{
 		if (!empty($sql)) $sql .= " OR ";
 		$sql .= " (url_action = '".$db->escape($v["action"])."' AND url_params = '".$v["params"]."')";
-	}
+        }
 
 	if (!empty($sql))
 	{
-		$data = $db->table($q = "SELECT * FROM cody_url WHERE site_id = '".Site::id()."' AND (".$sql.")");
+		$useCache = class_exists("Memcache") && defined("MEMCACHE_HOST") && MEMCACHE_HOST;
+		if ($useCache)
+		{
+			$memcache = new Memcache;
+			$memcache->pconnect(MEMCACHE_HOST);
+
+			$_key = "sql:url:".md5($sql);
+
+			$_cached = $memcache->get($_key);
+		}
+
+		if (!empty($_cached))
+		{
+			$data = unserialize($_cached);
+		}
+		else
+		{
+			
+			$data = $db->table("SELECT * FROM cody_url WHERE site_id = '".Site::id()."' AND (".$sql.")");
+			
+
+			
+
+			if ($useCache)
+			{
+				$memcache->set($_key, serialize($data));
+			}
+		}
 		if (is_array($data))
 		foreach ($data as $v)
 		{
@@ -170,7 +206,7 @@ function url_rewrite($content)
 	$from = array();
 	$to = array();
 
-	$base_url = Site::baseUrl(Site::id());
+	$base_url = Site::baseUrl();
 
 	foreach ($replaces as $v)
 	{
@@ -178,8 +214,16 @@ function url_rewrite($content)
 		
 		$from [] = $v["from"];
 
-		$pos = strpos($v["from"], "href=");
-		$to [] = substr($v["from"], 0, $pos).'href="'.$base_url.$v["to"].(!empty($v["to"])?'.html':'').'"';
+                if($onlyAHref)
+                {
+                        $pos = strpos($v["from"], "href=");
+                        $to [] = substr($v["from"], 0, $pos).'href="'.$base_url.$v["to"].(!empty($v["to"])?'.html':'').'"';
+                }
+                else
+                {
+                        $pos = 0;
+                        $to [] = substr($v["from"], 0, $pos).$base_url.$v["to"].(!empty($v["to"])?'.html':'');
+                }		
 	}
 
 	return str_replace($from, $to, $content);

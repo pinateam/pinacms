@@ -26,17 +26,25 @@ class TableDataGateway
 	public $table = "";
 	public $primaryKey = "";
 	public $db;
-
-	public $siteId = 0;
 	
 	public $orderBy = "";
 
 	public $fields = false;
 
+	
+	public $siteId = 0;
+
 	public $useSiteId = false;
 	public $useAccountId = false;
+	
 
-	public function __construct($siteId = false)
+	var $engine  = "ENGINE=InnoDB DEFAULT CHARSET=utf8";
+
+	public function __construct(
+		
+		$siteId = false
+		
+	)
 	{
 		//TODO: make tables prefixes
 		if (empty($this->primaryKey))
@@ -45,6 +53,7 @@ class TableDataGateway
 		}
 
 		$this->db = getDB();
+		
 		if ($siteId !== false)
 		{
 			$this->siteId = intval($siteId);
@@ -56,19 +65,34 @@ class TableDataGateway
 			$this->siteId = Site::id();
                         $this->accountId = Site::accountId();
 		}
+		
 	}
 
 	public function constructSetCondition($data, $isAdd = false, $result = "SET ")
 	{
-		if (is_array($this->fields) && in_array($this->table."_description", $this->fields) && !isset($data[$this->table."_description"]) && $isAdd)
+                $fields = !isset($this->fields[0]) ? array_keys($this->fields) : $this->fields;
+            
+		if (is_array($fields) && in_array($this->table."_description", $fields) && !isset($data[$this->table."_description"]) && $isAdd)
 		{
 			$data[$this->table."_description"] = '';
 		}
 
+		
+		if ($isAdd && $this->useSiteId)
+		{
+			$data["site_id"] = intval($this->siteId);
+		}
+
+		if ($isAdd && $this->useAccountId && !isset($data["account_id"]))
+		{
+			$data["account_id"] = intval($this->accountId);
+		}
+		
+
 		$first = true;
 		foreach ($data as $key=>$value)
 		{
-			if (is_array($this->fields) && !in_array($key, $this->fields))
+			if (is_array($fields) && !in_array($key, $fields))
 			{
 				continue;
 			}
@@ -133,30 +157,22 @@ class TableDataGateway
 		return $cond;
 	}
 
-	public function getBySiteAndAccount()
+	
+	public function getBySiteAndAccount($sep = "AND")
 	{
 		$cond = "";
-		if ($this->useSiteId) $cond .= " AND `".$this->table."`.`site_id` = '".intval($this->siteId)."'";
-		if ($this->useAccountId) $cond .= " AND `".$this->table."`.`account_id` = '".intval($this->accountId)."'";
+		if ($this->useSiteId) $cond .= " ".$sep." `".$this->table."`.`site_id` = '".intval($this->siteId)."'";
+		if ($this->useAccountId) $cond .= " ".$sep." `".$this->table."`.`account_id` = '".intval($this->accountId)."'";
 		return $cond;
 	}
-
-	/*
-	public function getSetSiteAndAccount()
-	{
-		$cond = "";
-		if ($this->useSiteId) $cond .= ", `".$this->table."`.`site_id` = '".intval($this->siteId)."'";
-		if ($this->useAccountId) $cond .= ", `".$this->table."`.`account_id` = '".intval($this->accountId)."'";
-		return $cond;
-	}
-	 */
+	
 
 /**
 * Добавляет новую запись в таблицу из массива data
 * @param string $data данные для вставки
 * @return int идентификтор добавленной строки
 */
-	public function add($data)
+	public function add($data = array())
 	{
 		$this->db->query($q = "INSERT INTO `".$this->table."` ".$this->constructSetCondition($data, true));
 		return $this->db->insertId();
@@ -185,7 +201,6 @@ class TableDataGateway
 	public function edit($id, $data)
 	{
 		$id = intval($id);
-		
 		return $this->db->query("UPDATE `".$this->table."` ".$this->constructSetCondition($data)." WHERE `".$this->table."`.`".$this->primaryKey."` = '".$id."'".$this->getBySiteAndAccount());
 	}
 
@@ -412,6 +427,7 @@ class TableDataGateway
 		return $this->db->one("SELECT count(*) FROM `".$this->table."` WHERE `".$this->table."`.`".$this->primaryKey."` = '".$id."'".$this->getBySiteAndAccount()." LIMIT 1");
 	}
 
+	
 /**
 * Узнать, существуют ли записи с идентификатором $id в таблице для любого сайта, кроме текущего
 * @param integer $id
@@ -423,6 +439,7 @@ class TableDataGateway
 		$siteId = intval($this->siteId);
 		return $this->db->one("SELECT count(*) FROM `".$this->table."` WHERE `".$this->table."`.`".$this->primaryKey."` = '".$id."' AND `".$this->table."`.`site_id` != '".intval($siteId)."' LIMIT 1");
 	}
+	
 /**
 * Разбить массив идентификаторов на страницы в соотвествии с $paging
 * @param Paging $paging
@@ -485,4 +502,6 @@ class TableDataGateway
 	{
 		$this->db->query('UNLOCK TABLES');
 	}
+
+	
 }

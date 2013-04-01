@@ -4,10 +4,10 @@
         <li><a href="javascript:void(0);" class="icon-delete"  sid="{$menu_item.menu_item_id}" title="{lng lng="delete"}"></a></li>
     </ul>
 </li>
-<li class="w40">
-    {$menu_item.menu_item_title}
+<li class="w40 editable">
+    <span>{$menu_item.menu_item_title}</span>
 </li>
-<li class="w40">
+<li class="w40 editable">
 	{if $menu_item.menu_item_link}
 		<a href="{$menu_item.menu_item_link}" target="_blank">
 			{$menu_item.menu_item_link}

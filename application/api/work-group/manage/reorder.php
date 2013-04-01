@@ -25,7 +25,7 @@ require_once PATH_TABLES.'work_group.php';
 require_once PATH_DOMAIN.'reorder.php';
 
 ReorderDomain::reorder(
-	$request->param('work_group_sort_ids'),
+	mineArray('work_group_sort_ids_', $request->params()),
 	"work_group",
 	new WorkGroupGateway()
 );

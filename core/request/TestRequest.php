@@ -68,18 +68,17 @@ class TestRequest extends BaseRequest
 
 	function result($name, $value)
 	{
-                $this->result[$name] = $value;
+        $this->result[$name] = $value;
 	}
 
-        function getErrors()
-        {
-                return $this->request_errors;
-        }
-
-        function getResult()
-        {
-                return $this->result;
-        }
+    function getErrors()
+    {
+        return $this->request_errors;
+    }
+    function getResult()
+    {
+        return $this->result;
+    }
 
 	function run($action = '')
 	{

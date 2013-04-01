@@ -26,10 +26,20 @@ require_once PATH_CORE.'classes/TableDataGateway.php';
 class BlogGateway extends TableDataGateway
 {
 	var $table = "cody_blog";
-	var $fields = array
-	(
-		"blog_id", "user_id", "site_id", "blog_title", "blog_public", "blog_enabled"
+	var $fields = array(
+		'blog_id' => "int(10) NOT NULL AUTO_INCREMENT",
+		'site_id' => "int(10) NOT NULL DEFAULT '0'",
+		'user_id' => "int(1) NOT NULL DEFAULT '0'",
+		'blog_title' => "varchar(255) NOT NULL DEFAULT '0'",
+		'blog_public' => "varchar(1) NOT NULL DEFAULT 'N'",
+		'blog_enabled' => "varchar(1) NOT NULL DEFAULT 'N'"
 	);
+
+	var $indexes = array(
+		'PRIMARY KEY' => 'blog_id',
+		'KEY blog_enabled' => array('blog_enabled', 'site_id')
+	);
+
 	var $orderBy = "blog_id ASC";
 	var $useSiteId = true;
 

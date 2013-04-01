@@ -26,25 +26,25 @@ require_once PATH_TABLES."module.php";
 $moduleGateway = new ModuleGateway();
 $moduleGateway->put(array(
 	"module_key" => "faq-group",
-	"site_id" => Site::id(),
 	"module_enabled" => "Y",
 	"module_version" => "1.00",
 	"module_config_action" => "faq-group.manage.home",
-	"module_title" => lng("faq_groups"),
-	"module_description" => lng("faq_groups_module_explanation"),
+	"module_group" => "content",
+	"module_title" => lng_key("faq_groups"),
+	"module_description" => lng_key("faq_groups_module_explanation"),
 ));
 
 require_once PATH_TABLES."access.php";
 $accessGateway = new AccessGateway();
 $accessGateway->put(array(
 	"module_key" => "faq-group.manage",
-	"access_title" => lng("faq_groups_management"),
+	"access_title" => lng_key("faq_groups_management"),
 	"access_group_id" => 2,//admin
     	"access_enabled" => "Y"
 ));
 $accessGateway->put(array(
 	"module_key" => "faq-group.manage",
-	"access_title" => lng("faq_groups_management"),
+	"access_title" => lng_key("faq_groups_management"),
 	"access_group_id" => 3,//merchant
     	"access_enabled" => "Y"
 ));

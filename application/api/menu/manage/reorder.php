@@ -25,7 +25,7 @@ require_once PATH_TABLES.'menu_item.php';
 require_once PATH_DOMAIN.'reorder.php';
 
 ReorderDomain::reorder(
-	$request->param('menu_item_sort_ids'),
+	mineArray('menu_item_sort_ids_', $request->params()),
 	"menu_item",
 	new MenuItemGateway()
 );

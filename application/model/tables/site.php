@@ -26,8 +26,16 @@ require_once PATH_CORE.'classes/TableDataGateway.php';
 class SiteGateway extends TableDataGateway
 {
 	var $table = 'cody_site';
-	var $fields = array
-	(
-		"site_id", "account_id", "site_domain", "site_path", "site_template"
+	var $fields = array(
+		'site_id' => "int(11) NOT NULL AUTO_INCREMENT",
+		'account_id' => "int(11) NOT NULL DEFAULT '0'",
+		'site_domain' => "varchar(64) NOT NULL DEFAULT ''",
+		'site_path' => "varchar(64) NOT NULL DEFAULT ''",
+		'site_template' => "varchar(64) NOT NULL DEFAULT ''",
+	);
+
+	var $indexes = array(
+                'PRIMARY KEY' => 'site_id',
+		'UNIQUE KEY domain_path' => array('site_domain', 'site_path')
 	);
 }

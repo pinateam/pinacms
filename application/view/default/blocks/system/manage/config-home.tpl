@@ -1,23 +1,4 @@
 	<fieldset>
-		<h2>{lng lng="directories"}</h2>
-
-		<div class="field  help-section w50">
-			<h3><a href="{link action="system.manage.directory-import"}">{lng lng="directory_import"}</a></h3>
-			<a class="section-icon icon-asterix" href="{link action="config.manage.directory-import"}"></a>
-			<div>
-				{lng lng="directory_import_explanation"}
-			</div>
-		</div>
-		<div class="field help-section w50">
-			<h3><a href="{link action="system.manage.directory-export"}">{lng lng="directory_export"}</a></h3>
-			<a class="section-icon icon-asterix" href="{link action="config.manage.directory-export"}"></a>
-			<div>
-				{lng lng="directory_export_explanation"}
-			</div>
-		</div>
-	</fieldset>
-
-	<fieldset>
 		<h2>{lng lng="tools"}</h2>
 
 		<div class="field  help-section w50">

@@ -10,7 +10,7 @@
 <td>
 	{$photo.post_title}
 </td>
-<td>
+<td class="editable">
 	{$photo.vk_url}
 </td>
 <td>

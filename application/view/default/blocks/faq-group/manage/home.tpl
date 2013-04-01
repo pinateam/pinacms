@@ -1,7 +1,18 @@
 <h1><span class="section-icon icon-question"></span> {lng lng="faq_groups"}</h1>
 
+<div class="right-narrow-column">
 
-{module action="faq-group.manage.list" wrapper="faq-group-list"}
+	<fieldset class="operations">
+		<h2>{lng lng="actions"}</h2>
+		<ul>
+			<li><a href="{link action="faq-group.manage.add"}" class="add">{lng lng="add"}</a></li>
+		</ul>
+	</fieldset>
+</div>
+
+<div class="left-wide-column">
+	{module action="faq-group.manage.list" wrapper="faq-group-list"}
+</div>
 
 {literal}	
 <script language="JavaScript">
@@ -28,14 +39,3 @@ $(document).ready(function() {
 });
 </script>
 {/literal}
-{literal}
-<script type="text/javascript">
-	
-	$(".faq-group-list .button-add").live("click", function(){
-		document.location = 'page.php?action=faq-group.manage.add';		
-	});
-
-</script>
-{/literal}
-
-

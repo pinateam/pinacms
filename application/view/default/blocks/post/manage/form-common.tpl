@@ -1,7 +1,7 @@
 <fieldset>
 	<h2>{lng lng="common_settings"}</h2>
 
-        {module action="post.manage.select-blog" value=$blog_id}
+        {module action="blog.manage.selector" value=$blog_id}
 
         <div class="field w50">
             <label for="coding">{lng lng="status"}</label>

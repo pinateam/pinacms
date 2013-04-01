@@ -8,6 +8,7 @@
 			{lng lng="add_post_explanation"}
 		</div>
 	</div>
+	{block view="product.manage.dashboard-quick"}
 	{block view="event.manage.dashboard-quick"}
 </fieldset>
 

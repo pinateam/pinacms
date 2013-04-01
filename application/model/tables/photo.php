@@ -29,14 +29,27 @@ class PhotoGateway extends TableDataGateway
 
 	var $orderBy = 'photo_id DESC';
 
-	var $fields = array
-	(
-		"photo_id", "site_id", "post_id",
-		"common_filename",
-		"photo_filename", "photo_width",
-		"photo_height", "photo_type",
-		"photo_size", "photo_enabled",
-		"vk_url"
+	var $fields = array(
+		'photo_id' => "int(10) NOT NULL AUTO_INCREMENT",
+		'site_id' => "int(10) NOT NULL DEFAULT '0'",
+		'post_id' => "int(10) NOT NULL DEFAULT '0'",
+		'common_filename' => "varchar(255) NOT NULL DEFAULT ''",
+		'photo_filename' => "varchar(255) NOT NULL DEFAULT ''",
+		'photo_width' => "int(11) NOT NULL DEFAULT '0'",
+		'photo_height' => "int(11) NOT NULL DEFAULT '0'",
+		'photo_type' => "varchar(20) NOT NULL DEFAULT '0'",
+		'photo_size' => "int(11) NOT NULL DEFAULT '0'",
+		'photo_enabled' => "varchar(1) NOT NULL DEFAULT 'Y'",
+		'vk_url' => "varchar(255) NOT NULL DEFAULT ''",
+	);
+
+	var $indexes = array(
+		'PRIMARY KEY' => 'photo_id',
+		'KEY site_id' => 'site_id',
+		'KEY post_id' => 'post_id',
+		'KEY common_filename' => 'common_filename',
+		'KEY photo_filename' => 'photo_filename',
+		'KEY photo_enabled' => 'photo_enabled'
 	);
 
 	var $useSiteId = true;
@@ -45,13 +58,11 @@ class PhotoGateway extends TableDataGateway
 	{
 		$common = $this->db->escape($common);
 		$postId = intval($postId);
-		$siteId = intval($this->siteId);
-		$this->db->query("UPDATE ".$this->table." SET post_id = '".$postId."' WHERE common_filename = '".$common."' AND post_id = 0 AND site_id = '".$siteId."'");
+		$this->db->query("UPDATE ".$this->table." SET post_id = '".$postId."' WHERE common_filename = '".$common."' AND post_id = 0".$this->getBySiteAndAccount());
 	}
 
 	public function reportTable()
 	{
-		$siteId = intval($this->siteId);
-		return $this->db->table("SELECT * FROM ".$this->table." ph LEFT JOIN cody_post po USING(post_id) WHERE ph.site_id = '".$siteId."'");
+		return $this->db->table("SELECT * FROM ".$this->table." LEFT JOIN cody_post USING(post_id) WHERE 1".$this->getBySiteAndAccount());
 	}
 }

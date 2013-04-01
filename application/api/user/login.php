@@ -33,10 +33,12 @@ $user = new UserGateway();
 $user->useAccountId = false;
 $u = $user->getBy('user_login', $request->param("user_login"));
 
+
 if ($u["access_group_id"] != "2" && $u["account_id"] != Site::accountId())
 {
 	$request->stop(lng('wrong_password'), "user_password");
 }
+
 
 validatePassword($request, $u["user_password"]);
 

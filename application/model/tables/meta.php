@@ -28,13 +28,26 @@ class MetaGateway extends TableDataGateway
 
 	var $useSiteId = true;
 
+	var $fields = array(
+		'site_id' => "int(10) NOT NULL DEFAULT '0'",
+		'meta_action' => "varchar(32) NOT NULL DEFAULT ''",
+		'meta_params' => "varchar(128) NOT NULL DEFAULT ''",
+		'meta_h1' => "varchar(255) NOT NULL DEFAULT ''",
+		'meta_title' => "varchar(255) NOT NULL DEFAULT ''",
+		'meta_keys' => "varchar(255) NOT NULL DEFAULT ''",
+		'meta_description' => "varchar(255) NOT NULL DEFAULT ''",
+	);
+
+	var $indexes = array(
+		'UNIQUE KEY meta_key' => array('site_id','meta_action','meta_params')
+	);
+
 	public function edit($action, $params, $data)
 	{
 		if (!is_array($data) || empty($data)) return false;
 		
 		$action = $this->db->escape($action);
 		$params = $this->db->escape($params);
-		$siteId = intval($this->siteId);
 		
 		$set = array();
 		
@@ -45,31 +58,28 @@ class MetaGateway extends TableDataGateway
 		
 		$set = join(', ', $set);
 		
-		return $this->db->query("INSERT INTO `".$this->table."` SET ".$set.", `meta_action` = '$action', `meta_params` = '$params', `site_id` = '$siteId' ON DUPLICATE KEY UPDATE $set");
+		return $this->db->query("INSERT INTO `".$this->table."` SET ".$set.", `meta_action` = '$action', `meta_params` = '$params'".$this->getBySiteAndAccount(",")." ON DUPLICATE KEY UPDATE $set");
 	}
 	
 	public function remove($action, $params)
 	{
 		$action = $this->db->escape($action);
 		$params = $this->db->escape($params);
-		$siteId = intval($this->siteId);
 		
-		return $this->db->query("DELETE FROM ".$this->table." WHERE site_id = '$siteId' AND meta_action = '$action' AND meta_params = '$params'");
+		return $this->db->query("DELETE FROM ".$this->table." WHERE meta_action = '$action' AND meta_params = '$params'".$this->getBySiteAndAccount());
 	}
 
         public function getByItem($action, $params)
         {
 		$action = $this->db->escape($action);
 		$params = $this->db->escape($params);
-		$siteId = intval($this->siteId);
 		return $this->db->row("
 			SELECT *
 			FROM
 				`".$this->table."`
 			WHERE
-				`site_id` = '".$siteId."' AND
 				`meta_action` = '".$action."' AND
-				`meta_params` = '".$params."'
-		");
+				`meta_params` = '".$params."'".$this->getBySiteAndAccount()
+		);
         }
 }

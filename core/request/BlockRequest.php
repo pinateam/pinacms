@@ -30,6 +30,8 @@ class BlockRequest extends BaseRequest
 
 	var $error_messages = array();
 
+	var $__result = '';
+
 	function __construct($view, $data)
 	{
 		if (empty($view))
@@ -85,7 +87,7 @@ class BlockRequest extends BaseRequest
 
 	function stop($message = "", $subject = '')
 	{
-		if (defined("BLOCK_EXCEPTIONS"))
+		if (defined("BLOCK_EXCEPTIONS") && BLOCK_EXCEPTIONS)
 		{
 			throw new Exception($message);
 		}
@@ -105,7 +107,23 @@ class BlockRequest extends BaseRequest
 
     function run()
     {
+	#echo "\r\n<!--\r\nenter ".$this->data["action"]."\r\n-->\r\n";
+	#list($msec, $sec) = explode(' ', microtime());
+	#$s_time = (float)$msec + (float)$sec;
+
         if (!$this->isAvailable()) return '';
+
+	$_cached = $this->cacheGet("block");
+
+	if (!empty($_cached))
+	{
+		#list($msec, $sec) = explode(' ', microtime());
+		#$time_total = ((float)$msec + (float)$sec - $s_time);
+
+		#echo "\r\n<!--\r\nleave ".$this->data["action"]." cached ".$time_total."\r\n-->\r\n";
+
+		return $_cached;
+	}
 
         $action = $this->getHandler();
         
@@ -126,6 +144,13 @@ class BlockRequest extends BaseRequest
 
         //$t = url_rewrite($t);
         $t = lng_rewrite($t);
+
+	$this->cacheSet("block", $t);
+
+	#list($msec, $sec) = explode(' ', microtime());
+	#$time_total = ((float)$msec + (float)$sec - $s_time);
+
+	#echo "\r\n<!--\r\nleave ".$this->data["action"]." ".$time_total."\r\n-->\r\n";
 
         return $t;
     }

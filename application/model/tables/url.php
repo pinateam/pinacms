@@ -28,33 +28,46 @@ class UrlGateway extends TableDataGateway
 	var $table = 'cody_url';
 
 	var $useSiteId = true;
+
+	var $fields = array(
+		'site_id' => "int(10) NOT NULL DEFAULT '0'",
+		'url_key' => "varchar(64) NOT NULL DEFAULT ''",
+		'url_action' => "varchar(32) NOT NULL DEFAULT ''",
+		'url_params' => "varchar(128) NOT NULL DEFAULT ''",
+	);
+
+	var $indexes = array(
+		'PRIMARY KEY' => array('url_key', 'site_id'),
+		'KEY action_params' => array('url_action','url_params', 'site_id')
+	);
 	
 	function reportKey($action, $params)
 	{
-		$siteId = intval($this->siteId);
-		return $this->db->one("SELECT url_key FROM ".$this->table." WHERE site_id = '".$siteId."' AND url_action = '".$this->db->escape($action)."' AND url_params = '".$this->db->escape($params)."'");
+		return $this->db->one("SELECT url_key FROM ".$this->table." WHERE url_action = '".$this->db->escape($action)."' AND url_params = '".$this->db->escape($params)."'".$this->getBySiteAndAccount());
+	}
+
+	function add($key, $action, $params)
+	{
+		$this->db->query("INSERT INTO ".$this->table." SET url_key = '".$this->db->escape($key)."', url_action = '".$this->db->escape($action)."', url_params = '".$this->db->escape($params)."'".$this->getBySiteAndAccount());
 	}
 
 	function paste($key, $action, $params)
 	{
-		$siteId = intval($this->siteId);
-		$this->db->query("DELETE FROM ".$this->table." WHERE site_id = '".$siteId."' AND url_action = '".$this->db->escape($action)."' AND url_params = '".$this->db->escape($params)."'");
+		$this->db->query("DELETE FROM ".$this->table." WHERE url_action = '".$this->db->escape($action)."' AND url_params = '".$this->db->escape($params)."'".$this->getBySiteAndAccount());
 		if (!empty($key))
 		{
-			$this->db->query("INSERT INTO ".$this->table." SET site_id = '".$siteId."', url_key = '".$this->db->escape($key)."', url_action = '".$this->db->escape($action)."', url_params = '".$this->db->escape($params)."'");
+			$this->db->query("INSERT INTO ".$this->table." SET url_key = '".$this->db->escape($key)."', url_action = '".$this->db->escape($action)."', url_params = '".$this->db->escape($params)."'".$this->getBySiteAndAccount(","));
 		}
 	}
 
 	function reportEditApproved($key, $action, $params)
 	{
-		$siteId = intval($this->siteId);
-		return !$this->db->one($q = "SELECT count(*) FROM ".$this->table." WHERE site_id = '".$siteId."' AND url_key = '".$this->db->escape($key)."' AND (url_action != '".$this->db->escape($action)."' OR url_params != '".$this->db->escape($params)."')");
+		return !$this->db->one($q = "SELECT count(*) FROM ".$this->table." WHERE url_key = '".$this->db->escape($key)."' AND (url_action != '".$this->db->escape($action)."' OR url_params != '".$this->db->escape($params)."')".$this->getBySiteAndAccount());
 	}
 
         public function remove($action, $params)
         {
-		$siteId = intval($this->siteId);
-                return $this->db->query("DELETE FROM `".$this->table."` WHERE site_id = '".$siteId."' AND `url_action` = '".$this->db->escape($action)."' AND `url_params` = '".$this->db->escape($params)."'");
+                return $this->db->query("DELETE FROM `".$this->table."` WHERE `url_action` = '".$this->db->escape($action)."' AND `url_params` = '".$this->db->escape($params)."'".$this->getBySiteAndAccount());
         }
 
 }

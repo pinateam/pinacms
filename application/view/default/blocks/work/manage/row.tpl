@@ -4,7 +4,7 @@
 		<li><a href="#" class="icon-delete" sid="{$work.work_id}" title="{lng lng="delete"}"></a></li>
 	</ul>
 </li>
-<li class="w70">
+<li class="w70 editable">
 	<a href="{link action="work.manage.edit" work_id=$work.work_id}">{$work.work_title}</a>
 </li>
 

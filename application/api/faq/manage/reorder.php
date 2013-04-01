@@ -25,7 +25,7 @@ require_once PATH_TABLES.'faq.php';
 require_once PATH_DOMAIN.'reorder.php';
 
 ReorderDomain::reorder(
-	$request->param('faq_sort_ids'),
+	mineArray('faq_sort_ids_', $request->params()),
 	"faq",
 	new FaqGateway()
 );

@@ -37,9 +37,8 @@ $personGateway->edit($request->param('person_id'), $data);
 
 require_once PATH_TABLES.'person_photo.php';
 $photoGateway = new PersonPhotoGateway();
-$data["site_id"] = Site::id();
 
 require_once PATH_DOMAIN.'image.php';
-ImageDomain::save("person_photo_".Site::id(), "person_photo", $photoGateway, $request->param('person_id'), $data);
+ImageDomain::save("person_photo", $photoGateway, $request->param('person_id'), $data);
 
 $request->ok();

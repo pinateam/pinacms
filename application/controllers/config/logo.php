@@ -24,7 +24,12 @@ if (!defined('PATH')){ exit; }
 	require_once PATH_TABLES.'logo.php';
 	$logoGateway = new LogoGateway();
 
-	$logo = $logoGateway->getBy("site_id", Site::id());
+	
+	$logo = $logoGateway->get(Site::id());
+	
+
+	
+
 	$request->result("logo", $logo);
 
 	$request->ok();

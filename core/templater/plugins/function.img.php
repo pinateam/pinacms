@@ -33,8 +33,10 @@ function smarty_function_img($params, &$view)
 	if (!empty($params["width"]) || !empty($params["height"]))
 	{
 		require_once PATH_DOMAIN."image.php";
+
+		$srcPath = PATH_IMAGES.Site::id()."/".$params["type"]."/".$params["img"];
 		
-		$tmpName = ImageDomain::tmpName("png", $params["type"]."-".$params["img"]."-".$params["width"]);
+		$tmpName = ImageDomain::tmpName("png", $params["type"]."-".$params["img"]."-".$params["width"]."-".filectime($srcPath));
 		@mkdir(PATH_IMAGES.Site::id()."/cache/");
 		$filepath = PATH_IMAGES.Site::id()."/cache/".$tmpName;
 
@@ -42,11 +44,11 @@ function smarty_function_img($params, &$view)
 		{
 			if (!empty($params["width"]))
 			{
-				ImageDomain::resize(PATH_IMAGES.Site::id()."/".$params["type"]."/".$params["img"], $params["width"], 0, $filepath);
+				ImageDomain::resize($srcPath, $params["width"], 0, $filepath);
 			}
 			elseif (!empty($params["height"]))
 			{
-				ImageDomain::resize(PATH_IMAGES.Site::id()."/".$params["type"]."/".$params["img"], 0, $params["height"], $filepath);
+				ImageDomain::resize($srcPath, 0, $params["height"], $filepath);
 
 			}
 		}
@@ -63,5 +65,5 @@ function smarty_function_img($params, &$view)
 		*/
 	}
 
-	return Site::baseUrl(Site::id())."images/".Site::id()."/".$params["type"]."/".$params["img"];
+	return Site::baseUrl()."images/".Site::id()."/".$params["type"]."/".$params["img"];
 }

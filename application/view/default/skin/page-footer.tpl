@@ -20,9 +20,9 @@
 			</div><!-- footer_box -->
 
 			<p class="footer_notes">
-				<span class="copyright">&copy; 2011. <a href="http://dobrosite.ru/">Dobrosite ltd</a>
+				<span class="copyright">&copy; {php}echo date("Y");{/php}. <a href="http://dobrosite.ru/">Dobrosite ltd</a>
 				{block view="feedback.link"}</span>
-				<span>Powered by <a href="http://www.pinacms.com">PinaCMS - software for creating a SaaS platform</a></span>
+				<span>Powered by <a href="http://www.pinacart.com">PinaCart - software for creating a SaaS platform</a></span>
 			</p>
 
 			<p>&nbsp;</p>

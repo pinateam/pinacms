@@ -103,6 +103,10 @@ class PageRequest extends BaseRequest {
 
     function run()
     {
+	#echo "\r\n<!--\r\nenter page ".$this->data["action"]."\r\n-->\r\n";
+	#list($msec, $sec) = explode(' ', microtime());
+	#$s_time = (float)$msec + (float)$sec;
+
         if (!$this->isAvailable())
 	{
 		$this->data["action"] = 'access-denied';
@@ -118,8 +122,18 @@ class PageRequest extends BaseRequest {
 
 	$this->result("main", !empty($this->data["action"])?$this->data["action"]:"");
 
-        $request = $this;
-        include PATH_CONTROLLERS.$action.".php";
+	$_cached = $this->cacheGet("page");
+	if (!empty($_cached))
+	{
+		$this->view->_tpl_vars = unserialize($_cached);
+	}
+	else
+	{
+		$request = $this;
+		include PATH_CONTROLLERS.$action.".php";
+
+		$this->cacheSet("page", serialize($this->view->_tpl_vars));
+	}
 
         $bs = Breadcrumbs::fetch();
         $this->view->assign("breadcrumbs", $bs);
@@ -130,5 +144,10 @@ class PageRequest extends BaseRequest {
         $t = url_rewrite($t);
         $t = lng_rewrite($t);
         echo $t;
+
+	#list($msec, $sec) = explode(' ', microtime());
+	#$time_total = ((float)$msec + (float)$sec - $s_time);
+
+	#echo "\r\n<!--\r\nleave page ".$this->data["action"]." ".(!empty($_cached)?"cached ":"").$time_total."\r\n-->\r\n";
     }
 }

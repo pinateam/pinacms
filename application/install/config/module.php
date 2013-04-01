@@ -25,13 +25,13 @@ require_once PATH_TABLES."access.php";
 $accessGateway = new AccessGateway();
 $accessGateway->put(array(
 	"module_key" => "config.manage",
-	"access_title" => lng("common_settings_management"),
+	"access_title" => lng_key("common_settings_management"),
 	"access_group_id" => 2,//admin
     	"access_enabled" => "Y"
 ));
 $accessGateway->put(array(
 	"module_key" => "config.manage",
-	"access_title" => lng("common_settings_management"),
+	"access_title" => lng_key("common_settings_management"),
 	"access_group_id" => 3,//merchant
     	"access_enabled" => "Y"
 ));

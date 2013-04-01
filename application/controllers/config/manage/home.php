@@ -23,7 +23,7 @@ if (!defined('PATH')){ exit; }
 	require_once PATH_TABLES."module.php";
 
 	$module = new ModuleGateway();
-	$ms = $module->findConfigurable(Site::id());
+	$ms = $module->findConfigurable();
 
 	foreach ($ms as $k => $v)
 	{

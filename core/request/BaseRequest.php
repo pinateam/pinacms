@@ -195,4 +195,37 @@ class BaseRequest
 	}
 
 	function run() {}
+
+
+	function cacheIsUsed()
+	{
+		if (!class_exists("Memcache")) return false;
+
+		if (!defined("MEMCACHE_HOST") || !MEMCACHE_HOST) return false;
+
+		return in_array($this->data["action"], array("category.menu", "category.view", "product.view"));
+	}
+
+	function cacheGet($prefix)
+	{
+		if (!$this->cacheIsUsed()) return false;
+
+		$memcache = new Memcache;
+		$memcache->pconnect(MEMCACHE_HOST);
+
+		$_key = $prefix.":".$this->data["action"].":".md5(print_r($this->data, 1));
+
+		return $memcache->get($_key);
+	}
+
+	function cacheSet($data)
+	{
+		if (!$this->cacheIsUsed()) return false;
+
+		$memcache = new Memcache;
+		$memcache->pconnect(MEMCACHE_HOST);
+
+		$_key = $prefix.":".$this->data["action"].":".md5(print_r($this->data, 1));
+		$memcache->set($_key, $data);
+	}
 }

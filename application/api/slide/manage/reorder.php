@@ -25,7 +25,7 @@ require_once PATH_TABLES.'slide.php';
 require_once PATH_DOMAIN.'reorder.php';
 
 ReorderDomain::reorder(
-	$request->param('slide_sort_ids'),
+	mineArray('slide_sort_ids_', $request->params()),
 	"slide",
 	new SlideGateway()
 );

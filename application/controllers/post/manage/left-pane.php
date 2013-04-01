@@ -25,5 +25,5 @@ if (!defined('PATH')){ exit; }
 
     $blogGateway = new BlogGateway();
 
-    $request->result('blogs', $blogGateway->findBy('site_id', Site::id()));
+    $request->result('blogs', $blogGateway->findAll());
     $request->ok();

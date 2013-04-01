@@ -23,7 +23,7 @@ if (!defined('PATH')){ exit; }
 
 include_once PATH_TABLES."string.php";
 
-if (!$request->param("language_code")) $request->error("Не указан язык");
+if (!$request->param("language_code")) $request->error(lng("internal_error"));
 
 $vs = mineArray("string_", $request->params());
 if (!is_array($vs)) $request->error(lng('wrong_data_format'));

@@ -28,8 +28,16 @@ class FaqGroupGateway extends TableDataGateway
 	var $table = "cody_faq_group";
 	var $primaryKey = "faq_group_id";
 	var $fields = array(
-	    "faq_group_id","faq_group_enabled","faq_group_title",
-	    "site_id"
+		'faq_group_id' => "INT(11) NOT NULL AUTO_INCREMENT",
+		'faq_group_title' => "varchar(32) NOT NULL DEFAULT '0'",
+		'faq_group_enabled' => "VARCHAR(1) NOT NULL DEFAULT 'N'",
+		'site_id' => "INT(11) NOT NULL DEFAULT '0'",
 	);
+
+	var $indexes = array(
+		'PRIMARY KEY' => 'faq_group_id',
+		'KEY site_id' =>  'site_id'
+	);
+
 	var $useSiteId = true;	
 }

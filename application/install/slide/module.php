@@ -26,25 +26,25 @@ require_once PATH_TABLES."module.php";
 $moduleGateway = new ModuleGateway();
 $moduleGateway->put(array(
 	"module_key" => "slide",
-	"site_id" => Site::id(),
 	"module_enabled" => "Y",
 	"module_version" => "1.00",
 	"module_config_action" => "slide.manage.home",
-	"module_title" => lng("slides"),
-	"module_description" => lng("slides_management_explanation"),
+	"module_group" => "content",
+	"module_title" => lng_key("slides"),
+	"module_description" => lng_key("slides_management_explanation"),
 ));
 
 require_once PATH_TABLES."access.php";
 $accessGateway = new AccessGateway();
 $accessGateway->put(array(
 	"module_key" => "slide.manage",
-	"access_title" => lng("slides_management"),
+	"access_title" => lng_key("slides_management"),
 	"access_group_id" => 2,//admin
     	"access_enabled" => "Y"
 ));
 $accessGateway->put(array(
 	"module_key" => "slide.manage",
-	"access_title" => lng("slides_management"),
+	"access_title" => lng_key("slides_management"),
 	"access_group_id" => 3,//merchant
     	"access_enabled" => "Y"
 ));

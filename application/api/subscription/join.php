@@ -25,7 +25,6 @@ include_once PATH_TABLES."subscription.php";
 
 $data = $request->params();
 $data["user_id"] = Session::get("auth_user_id")?Session::get("auth_user_id"):0;
-$data["site_id"] = Site::id();
 
 $subscription = new SubscriptionGateway;
 $subscription->add($data);

@@ -23,7 +23,7 @@
 {literal}
     <script type="text/javascript">
         $(".button-import").bind("click", function(){
-            showBlockUI('{/literal}{lng lng="action_executed"}', '{lng lng="please_wait_"}{literal}');
+            PinaSkin.showModalMessage('{/literal}{lng lng="action_executed"}', '{lng lng="please_wait_"}{literal}');
             var data = $("#import").getData();
 
             $.ajax({
@@ -33,7 +33,7 @@
                            data: data,
                     },
                     success: function(result) {
-                            hideBlockUI(function(){
+                            PinaSkin.hideModalMessage(function(){
                                     if(result.r == 'ok' && result.d.result) {
                                         alert('{/literal}{lng lng="action_completed"}{literal}');
                                     } else {
