@@ -21,4 +21,4 @@ if (!defined('PATH')){ exit; }
 
 
 
-echo "PinaCMS v 1.01";
+echo "PinaCMS 1.02";
