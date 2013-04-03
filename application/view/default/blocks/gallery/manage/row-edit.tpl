@@ -1,8 +1,8 @@
 <td>
-    <ul class="operation-toolbar">
-        <li><a href="javascript:void(0);" class="icon-accept"  sid="{$photo.photo_id}" title="{lng lng="apply"}"></a></li>
-        <li><a href="javascript:void(0);" class="icon-decline" sid="{$photo.photo_id}" title="{lng lng="cancel"}"></a></li>
-    </ul>
+	<ul class="operation-toolbar">
+		<li><a href="#" class="icon-accept" sid="{$photo.photo_id}" title="{lng lng="save"}"></a></li>
+		<li><a href="#" class="icon-decline" sid="{$photo.photo_id}" title="{lng lng="cancel"}"></a></li>
+	</ul>
 </td>
 <td>
 	<img src="{img img=$photo.photo_filename type="photo" width="155"}" />

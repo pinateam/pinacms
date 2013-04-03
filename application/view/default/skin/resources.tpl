@@ -41,6 +41,7 @@
 {combine_resourses file="jquery.rating.js" type="js"}
 {combine_resourses file="jquery-ui-1.8.18.custom.min.js" type="js"}
 
+{block view="gallery.resources"}
 {block view="slide.resources"}
 
 {load_resourses type="css"}

@@ -82,6 +82,10 @@ $.fn.manageTable = function(options)
 			var fnReload = options["oncall"];
 			fnReload(0);
 		});
+
+		$(options["wrapper_form"]).live("submit", function() {
+			return false;
+		});
 	}
 
 	if (options["action_edit"])

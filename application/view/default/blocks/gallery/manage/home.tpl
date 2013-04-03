@@ -1,6 +1,15 @@
-<h1><span class="section-icon icon-asterix"></span> Галлерея</h1>
+<div class="right-narrow-column gallery-search-form">
+	<fieldset class="operations">
+		<h2>{lng lng="actions"}</h2>
+		<ul>
+			<li><a href="{link action="gallery.manage.add"}" class="add">{lng lng="add"}</a></li
+		</ul>
+	</fieldset>
+</div>
 
-{module action="gallery.manage.list" wrapper="photo-list"}
+<div class="left-wide-column">
+	{module action="gallery.manage.list" wrapper="photo-list"}
+</div>
 
 {literal}
 <script type="text/javascript">
@@ -12,7 +21,7 @@ $(".photo-list").manageTable({
         api_edit: "gallery.manage.photo-edit-row",
         api_delete: "gallery.manage.photo-delete",
 	wrapper_list: ".photo-list",
-        object: "photo"
+        object: "photo"			
 });
 
 $(".photo-enabled a").live("click", function() {
@@ -20,6 +29,9 @@ $(".photo-enabled a").live("click", function() {
 	var url = "api.php?action=gallery.manage.photo-change-status&status="+$(this).attr("data-value")+"&photo_id="+splitter.attr("sid");
 	$.get(url);
 });
+
+
+
 
 </script>
 {/literal}

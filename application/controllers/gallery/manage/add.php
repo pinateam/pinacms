@@ -21,11 +21,13 @@ if (!defined('PATH')){ exit; }
 
 
 
-validateNotEmpty($request, "photo_id", lng('internal_error'));
-$request->trust();
+$request->result("photo_statuses", array(
+    array("value" => "Y", "caption" => lng("enabled"), "color" => "green"),
+    array("value" => "N", "caption" => lng("disabled"), "color" => "red"),
+));
 
-require_once PATH_TABLES.'photo.php';
-$photoGateway = new PhotoGateway();
-$photoGateway->edit($request->param("photo_id"), $request->params("vk_url"));
+$request->addLocation(lng("photo_gallery"), href(array("action" => "gallery.manage.home")));
+$request->addLocation(lng("add"), href(array("action" => "gallery.manage.add")));
 
+$request->setLayout('admin');
 $request->ok();

@@ -25,6 +25,30 @@ if (!defined('PATH')){ exit; }
 	class Resourses
 	{
 		static $resourses = array();
+                
+                public static function getCacheResourse($type)
+		{
+	                return self::buildResourse($type, self::getCacheFileUrl($type));
+		}
+                
+                public static function getCacheFileUrl($type)
+		{
+			Resourses::createCacheFile($type);
+                        
+			if(Site::id() != 0)
+	                {
+	                        $cacheFileUrl = SITE_CACHE .'sites/'. Site::path() .'/'. $type .'/'. self::getCacheFileName($type);
+	                }
+	                else
+	                {
+                        
+	                        $cacheFileUrl = SITE_CACHE . $type .'/'. self::getCacheFileName($type);
+                        
+	                }
+                        
+
+	                return $cacheFileUrl;
+		}
 
 		public static function buildResourse($type, $url)
 		{
@@ -42,47 +66,23 @@ if (!defined('PATH')){ exit; }
 			}
 		}
 
-		public static function getCacheResourse($type)
-		{
-	                return self::buildResourse($type, self::getCacheFileUrl($type));
-		}
-
-		public static function getCacheFileUrl($type)
-		{
-			Resourses::createCacheFile($type);
-
-			
-			if(Site::id() != 0)
-	                {
-	                        $cacheFileUrl = SITE_CACHE .'sites/'. Site::path() .'/'. $type .'/'. self::getCacheFileName($type);
-	                }
-	                else
-	                {
-			
-	                        $cacheFileUrl = SITE_CACHE . $type .'/'. self::getCacheFileName($type);
-			
-	                }
-			
-
-	                return $cacheFileUrl;
-		}
-
 		public static function createCacheFile($type)
 		{
 			$cacheFileName = self::getCacheFileName($type);
 			//echo $type .'-'. $cacheFileName .'<br />';
-			
+
+                        
 	                if(Site::id() != 0)
 	                {
 	                        $cacheFilePath = PATH_CACHE .'sites/'. Site::path() .'/'. $type .'/';
 	                }
 	                else
 	                {
-			
+                        
 	                        $cacheFilePath = PATH_CACHE . $type .'/';
-			
+                        
 	                }
-			
+                        
 
 	                $cacheFile = $cacheFilePath . $cacheFileName;
 	                prepareDir($cacheFile);
@@ -93,28 +93,28 @@ if (!defined('PATH')){ exit; }
                         chmod($cacheFile, 0777);
 			$pattern = '#(..\/images/)#';
 
-			
+                        
 			if(Site::id() != 0)
 			{
-				$replacement = SITE .'style/sites/'. Site::path() .'/images/';
+				$replacement = '../../../../style/images/';
 			}
 			else
 			{
-			
-				$replacement = SITE .'style/images/';
-			
+                        
+				$replacement = '../../style/images/';
+                        
 			}
-			
+                        
 
-			foreach(self::getResoursePathes($type) as $resourse)
+			if (is_array(self::$resourses[$type]))
+			foreach(self::$resourses[$type] as $resourse)
 			{
 				if(!file_exists($resourse['file']))
 				{
 					continue;
 				}
 
-				$content = file_get_contents($resourse['file']);
-				$content = preg_replace($pattern, $replacement, $content);
+				$content = preg_replace($pattern, $replacement, file_get_contents($resourse['file']));
 
 				if($type == 'css')
 				{
@@ -136,21 +136,21 @@ if (!defined('PATH')){ exit; }
 
 		public static function getCacheFileName($type)
 		{
-			return md5(serialize(self::getResoursePathes($type))) .'.'. $type;
+			return md5(serialize(self::$resourses[$type])) .'.'. $type;
 		}
-
-		public static function getResourse($type, $fileName)
+                
+		public static function get($type, $fileName)
 		{
 			switch ($type) 
 			{
 				case 'css':
-					$filePath = self::getCSSPath(true);
+					$filePath = self::getCSSUrl();
 					$file = $filePath . $fileName;
 					$resourse = '<link rel="stylesheet" type="text/css" href="'.htmlspecialchars($file).'" />';
 				break;
 
 				case 'js':
-					$filePath = self::getJSPath(true);
+					$filePath = self::getJSUrl();
 					$file = $filePath . $fileName;
 					$resourse = '<script type="text/javascript" src="'.htmlspecialchars($file).'"></script>';
 				break;
@@ -162,53 +162,71 @@ if (!defined('PATH')){ exit; }
 
 	                return $resourse;
 		}
-
-		public static function getCSSPath($url = false)
+                
+                public static function getJSUrl()
 		{
-			if(!$url)
+                        $filePath = SITE .'js/';
+                        
+			if(Site::id() != 0 && file_exists($filePath .'sites/'. Site::path() .'/'))
 			{
-				$filePath = PATH .'style/';
+			        $filePath .= 'sites/'. Site::path() .'/';
 			}
-			else
-			{
-				$filePath = SITE .'style/';
-			}
+                        
 
-			
+			return $filePath;
+		}
+                
+                private static function getCSSUrl()
+                {
+			$filePath = SITE .'style/';
+                        
 			if(Site::id() != 0 && file_exists($filePath .'sites/'. Site::path() .'/css/'))
 			{
 			        $filePath .= 'sites/'. Site::path() .'/css/';
 			}
 			else
 			{
-			
+                        
 				$filePath .= 'css/';
-			
+                        
 			}
-			
+                        
 
 			return $filePath;
-		}
+                }
 
-		public static function getJSPath($url = false)
+		public static function getJSPath()
 		{
-			if(!$url)
-			{
-				$filePath = PATH .'js/';
-			}
-			else
-			{
-				$filePath = SITE .'js/';
-			}
-			
+                        $filePath = PATH .'js/';
+                        
 			if(Site::id() != 0 && file_exists($filePath .'sites/'. Site::path() .'/'))
 			{
 			        $filePath .= 'sites/'. Site::path() .'/';
 			}
-			
+                        
 
 			return $filePath;
 		}
+                
+                private static function getCSSPath()
+                {
+			$filePath = PATH .'style/';
+                        
+			if(Site::id() != 0 && file_exists($filePath .'sites/'. Site::path() .'/css/'))
+			{
+			        $filePath .= 'sites/'. Site::path() .'/css/';
+			}
+			else
+			{
+                        
+				$filePath .= 'css/';
+                        
+			}
+                        
+
+			return $filePath;
+                }
+
 
 		public static function getFilePath($type, $fileName)
 		{
@@ -227,22 +245,18 @@ if (!defined('PATH')){ exit; }
 				break;
 			}
 
-	                $file = $filePath . $fileName;
+	                $file = $filePath.$fileName;
 	                return $file;
 		}
-
+                
 		public static function set($type, $fileName)
 		{
 			$file = self::getFilePath($type, $fileName);
+                        //echo $file;die;
 			self::$resourses[$type][] = array(
 				'file'      => $file,
 				'filesize'  => @filesize($file),
                         	'filectime' => @filectime($file)
 			);
-		}
-
-		public static function getResoursePathes($type)
-		{
-			return self::$resourses[$type];
 		}
 	}

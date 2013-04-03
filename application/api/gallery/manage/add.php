@@ -21,11 +21,23 @@ if (!defined('PATH')){ exit; }
 
 
 
-validateNotEmpty($request, "photo_id", lng('internal_error'));
-$request->trust();
+$data = $request->params();
 
-require_once PATH_TABLES.'photo.php';
+require_once PATH_TABLES."photo.php";
+
 $photoGateway = new PhotoGateway();
-$photoGateway->edit($request->param("photo_id"), $request->params("vk_url"));
+
+$galleryId = $photoGateway->add($data);
+$data["photo_id"] = $galleryId;
+
+require_once PATH_DOMAIN.'image.php';
+ImageDomain::save("photo", $photoGateway, $galleryId, $data);
+
+
+
+$request->setRedirect(href(array("action" => "gallery.manage.home")));
 
 $request->ok();
+
+
+

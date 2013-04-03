@@ -21,4 +21,4 @@ if (!defined('PATH')){ exit; }
 
 
 
-	include PATH_CONTROLLERS."gallery/manage/row-edit.php";
+include PATH_CONTROLLERS."gallery/manage/row.php";

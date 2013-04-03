@@ -32,7 +32,7 @@ if (!defined('PATH')){ exit; }
 
                 if(COMBINE_RESOURSES === false)
                 {
-                       return Resourses::getResourse($params['type'], $params['file']); 
+                       return Resourses::get($params['type'], $params['file']); 
                 }
 
                 Resourses::set($params['type'], $params['file']);

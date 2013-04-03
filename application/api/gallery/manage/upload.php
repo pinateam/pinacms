@@ -21,11 +21,8 @@ if (!defined('PATH')){ exit; }
 
 
 
-validateNotEmpty($request, "photo_id", lng('internal_error'));
-$request->trust();
+require_once PATH_DOMAIN."image.php";
 
-require_once PATH_TABLES.'photo.php';
-$photoGateway = new PhotoGateway();
-$photoGateway->edit($request->param("photo_id"), $request->params("vk_url"));
+$sitepath = ImageDomain::upload("photo");
 
-$request->ok();
+echo "OK|".$sitepath;exit;
