@@ -1,1 +1,3 @@
-{combine_resourses file="slides.min.jquery.js" type="js"}
+{combine_resourses file="slide.css" type="css"}
+
+{combine_resourses file="jquery.carouFredSel.packed.js" type="js"}

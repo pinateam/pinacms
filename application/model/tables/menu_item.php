@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -38,6 +37,7 @@ class MenuItemGateway extends TableDataGateway
 		'menu_item_link' => "varchar(255) NOT NULL DEFAULT ''",
 		'url_action' => "varchar(32) NOT NULL DEFAULT ''",
 		'url_params' => "varchar(128) NOT NULL DEFAULT ''",
+		'image_id' => "int(10) NOT NULL DEFAULT '0'",
 		'menu_item_enabled' => "varchar(1) NOT NULL DEFAULT 'Y'",
 		'menu_item_order' => "int(11) NOT NULL DEFAULT '0'",
 	);

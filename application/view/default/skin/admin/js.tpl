@@ -24,7 +24,7 @@
 
 	<script src="{$smarty.const.SITE_JS}admin/jquery.jsquared-0.1.min.js"></script>
 
-	<script src="{$smarty.const.SITE_JS}admin/inettuts.js"></script>
+	{block view="layout.manage.resources"}
 
 	<script language="JavaScript">
 {literal}

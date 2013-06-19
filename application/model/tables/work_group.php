@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -28,10 +27,11 @@ class WorkGroupGateway extends TableDataGateway
 	var $primaryKey = "work_group_id";
 	var $fields = array(
 		'work_group_id' => "INT(11) NOT NULL AUTO_INCREMENT",
-		'work_group_order' => "INT(11) NOT NULL DEFAULT '0'",
 		'site_id' => "INT(11) NOT NULL DEFAULT '0'",
+		'image_id' => "int(10) NOT NULL DEFAULT '0'",
 		'work_group_title' => "varchar(256) NOT NULL DEFAULT ''",
 		'work_group_enabled' => "VARCHAR(1) NOT NULL DEFAULT 'Y'",
+		'work_group_order' => "INT(11) NOT NULL DEFAULT '0'",
 	);
 
 	var $indexes = array(

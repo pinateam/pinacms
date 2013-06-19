@@ -10,9 +10,13 @@
 <br />
 *}
 
+{if $questions}
 {foreach from=$questions item=question}
 	{if $question.faq_enabled eq "Y"}
 		<p><strong><a name="answer-{$question.faq_id}" href="#answer-{$question.faq_id}">{$question.faq_question}</a></strong></p>
 		{$question.faq_answer|format_description}
 	{/if}
 {/foreach}
+{else}
+<p>{lng lng="not_found"}</p>
+{/if}

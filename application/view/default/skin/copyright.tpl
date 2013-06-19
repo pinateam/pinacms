@@ -1,0 +1,1 @@
+Разработано на <a href="http://www.pinacart.com">Pinacart - скрипт интернет-магазина</a>

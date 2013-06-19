@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -32,10 +31,15 @@ validateNotEmpty($request, 'blog_id', lng('enter_blog'));
 
 $request->trust();
 
+$params = $request->params("blog_id post_title post_text post_enabled image_id");
+
+if (empty($data["image_id"]))
+{
+	require_once PATH_DOMAIN."image.php";
+	$params["image_id"] = ImageDomain::parseImageId($request->param('post_text'));
+}
+
 require_once PATH_TABLES .'post.php';
-
-$params = $request->params("blog_id post_title post_text post_enabled");
-
 $postGateway = new PostGateway();
 $postId = $postGateway->add($params);
 

@@ -1,9 +1,9 @@
-{if $logo}
+{if $logo.image_id}
 {literal}
 <style type="text/css" media="all">
 <!--
 #branding {
-	background: url("{/literal}{img img=$logo.logo_filename type="logo"}{literal}") no-repeat scroll left top transparent;
+	background: url("{/literal}{img image_id=$logo.image_id}{literal}") no-repeat scroll left top transparent;
 }
 -->
 </style>

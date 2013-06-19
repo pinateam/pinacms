@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -24,6 +23,7 @@ if (!defined('PATH')){ exit; }
 $request->filterParams("intval", "person_id");
 $request->filterParams("strip_tags trim", "person_title person_position person_email person_phone");
 $request->filterParams("filter_only_y_n", "person_enabled");
+$request->filterParams("intval", "image_id");
 
 validateNotEmpty($request, "person_title" , lng('enter_text'));
 
@@ -35,10 +35,6 @@ require_once PATH_TABLES.'person.php';
 $personGateway = new PersonGateway();
 $personGateway->edit($request->param('person_id'), $data);
 
-require_once PATH_TABLES.'person_photo.php';
-$photoGateway = new PersonPhotoGateway();
-
-require_once PATH_DOMAIN.'image.php';
-ImageDomain::save("person_photo", $photoGateway, $request->param('person_id'), $data);
+$request->run("image.manage.edit");
 
 $request->ok();

@@ -86,7 +86,7 @@ $.fn.doSave = function(options)
 			tinyMCE.editors[edId].save();
 	}
 
-	PinaRequest.submit(this, function(){
+	PinaRequest.submit(this, function(packet){
 		PinaSkin.alert(PinaLng.lng("information_has_been_saved"));
 		if (options["oncall"])
 		{

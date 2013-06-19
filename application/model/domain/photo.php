@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -36,10 +35,15 @@ class PhotoDomain
 		if (is_array($matches[3]))
 		foreach ($matches[3] as $img)
 		{
-			if (strpos($img, '/common/') === false) continue;
-
 			$pathinfo = pathinfo($img);
-			$photoGateway->editPostIdByCommon($pathinfo['basename'], $postId);
+
+			require_once PATH_TABLES."image.php";
+			$imageGateway = new ImageGateway;
+			$image = $imageGateway->getBy("image_filename", $pathinfo['basename']);
+			if (!empty($image["original_image_id"]))
+			{
+				$photoGateway->updateUnassignedPostIdByImageId($image["original_image_id"], $postId);
+			}
 		}
 	}
 }

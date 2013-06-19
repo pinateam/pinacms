@@ -1,0 +1,14 @@
+.alignleft, img.alignleft {float: left;}
+img.alignleft {float: left;margin:0 18px 18px 0;}
+.alignright, img.alignright {float: right;}
+img.alignright {margin:0 0 18px 18px;}
+.aligncenter, img.aligncenter {clear: both;margin:0 auto;}
+img.aligncenter {margin:0 auto 18px;display: block;}
+
+.clearer {clear:both;}
+
+
+/* pina validations */
+.error {color:#cc3333;}
+.error-message {cursor: help;}
+input.error {border-color:#cc3333 !important;color: #000000;}

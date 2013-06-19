@@ -1,13 +1,7 @@
 {if $works}
 {foreach from=$works item=work name=work}
 <div>
-	{if $work.work_image_filename}
-		<img
-			src="{img img=$work.work_image_filename type="work_image"}"
-			alt="{$work.work_title}"
-			class="alignleft"
-		/>
-	{/if}
+	{module action="image.image" image_id=$work.image_id class="alignleft"}
 
 	<h3>{$work.work_title}</h3>
 

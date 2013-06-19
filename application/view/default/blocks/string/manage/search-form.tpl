@@ -33,7 +33,7 @@
 
 
 		<li class="w50 normal-label">
-			<label for="source-text">{lng lng="incoming_text"}:</label>
+			<label for="source-text">{lng lng="base_text"}:</label>
 			<span class="full-row">
 				<input type="text" name="base_value" id="base_value" value="{$search_rules.base_value}" />
 			</span>

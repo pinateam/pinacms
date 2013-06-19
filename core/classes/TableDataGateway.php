@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -200,8 +199,14 @@ class TableDataGateway
 */
 	public function edit($id, $data)
 	{
-		$id = intval($id);
-		return $this->db->query("UPDATE `".$this->table."` ".$this->constructSetCondition($data)." WHERE `".$this->table."`.`".$this->primaryKey."` = '".$id."'".$this->getBySiteAndAccount());
+		if (empty($data)) return;
+
+		$id = $this->db->escape($id);
+
+		$cond = $this->constructSetCondition($data);
+		if (empty($cond)) return;
+
+		return $this->db->query("UPDATE `".$this->table."` ".$cond." WHERE `".$this->table."`.`".$this->primaryKey."` = '".$id."'".$this->getBySiteAndAccount());
 	}
 
 /**
@@ -211,7 +216,7 @@ class TableDataGateway
 */
 	public function remove($id)
 	{
-		$id = intval($id);
+		$id = $this->db->escape($id);
 		return $this->db->query("DELETE FROM `".$this->table."` WHERE `".$this->table."`.`".$this->primaryKey."` = '".$id."'".$this->getBySiteAndAccount());
 	}
 
@@ -233,7 +238,7 @@ class TableDataGateway
 */
 	public function clear($ids)
 	{
-		foreach ($ids as $k => $id) $ids[$k] = intval($ids[$k]);
+		foreach ($ids as $k => $id) $ids[$k] = $this->db->escape($ids[$k]);
 		
 		return $this->db->query("DELETE FROM `".$this->table."` WHERE `".$this->table."`.`".$this->primaryKey."` IN ('".join("', '", $ids)."')".$this->getBySiteAndAccount());
 	}
@@ -247,7 +252,7 @@ class TableDataGateway
 	{
 		if (!is_array($ids) || count($ids) == 0) return false;
 
-		foreach ($ids as $k => $id) $ids[$k] = intval($ids[$k]);
+		foreach ($ids as $k => $id) $ids[$k] = $this->db->escape($ids[$k]);
 
 		return $this->db->table("SELECT * FROM `".$this->table."` WHERE `".$this->table."`.`".$this->primaryKey."` IN ('".join("', '", $ids)."')".$this->getBySiteAndAccount().$this->getOrderBy());
 	}
@@ -259,7 +264,7 @@ class TableDataGateway
 */
 	public function get($id)
 	{
-		$id = intval($id);
+		$id = $this->db->escape($id);
 		$row = $this->db->row("SELECT * FROM `".$this->table."` WHERE `".$this->table."`.`".$this->primaryKey."` = '".$id."'".$this->getBySiteAndAccount()." LIMIT 1");
 		return $row;
 	}
@@ -423,7 +428,7 @@ class TableDataGateway
 */	
 	public function reportExists($id)
 	{
-		$id = intval($id);
+		$id = $this->db->escape($id);
 		return $this->db->one("SELECT count(*) FROM `".$this->table."` WHERE `".$this->table."`.`".$this->primaryKey."` = '".$id."'".$this->getBySiteAndAccount()." LIMIT 1");
 	}
 
@@ -435,7 +440,7 @@ class TableDataGateway
 */
 	public function reportAnotherSiteExists($id)
 	{
-		$id = intval($id);
+		$id = $this->db->escape($id);
 		$siteId = intval($this->siteId);
 		return $this->db->one("SELECT count(*) FROM `".$this->table."` WHERE `".$this->table."`.`".$this->primaryKey."` = '".$id."' AND `".$this->table."`.`site_id` != '".intval($siteId)."' LIMIT 1");
 	}

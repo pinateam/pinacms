@@ -1,5 +1,5 @@
-{if $label}
-<label for="{$name}">{$label}{if $required} *{/if}</label>
+{if $title}
+<label for="{$name}">{$title}{if $required} *{/if}</label>
 {/if}
 <select name="{$name}" id="{$id}">
 {if $any == 'true'}

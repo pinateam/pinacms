@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -101,6 +100,7 @@ class BaseRequest
 		return $res;
     }
 
+    /* deprecated */
     function acceptParams($ps)
     {
 	    if (!is_array($ps))
@@ -134,29 +134,36 @@ class BaseRequest
 		}
 	}
 
-	function filterParams($clean_functions, $ps)
+	function filterParams($fs, $ps)
 	{
 		if (!is_array($ps))
 		{
 			$ps = explode(' ', $ps);
 		}
 
-		$fs = explode(' ', $clean_functions);
+		if (!is_array($fs))
+		{
+			$fs = explode(' ', $fs);
+		}
+
 		foreach ($ps as $p)
 		{
-			if (empty($p) || !isset($this->data[$p])) continue;
+			if (empty($p)) continue;
 
-			if (is_array($this->data[$p]))
+			if (isset($this->data[$p]) && is_array($this->data[$p]))
 			{
 				$this->filterParamsSub($fs, $this->data[$p]);
 				continue;
 			}
 
+			$data = '';
+			if (isset($this->data[$p])) $data = $this->data[$p];
+
 			foreach ($fs as $f)
 			{
 			    if (empty($f)) continue;
 
-			    $this->data[$p] = call_user_func($f, $this->data[$p]);
+			    $this->data[$p] = call_user_func($f, $data);
 			}
 		}
 	}

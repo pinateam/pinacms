@@ -14,7 +14,7 @@
 			<tr>
 				<th>{lng lng="act_"}</th>
 				<th>{include file="skin/admin/table-header-sort.tpl" value="string_key" title="mnemonics"|lng}</th>
-				<th>{include file="skin/admin/table-header-sort.tpl" value="string_value_base" title="source_language_text"|lng}</th>
+				<th>{include file="skin/admin/table-header-sort.tpl" value="string_value_base" title="base_text"|lng}</th>
 				<th>{include file="skin/admin/table-header-sort.tpl" value="string_value" title="translation_text"|lng}</th>
 			</tr>
 		</thead>
@@ -47,7 +47,7 @@
 					<button class="css3 button-add" sid="add">{lng lng="add"}</button>
 
 					{* TODO: Появляется после первого редактирования *}
-					<button class="css3 edit-few">Сохранить</button>
+					<button class="css3 edit-few">{lng lng="save"}</button>
 				</td>
 			</tr>
 		</tbody>

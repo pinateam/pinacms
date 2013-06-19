@@ -8,6 +8,7 @@
 </head>
 
 <body>
+	{module action="config.demo-pane"}
 	<div id="pg_wrap">
 		{include file="skin/page-header.tpl"}
 

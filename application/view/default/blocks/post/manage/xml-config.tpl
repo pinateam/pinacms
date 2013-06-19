@@ -1,0 +1,1 @@
+{include file="skin/admin/form-line-input.tpl" name="post_priority" value=$value title="post_priority"|lng class="w50" width="short-text"}

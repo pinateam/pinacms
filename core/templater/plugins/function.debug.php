@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -56,17 +55,13 @@ function smarty_function_debug($params, &$view) {
         $out .= debugQueryTable(getDB()->getDebug());
         $dbTotal = getDB()->getDebugTotal();
 
-        $out .= debugQueryTable(Cache::$debug);
-        $cacheTotal = Cache::getDebugTotal();
-
         $out .= "<pre>";
         $out .= "DB Time: ".($dbTotal)."\n";
-        $out .= "Cache Time: ".($cacheTotal)." (".count(Cache::$data,COUNT_RECURSIVE)." items)"."\n";
         $out .= "PHP Time: ".($endLoading - $startLoading - $dbTotal - $cacheTotal)."\n";
         $out .= "Total Time: ".($endLoading - $startLoading)."\n";
         $out .= "</pre>";
         $out .= str_repeat("<br />", 10);
-        //dump(Cache::$data);
+
         return '<div class="debug">'.$out.'</div>';
     }
 

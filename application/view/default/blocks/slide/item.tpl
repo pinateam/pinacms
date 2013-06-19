@@ -1,3 +1,3 @@
 <a href="{$slide.slide_href}" title="{$slide.slide_alt}" target="_blank">
-	<img src="{img img=$slide.slide_filename type="slide" width="912"}" alt="{$slide.slide_alt}">
+	{module action="image.image" image_id=$slide.image_id width=912}
 </a>

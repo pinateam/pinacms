@@ -9,6 +9,17 @@ var swfuSettingsDef = {
 	flash_url: "{/literal}{site lib="swfupload/swfupload.swf"}{literal}",
 	upload_url: "api.php",
 
+	default_settings: {
+		postfix: '',
+		few: false
+	},
+
+	post_params: {
+		action: 'image.manage.upload',
+		force_ajax: true,
+		sssid: '{/literal}{$smarty.cookies.PHPSESSID}{literal}'
+	},
+
 	file_types: "*.jpg;*.jpeg;*.png;*.gif",
 	file_types_description: "{/literal}{lng lng="images"}{literal}",
 	file_upload_limit: 1,
@@ -63,19 +74,46 @@ var swfuSettingsDef = {
 };
 
 var swfuUploadHandlerDef = function(file, serverData){
-	var ret = serverData.split('|');
-	if (ret[0] == 'OK') {
-		$(this.customSettings.imageTarget).attr('src', ret[1]);
-		$(this.customSettings.notExistsTarget).addClass('hidden');
-		$(this.customSettings.existsTarget).removeClass('hidden');
+	result = $.parseJSON(serverData);
+	if (result.e) {
 		$(this.customSettings.progressTarget).text('');
+		var errors = []
+		for (i = 0; i < result.e.length; i++)
+		{
+			errors.push(result.e[i].m);
+		}
 
-	} else if (serverData != '') {
-		$(this.customSettings.progressTarget).text('');
-		alert('{/literal}{lng lng="error"}{literal}: ' + serverData);
+		if (errors.length > 0) {
+			alert(errors.join('\n'));
+		}
 	} else {
-		$(this.customSettings.progressTarget).text('');
-		alert('{/literal}{lng lng="unknown_error"}{literal}');
+		var settings = $.extend(this.settings.default_settings, this.settings.customSettings);
+		var data = {
+			action: 'image.manage.row',
+			image_id: result.d.image_id,
+			postfix: settings.postfix
+		};
+		if (settings.few) data["few"] = true;
+		$.ajax({
+			url: 'block.php',
+			type: 'post',
+			dataType: 'html',
+			data: data,
+			success: function(result) {
+				$(settings.progressTarget).text('');
+
+				var base = '.image-main';
+				if (settings.postfix) base = '.image-' + settings.postfix;
+
+				$(base + " .image-id").val(data.image_id);
+				$(base + " .image-not-exists").hide();
+				if (!settings.few)
+				{
+					$(base + " table.image .image-row").remove();
+				}
+				$(base + " table.image .button-bar").before(result);
+			}
+		});
 	}
 
 	var stats = this.getStats();

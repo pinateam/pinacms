@@ -1,14 +1,21 @@
 {literal}
 <script type="text/javascript">
 	$(function(){
-		$('#slides').slides({
-			preload: true,
-			preloadImage: 'style/images/slide/loading.gif',
-			play: 5000,
-			pause: 2500,
-			hoverPause: true,
-			paging: true
+		$('.slide-home-wrapper .slide-home-container').carouFredSel({
+			items: 1,
+			scroll: {
+				fx: 'crossfade'
+			},
+			auto: {
+				timeoutDuration: 5000,
+				duration: 300
+			},
+			pagination: {
+				container: '.slide-home-wrapper .slide-home-pager',
+				duration: 300
+			}
 		});
 	});
 </script>
 {/literal}
+

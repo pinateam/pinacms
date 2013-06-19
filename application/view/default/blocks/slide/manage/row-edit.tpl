@@ -4,13 +4,12 @@
         <li><a href="javascript:void(0);" class="icon-decline" sid="{$slide.slide_id}" title="{lng lng="cancel"}"></a></li>
     </ul>
 </li>
-<li class="w30">
-	<img src="{img img=$slide.slide_filename type="slide" width="155"}" />
-</li>
 <li class="w20">
-	<input name="slide_alt" type="text" value="{$slide.slide_alt}" />
+	<a href="{link action="slide.manage.edit" slide_id=$slide.slide_id}">
+		{module action="image.manage.image" image_id=$slide.image_id width="150"}
+	</a>
 </li>
-<li class="w20">
+<li class="w50">
 	<input name="slide_href" type="text" value="{$slide.slide_href}" />
 </li>
 <li class="w20">

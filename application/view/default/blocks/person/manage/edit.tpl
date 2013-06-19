@@ -13,8 +13,7 @@
 			</div>
 		</fieldset>
 
-		{module action="person.manage.form-images" person_id=$person.person_id}
-
+		{module action="image.manage.fieldset" image_id=$person.image_id}
 	</div>
 
 	<div class="left-wide-column">

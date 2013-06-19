@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -24,14 +23,24 @@ if (!defined('PATH')){ exit; }
 class Breadcrumbs
 {
 	static $items = array();
-	static function add($caption, $url = "")
+	static function add($location, $url = "")
 	{
-		if (empty($caption)) return;
+		if (empty($location)) return;
+
+		if (is_array($location)) return self::addController($location);
 
 		self::$items [] = array (
 		    "url" => $url,
-		    "caption" => $caption
+		    "caption" => $location
 		);
+	}
+
+	static function addController($data)
+	{
+		if (!is_array($data)) return;
+		if (empty($data["action"])) return;
+
+		self::$items[] = $data;
 	}
 
 	static function has($url)

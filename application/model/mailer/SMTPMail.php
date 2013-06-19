@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -32,13 +31,12 @@ if (!defined('PATH')){ exit; }
         {
             $this->mail = new PHPMailer();
             $this->mail->IsSMTP();
-            $this->mail->Host = 'mail.yourdomain.com';
-            $this->mail->SMTPDebug = 2;
+            $this->mail->SMTPDebug = 0;//2 to echo debug info
             $this->mail->SMTPAuth = true;
-            $this->mail->Port = 25;
-            $this->mail->Host = 'mail.yourdomain.com';
-            $this->mail->Username = 'yourname@yourdomain';
-            $this->mail->Password = 'yourpassword';
+            $this->mail->Port = MAIL_SMTP_PORT;
+            $this->mail->Host = MAIL_SMTP_HOST;
+            $this->mail->Username = MAIL_SMTP_USER;
+            $this->mail->Password = MAIL_SMTP_PASS;
         }
 
         public function setTo($to)

@@ -8,8 +8,8 @@
 	<link rel="stylesheet" href="{site css="admin-jquery-ui-1.8.7.custom.css"}">
 	
 	<!-- Grab Google CDN's jQuery. fall back to local if necessary -->
-	<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>-->
-	<script>!window.jQuery && document.write('<script src="{site js="admin/jquery-1.8.2.min.js"}"><\/script>')</script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script>!window.jQuery && document.write('<script src="{site js="admin/jquery.min.js"}"><\/script>')</script>
 
 	<!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
 	<script src="{site js="admin/modernizr-1.5.min.js"}"></script>

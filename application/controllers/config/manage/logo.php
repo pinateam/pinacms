@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,15 +14,11 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
-
-	require_once PATH_DOMAIN . "image.php";
-	ImageDomain::init("logo");
 	
 	require_once PATH_TABLES."logo.php";
 	$logoGateway = new LogoGateway();
@@ -33,10 +29,6 @@ if (!defined('PATH')){ exit; }
 
 	
 
-	if (!empty($logo["logo_filename"]))
-	{
-		$logo["logo_filename"] = $logo["logo_filename"]."?rnd=".rand();
-	}
 	$request->result("logo", $logo);
 
 	$request->addLocation(lng("settings"), href(array("action" => "config.manage.home")));

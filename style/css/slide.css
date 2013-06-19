@@ -1,0 +1,33 @@
+.slide-home-wrapper {
+	z-index:100;
+}
+
+.slide-home-wrapper .slide-home-container a {
+	width:912px;
+	height:432px;
+	display:block;
+}
+
+/* pagination */
+
+.slide-home-pager {
+	text-align: center;
+	padding: 20px 45px 0 0;
+}
+
+.slide-home-pager a {
+	background-color: #356;
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	padding: 0;
+	margin-right: 6px;
+	border-radius: 10px;
+	box-shadow: 0 1px 1px #cef;
+}
+.slide-home-pager a.selected {
+	background-color: #134;
+}
+.slide-home-pager a span {
+	display: none;
+}

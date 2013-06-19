@@ -1,5 +1,5 @@
 <h1 class="shop-cat-title whereAmI">{lng lng="address"}</h1>
-<form action="api.php" method="POST" class="register-address-form">
+{include file="skin/form-head.tpl" class="register-address-form"}
 <input type="hidden" name="action" value="user.register-address" />
 {module action="user.register-address-form"}
 {include file="skin/button.tpl" title="save"|lng}

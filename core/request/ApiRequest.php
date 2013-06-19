@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright � 2010 Dobrosite ltd.
+* @copyright © 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -35,19 +34,20 @@ class ApiRequest extends BaseRequest
 {
 	function ok($message = '')
 	{
-		// кладем сообщение в сесиию, чтобы потом вывести еполего
+		if (empty($message)) return;
+
 		SessionHistory::add("request_confirmations", array("message" => $message));
 	}
 
 	function warning($message, $subject = '')
 	{
-		// добавляем предупреждение в очередь предупреждений, чтобы вывести их
-		// после загрузки странички
+		if (empty($message) && empty($subject)) return;
 		SessionHistory::add("request_warnings", array("message" => $message, "subject" => $subject));
 	}
 
 	function error($message, $subject = '')
 	{
+		if (empty($message) && empty($subject)) return;
 		SessionHistory::add("request_errors", array("message" => $message, "subject" => $subject));
 	}
 
@@ -63,6 +63,7 @@ class ApiRequest extends BaseRequest
 
 	function stop($message, $subject = '')
 	{
+		if (empty($message) && empty($subject)) return;
 		// кладем сообщение в сессию, помечаем поле с ошибкой и завершаем
 		// выполнение редиректом
 		SessionHistory::add("request_errors", array("message" => $message, "subject" => $subject));
@@ -71,6 +72,7 @@ class ApiRequest extends BaseRequest
 
 	function result($name, $value)
 	{
+		if (empty($name) && empty($value)) return;
 		SessionHistory::add("request_results", array($name => $value));
 	}
 

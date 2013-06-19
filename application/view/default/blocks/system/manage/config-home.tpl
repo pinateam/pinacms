@@ -2,8 +2,8 @@
 		<h2>{lng lng="tools"}</h2>
 
 		<div class="field  help-section w50">
-			<h3><a href="{link action="system.manage.path"}">SQL-path</a></h3>
-			<a class="section-icon icon-asterix" href="{link action="system.manage.path"}"></a>
+			<h3><a href="{link action="system.manage.patch"}">SQL-patch</a></h3>
+			<a class="section-icon icon-asterix" href="{link action="system.manage.patch"}"></a>
 			<div>
 				{lng lng="sql_path_explanation"}
 			</div>

@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -25,11 +24,17 @@ if (!defined('PATH')){ exit; }
     define('DB_PORT', '3306');
     define('DB_USER', '');
     define('DB_PASS', '');
-    define('DB_BASE', 'auction3');
+    define('DB_BASE', 'auction4');
     define('DB_CONNECTION_CHARSET', 'utf8');
     define('DB_DEFAULT_ENGINE', 'InnoDB');
 
-    define ('MEMCACHE_HOST', '127.0.0.1');
+    define ('MEMCACHE_HOST', '');
+
+    #define ('SPHINXSEARCH_HOST', '');
+    #define ('SPHINXSEARCH_PORT', 3312);
+    #define ('SPHINXSEARCH_PREFIX', '');
+
+    define('COMBINE_RESOURSES', false);
 
     define('SITE_HOST', 'localhost');
     define('SITE_PATH', '');
@@ -41,22 +46,21 @@ if (!defined('PATH')){ exit; }
 
     define ('MAIL_ADMIN', '');
     define ("MAIL_CHARSET", "utf-8");
-    define ("MAIL_REPLY", "");
+    define ("MAIL_REPLY", "alex-yashin@ya.ru");
     define ("MAIL_DEBUG", 1);
     define ("MAIL_FOOTER", "
 ---");
+    
+    define ("MAIL_SMTP_PORT", '');
+    define ("MAIL_SMTP_HOST", '');
+    define ("MAIL_SMTP_USER", '');
+    define ("MAIL_SMTP_PASS", '');
 
-    define('CATALOG_PAGING_PER_PAGE', 12);
+    define('CATALOG_PAGING_PER_PAGE', 6);
     define('CATALOG_PAGING_PAGES', 5);
     define('CART_INTEREST_PRODUCTS_LIMIT', 10);
-
-    define('PRODUCT_THUMB_WIDTH',  160);
-    define('PRODUCT_THUMB_HEIGHT', 107);
-
-    define ('CATEGORY_THUMB_WIDTH', '100');
-    define ('CATEGORY_THUMB_HEIGHT', '100');
 
     define('CATALOG_ADMIN_SUBCATEGORIES_PRODUCTS_SHOW', true);
     define('BLOCK_EXCEPTIONS', true);
 
-    define('TEMPLATE_DEFAULT', 'radio');
+    define('TEMPLATE_DEFAULT', '');

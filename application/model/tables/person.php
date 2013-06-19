@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -30,6 +29,7 @@ class PersonGateway extends TableDataGateway
 	var $fields = array(
 		'person_id' => "INT(11) NOT NULL AUTO_INCREMENT",
 		'site_id' => "INT(11) NOT NULL DEFAULT '0'",
+		'image_id' => "INT(10) NOT NULL default '0'",
 
 		'person_title' => "varchar(256) NOT NULL DEFAULT ''",
 		'person_position' => "varchar(256) NOT NULL DEFAULT ''",

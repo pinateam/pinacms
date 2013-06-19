@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright � 2010 Dobrosite ltd.
+* @copyright © 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -203,6 +202,24 @@ function href($params = array())
     }
 
 	return $base_url.'page.php?action='.$params["action"].href_constructParams($params).(!empty($params["anchor"])?("#".$params["anchor"]):"");
+}
+
+function use_base_params($params)
+{
+	if (!empty($params["base"]) && is_array($params["base"]) && count($params["base"]))
+	{
+		$params = array_merge($params["base"], $params);
+		unset($params["base"]);
+	}
+	elseif (!empty($params["base"]) && !is_array($params["base"]))
+	{
+		$base = array();
+		parse_str($params["base"], $base);
+		$params = array_merge($base, $params);
+		unset($params["base"]);
+	}
+
+	return $params;
 }
 
 
@@ -534,6 +551,21 @@ function isModulePermitted($module)
 	return true;
 }
 
+function getGatewayClassName($filename, $postfix = 'Gateway')
+{
+	$gatewayClassName = str_replace('.php', '', $filename) . $postfix;
+	$gatewayClassName = strtoupper($gatewayClassName{0}).substr($gatewayClassName, 1, strlen($gatewayClassName));
+
+	while($pos = strpos($gatewayClassName, '_'))
+	{
+		$gatewayClassName = substr_replace($gatewayClassName, '', $pos, 1);
+		$gatewayClassName{$pos} = strtoupper($gatewayClassName{$pos});
+	}
+	$gatewayClassName = str_replace('_', '', $gatewayClassName);
+
+	return $gatewayClassName;
+}
+
 function lng_rewrite($content)
 {
 	preg_match_all('/#\$\!([^#^\$^\!]*)\!\$#/iUS', $content, $matches);
@@ -594,12 +626,38 @@ function lng($key)
 	return $value;
 }
 
-function format_price($price)
+function format_price($price, $html = false)
 {
 	$config = getConfig();
 	$format = $config->get("order", "price_format");
 	if (empty($format)) $format = '%';
-	return str_replace("%", sprintf("%.02f", $price), $format);
+
+	if ($html)
+	{
+		$price = sprintf("%.02f", $price);
+		$tmp = explode(".", $price);
+		$price = '';
+		if (isset($tmp[0])) $price .= $tmp[0];
+		if (isset($tmp[1])) $price .= '<sup>'.$tmp[1].'</sup>';
+		$price = '<span class="value">'.$price."</span>";
+
+		$formatArr = explode("%", $format);
+		foreach ($formatArr as $k => $v)
+		{
+			if (empty($v)) continue;
+				
+			$formatArr[$k] = '<span class="currency">'.trim($v).'</span>';
+		}
+
+		$price = join($price, $formatArr);
+
+	}
+	else
+	{
+		$price = str_replace("%", sprintf("%.02f", $price), $format);
+	}
+
+	return $price;
 }
 
 function filter_only_positive($v)
@@ -771,7 +829,7 @@ function parseDate($str)
 			$dir = substr($file, 0, $pos);
 			//echo "mkdir ".$dir."\r\n";
 			@mkdir($dir, 0777);
-                        @chmod($dir, 0777);
+                        //@chmod($dir, 0777);
 			$pos = $pos + 1;
 		}
 	}
@@ -780,7 +838,7 @@ function parseDate($str)
         {
                 $headers = @get_headers($url);
                 // проверяем ли ответ от сервера с кодом 200 - ОК
-                if(strpos('200', $Headers[0])) 
+                if(strpos($headers[0], '200') !== false) 
                 {
                         return true;
                 }

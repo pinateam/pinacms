@@ -1,1 +1,1 @@
-{if $substring}&laquo;{$substring}&raquo;{/if}. {$count} result(s) found
+{if $substring}&laquo;{$substring}&raquo;.{/if}{$count} result(s) found

@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,15 +14,15 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
 
 $request->filterParams("strip_tags trim", "work_group_title");
 $request->filterParams("filter_only_y_n", "work_group_enabled");
+$request->filterParams("intval", "image_id");
 
 validateNotEmpty($request, "work_group_title", lng('enter_title'));
 
@@ -37,13 +37,7 @@ $work_group_id = $workGroupGateway->add($request->params());
 
 $request->set('work_group_id', $work_group_id);
 
-require_once PATH_TABLES.'work_group_image.php';
-$workGroupImageGateway = new WorkGroupImageGateway();
-
-require_once PATH_DOMAIN.'image.php';
-ImageDomain::save("work_group_image", $workGroupImageGateway, 
-	$work_group_id, $request->params()
-);
+$request->run("image.manage.edit");
 
 $request->set('url_action', 'work-group.view');
 $request->set('url_params', 'work_group_id='.$work_group_id);

@@ -15,14 +15,3 @@
 		</div>
 	</fieldset>
 </div>
-
-{literal}
-<script type="text/javascript">
-
-$(".button-cancel").bind("click", function(){
-	history.back();
-	return false;
-});
-
-</script>
-{/literal}

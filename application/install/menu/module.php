@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -55,16 +54,4 @@ $menuGateway->put(array(
 	"menu_key" => "main",
 	"menu_title" => lng_key("main_menu"),
 	"menu_order" => 0
-));
-
-$menuGateway->put(array(
-	"menu_key" => "help",
-	"menu_title" => lng_key("help"),
-	"menu_order" => 1
-));
-
-$menuGateway->put(array(
-	"menu_key" => "about_us",
-	"menu_title" => lng_key("about_us"),
-	"menu_order" => 2
 ));

@@ -116,11 +116,3 @@ caption { background: #f3f3f3;margin-bottom:9px;padding:3px;text-align:center; }
 * html .clearfix {height: 1%;}
 .clearfix {display: block;}
 /* End hide from IE-mac */
-
-/*################################## SOME USEFUL CLASSES ##############################################################*/
-.alignleft, img.alignleft {float: left;}
-img.alignleft {float: left;margin:0 18px 18px 0;}
-.alignright, img.alignright {float: right;}
-img.alignright {margin:0 0 18px 18px;}
-.aligncenter, img.aligncenter {clear: both;margin:0 auto;}
-img.aligncenter {margin:0 auto 18px;display: block;}

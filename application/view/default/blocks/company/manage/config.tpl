@@ -19,6 +19,7 @@
 		{include file="skin/admin/form-line-input.tpl" name="address_phone" value=$config.company.address_phone title="phone"|lng class="w100" width="long-text"}
 		{include file="skin/admin/form-line-input.tpl" name="address_email" value=$config.company.address_email title="E-mail" class="w100" width="long-text"}
 
+		{module action="image.manage.fieldset" title="location_map"|lng image_id=$config.company.image_id}
 	</fieldset>
 </div>
 

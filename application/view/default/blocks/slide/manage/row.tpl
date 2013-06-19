@@ -5,20 +5,13 @@
     </ul>
 </li>
 {strip}
-<li class="w30">
+<li class="w20">
 	<a href="{link action="slide.manage.edit" slide_id=$slide.slide_id}">
-		{if $slide.slide_filename}
-		<img src="{img img=$slide.slide_filename type="slide" width="155"}" />
-		{else}
-			{lng lng="not_found"}
-		{/if}
+		{module action="image.manage.image" image_id=$slide.image_id width="150"}
 	</a>
 </li>
 {/strip}
-<li class="w20 editable">
-	{$slide.slide_alt}
-</li>
-<li class="w20 editable">
+<li class="w50 editable">
 	{$slide.slide_href}
 </li>
 <li class="w20">

@@ -8,13 +8,13 @@
             {module action="post.manage.status" enabled=$post.post_enabled input=true}
         </div>
 
-	{if false && $post.post_id}
-	<div class="field w50">
-		 <label align="left">{lng lng="link"}</label>
-		<div style="vertical-align: middle">
-		<a href="{link action="post.view" post_id=$post.post_id}">{link action="post.view" post_id=$post.post_id}</a>
+	{if $post.post_id}
+		<div class="field w50">
+			 <label align="left">{lng lng="link"}</label>
+			<div style="vertical-align: middle">
+			<a class="link_news" href="{link action="post.view" post_id=$post.post_id}" target="_blank" ></a>
+			</div>
 		</div>
-	</div>
 	{/if}
 
 	{include file="skin/admin/form-line-input.tpl"
@@ -34,6 +34,16 @@
         var url = "api.php?action=post.manage.status-change&status="+$(this).attr("data-value")+"&post_id="+splitter.attr("sid");
         $.get(url);
     });
+</script>
+{/literal}
+
+{literal}
+<script type="text/javascript">
+        $(document).ready(function () {
+		var value_href=$("a.link_news").attr("href");
+		$("a.link_news").text(value_href);
+	});
+      
 </script>
 {/literal}
 

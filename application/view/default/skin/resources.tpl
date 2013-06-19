@@ -1,11 +1,8 @@
-{*<link rel="stylesheet" media="all" type="text/css" href="{site css="reset.css"}" />
-<link rel="stylesheet" media="all" type="text/css" href="{site css="basic.css"}" />
-<link rel="stylesheet" media="all" type="text/css" href="{site css="style.css"}" />*}
+<link rel="shortcut icon" href="{site img="favicon.ico"}" />
 
 {combine_resourses file="reset.css" type="css"}
 {combine_resourses file="basic.css" type="css"}
 {combine_resourses file="style.css" type="css"}
-
 
 <!--[if IE]>
 <link rel="stylesheet" media="all" type="text/css" href="{site css="main_ie.css" browser="IE"}" />
@@ -14,35 +11,35 @@
 <link rel="stylesheet" media="all" type="text/css" href="{site css="main_lte_ie6.css" browser="IE6"}" />
 <![endif]-->
 
-{*<link rel="stylesheet" media="print" type="text/css" href="{site css="print.css"}" />*}
-
-{*<link rel="stylesheet" media="all" type="text/css" href="{site css="blockui.css"}" />*}
-{combine_resourses file="blockui.css" type="css"}
-<link rel="shortcut icon" href="{site img="favicon.ico"}" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
 {combine_resourses file="cufon-yui.js" type="js"}
 {combine_resourses file="century_gothic_400.font.js" type="js"}
 {combine_resourses file="jquery.tools.min.js" type="js"}
-{combine_resourses file="jquery.innerfade.js" type="js"}
-{combine_resourses file="innerfade_call.js" type="js"}
 {combine_resourses file="myjquery.js" type="js"}
-{combine_resourses file="mz-packed.js" type="js"}
-{combine_resourses file="jcarousellite_1.0.1.min.js" type="js"}
-{combine_resourses file="jquery.form.js" type="js"}
-{combine_resourses file="admin/jquery.blockUI.js" type="js"}
 
-{combine_resourses file="common.js" type="js"}
+{combine_resourses file="jquery.form.js" type="js"}
 
 {combine_resourses file="pina.skin.js" type="js"}
 {combine_resourses file="pina.request.js" type="js"}
+{combine_resourses file="pina.page-edit.js" type="js"}
 
-{combine_resourses file="page-edit.js" type="js"}
-{combine_resourses file="jquery.rating.js" type="js"}
-{combine_resourses file="jquery-ui-1.8.18.custom.min.js" type="js"}
+{combine_resourses file="common.css" type="css"}
+{combine_resourses file="common.js" type="js"}
+
+{combine_resourses file="blockui.css" type="css"}
+{combine_resourses file="admin/jquery.blockUI.js" type="js"}
+
+{*combine_resourses file="jquery-ui-1.8.18.custom.min.js" type="js"*}
+
+{block view="menu.resources"}
 
 {block view="gallery.resources"}
 {block view="slide.resources"}
+
+{block view="product.resources"}
+{block view="product-review.resources"}
+{block view="product-filter.resources"}
 
 {load_resourses type="css"}
 {load_resourses type="js"}
@@ -56,6 +53,7 @@
 <![endif]-->
 
 {module action="config.logo"}
+{block view="config.background-image"}
 {block view="product.css"}
 
 {include file="skin/resources-custom.tpl"}

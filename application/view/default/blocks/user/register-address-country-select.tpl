@@ -1,1 +1,1 @@
-{include file="skin/form-line-select.tpl" required=1 name="address_country_key" label="country"|lng fill=$address list=$countries}
+{include file="skin/form-line-select.tpl" required=1 name="address_country_key" icon="delivery" title="country"|lng fill=$address list=$countries}

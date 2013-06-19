@@ -1,7 +1,12 @@
-<h4 class="widget-title">{$post.post_title}</h4>
+{if $post}
+{capture name="content"}
 
-{$post.post_text|format_description}
+{$post.post_text|strip_images|format_description}
 
 <p>{$post.post_created|format_date}</p>
 
-<p><a href="{link action="post.list" blog_id=$blog.blog_id}">{$blog.blog_title}</a></p>
+<p><a href="{link action="blog.view" blog_id=$blog.blog_id}">{$blog.blog_title}</a></p>
+
+{/capture}
+{include file="skin/sidebar-line.tpl" title=$post.post_title class="news" content=$smarty.capture.content}
+{/if}

@@ -14,5 +14,5 @@
     {$subscription.subscription_email}
 </td>
 <td>
-    {$subscription.subscription_created}
+    {$subscription.subscription_created|format_date}
 </td>

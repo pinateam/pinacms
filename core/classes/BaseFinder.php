@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -26,7 +25,7 @@ class BaseFinder
 	private $from    = '';
 	private $joins   = array();
 	private $where   = array();
-	private $groupby = array();
+	public $groupby = array();
 	private $orderby = array();
 	private $limitStart = 0;
 	private $limitCount = 0;
@@ -85,6 +84,39 @@ class BaseFinder
 		$limitStart = intval($paging->getStart());
 		$limitCount = intval($paging->getCount());
 		$this->setLimit($limitStart, $limitCount);
+	}
+
+	protected function sphinxsearch($string, $subject)
+	{
+		if (!defined("SPHINXSEARCH_HOST") || !defined("SPHINXSEARCH_PORT")) return false;
+
+		include_once PATH_LIB."/sphinxsearch/sphinxapi.php";
+
+		$cl = new SphinxClient();
+		$cl->SetServer(SPHINXSEARCH_HOST, SPHINXSEARCH_PORT);
+
+		$cl->SetMatchMode(SPH_MATCH_ANY);
+		$cl->SetLimits(0, 1000);
+
+		$result = $cl->Query("*".$string."*", 
+			SPHINXSEARCH_PREFIX?(SPHINXSEARCH_PREFIX."_".$subject):$subject
+		);
+
+		if ($result === false)
+		{
+			return false;
+		}
+
+		if ( $cl->GetLastWarning() ) {
+			echo "WARNING: " . $cl->GetLastWarning() . "\n";
+		}
+
+		if (empty($result["matches"]))
+		{
+			return false;
+		}
+
+		return array_keys($result["matches"]);
 	}
 	
 	/**

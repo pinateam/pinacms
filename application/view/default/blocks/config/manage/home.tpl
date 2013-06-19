@@ -63,14 +63,16 @@
 		{/foreach}
 	</fieldset>
 
-	{module action="payment.manage.config-home"}
-
 	<fieldset>
 		<h2>{lng lng="appearance"}</h2>
 
 		{block view="config.manage.logo-config-home"}
+		{block view="config.manage.background-image-config-home"}
+		{block view="config.manage.template-config-home"}
 		{block view="config.manage.image-config-home"}
 	</fieldset>
+
+	{module action="payment.manage.config-home"}
 
 	<fieldset>
 		<h2>{lng lng="modules_settings"}</h2>

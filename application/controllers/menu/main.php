@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,38 +14,11 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
-
-$data = $_GET;
-
-if (empty($data["action"]) && empty($data["path"]) && !empty($data["dispatch"]))
-{
-	$data = dispatch($data["dispatch"]);
-}
-
-$request->result("main_link", $data["dispatch"]?$data["dispatch"]:$_SERVER["REQUEST_URI"]);
-//echo "<!-- ".print_r($_SERVER, 1)."-->";
-
-if (!empty($data["action"]))
-{
-	$params = '';
-	foreach ($data as $k=>$v)
-	{
-		if ($k == 'action') continue;
-		if (!empty($params)) $params .= '&';
-		$params = $params . $k.'='.$v;
-	}
-
-	$request->result("main_action", $data["action"]);
-	$request->result("main_params", $params);
-
-	//echo "<!-- ".print_r($data["action"], 1).print_r($params,1)."-->";
-}
 
 $request->set("menu_key", "main");
 

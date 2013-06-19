@@ -1,5 +1,5 @@
 {if $states}
-{include file="skin/form-line-select.tpl" required=1 name="address_state_key" fill=$address list=$states}
+{include file="skin/admin/form-line-select.tpl" required=1 name="address_state_key" title="" fill=$address list=$states}
 {else}
-{include file="skin/form-line-input.tpl" required=1 field="address_state" fill=$address}
+{include file="skin/admin/form-line-input.tpl" required=1 name="address_state" title="" fill=$address}
 {/if}

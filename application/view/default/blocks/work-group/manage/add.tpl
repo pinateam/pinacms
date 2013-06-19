@@ -10,7 +10,7 @@
 				<button class="css3 additional button-cancel">{lng lng="cancel"}</button>
 			</div>
 		</fieldset>
-		{module action="work-group.manage.form-images"}
+		{module action="image.manage.fieldset"}
 
 	</div>
 	{block view="work-group.manage.form"}

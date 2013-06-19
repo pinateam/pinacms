@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -34,17 +33,16 @@ class Templater extends Smarty
 		$this->use_sub_dirs = false;
 		$this->template_dir = array();
 		$this->template_dir[] = PATH_VIEW."sites/".Site::path().'/';
-		if (defined("TEMPLATE_DEFAULT") && TEMPLATE_DEFAULT != '')
-		{
-			$this->template_dir[] = PATH_VIEW."templates/".TEMPLATE_DEFAULT."/";
-		}
+
+		$template = 'default';
 		if (Site::template())
 		{
-			$this->template_dir[] = PATH_VIEW."templates/".Site::template().'/';
+			$template = Site::template();
+			$this->template_dir[] = PATH_VIEW."templates/".$template.'/';
 		}
 		$this->template_dir[] = PATH_VIEW."default/";
 
-		$this->compile_dir = PATH_COMPILED_TEMPLATES.md5(Site::path());
+		$this->compile_dir = PATH_COMPILED_TEMPLATES.md5(Site::path().":".$template);
 		@mkdir($this->compile_dir);
 
 		$this->cache_dir = PATH_VAR_CACHE;

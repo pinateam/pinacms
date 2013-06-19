@@ -1,0 +1,173 @@
+.fancybox-wrap, .fancybox-skin, .fancybox-outer, .fancybox-inner, .fancybox-image, .fancybox-wrap iframe, .fancybox-wrap object, .fancybox-nav, .fancybox-nav span, .fancybox-tmp {
+    border: 0 none;
+    margin: 0;
+    outline: medium none;
+    padding: 0;
+    vertical-align: top;
+}
+.fancybox-wrap {
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 8020;
+}
+.fancybox-skin {
+    background: none repeat scroll 0 0 #F9F9F9;
+    border-radius: 10px 10px 10px 10px;
+    color: #775A40;
+    position: relative;
+    text-shadow: none;
+}
+.fancybox-opened {
+    z-index: 8030;
+}
+.fancybox-opened .fancybox-skin {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+.fancybox-outer, .fancybox-inner {
+    position: relative;
+}
+.fancybox-inner {
+    overflow: hidden;
+}
+.fancybox-type-iframe .fancybox-inner {
+}
+.fancybox-image, .fancybox-iframe {
+    display: block;
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+.fancybox-image {
+    border: 1px solid #B3A37A;
+    border-radius: 10px 10px 10px 10px;
+    max-height: 100%;
+    max-width: 100%;
+}
+.fancybox-close {
+    background: url("../images/fancybox/fancybox-close.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 36px;
+    position: absolute;
+    right: 20px;
+    top: 21px;
+    width: 36px;
+    z-index: 8040;
+    padding: 0;
+}
+.fancybox-close:hover {
+    background-position: -36px 0;
+}
+.fancybox-nav {
+    background: none repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 100%;
+    position: absolute;
+    text-decoration: none;
+    top: 0;
+    width: 40%;
+    z-index: 8040;
+}
+.fancybox-prev {
+    left: 0;
+}
+.fancybox-next {
+    right: 0;
+}
+.fancybox-nav span {
+    cursor: pointer;
+    height: 34px;
+    margin-top: -18px;
+    position: absolute;
+    top: 50%;
+    visibility: hidden;
+    width: 36px;
+    z-index: 8040;
+}
+.fancybox-prev span {
+    background-position: 0 -36px;
+    left: 10px;
+}
+.fancybox-next span {
+    background-position: 0 -72px;
+    right: 10px;
+}
+.fancybox-nav:hover span {
+    visibility: visible;
+}
+.fancybox-tmp {
+    left: -99999px;
+    max-height: 99999px;
+    max-width: 99999px;
+    overflow: visible !important;
+    position: absolute;
+    top: -99999px;
+    visibility: hidden;
+}
+.fancybox-lock {
+    overflow: hidden;
+}
+.fancybox-overlay {
+    background: url("../images/fancybox/fancybox-overlay.png") repeat scroll 0 0 transparent;
+    display: none;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    z-index: 8010;
+}
+.fancybox-overlay-fixed {
+    bottom: 0;
+    position: fixed;
+    right: 0;
+}
+.fancybox-lock .fancybox-overlay {
+    overflow-x: auto;
+    overflow-y: scroll;
+}
+.fancybox-title {
+    font-size: 1.3em;
+    left: 4px;
+    position: relative;
+    text-shadow: none;
+    top: 6px;
+    visibility: hidden;
+    z-index: 8050;
+}
+.fancybox-opened .fancybox-title {
+    visibility: visible;
+}
+.fancybox-title-float-wrap {
+    bottom: 0;
+    margin-bottom: 6px;
+    position: absolute;
+    right: 50%;
+    text-align: center;
+    z-index: 8050;
+}
+.fancybox-title-float-wrap .child {
+    border-radius: 15px 15px 15px 15px;
+    color: #000000;
+    display: inline-block;
+    font-weight: bold;
+    line-height: 24px;
+    margin-right: -100%;
+    padding: 2px 20px;
+    white-space: nowrap;
+}
+.fancybox-title-outside-wrap {
+    color: #FFFFFF;
+    margin-top: 10px;
+    position: relative;
+}
+.fancybox-title-inside-wrap {
+    padding-top: 3px;
+}
+.fancybox-title-over-wrap {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.8);
+    bottom: 0;
+    color: #FFFFFF;
+    left: 0;
+    padding: 10px;
+    position: absolute;
+}

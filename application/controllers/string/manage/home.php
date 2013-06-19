@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright � 2010 Dobrosite ltd.
+* @copyright © 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -29,9 +28,9 @@ if (empty($rules["language_code"])) $rules["language_code"] = 'en';
 $request->result("search_rules", $rules);
 
 $request->result("languages", array(
-	"ru"  => "Русский",
-	"en" => "Английский",
-	"de" => "Немецкий"
+	"ru"  => "Russian",
+	"en" => "English",
+	"de" => "German"
 ));
 
 $request->addLocation(lng("settings"), href(array("action" => "config.manage.home")));

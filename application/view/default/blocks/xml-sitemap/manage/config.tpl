@@ -11,9 +11,9 @@
 	<fieldset>
 		<h2>{lng lng="common_data"}</h2>
 
-		{include file="skin/admin/form-line-input.tpl" name="cat_priority" value=$config.xml_sitemap.cat_priority title="cat_priority"|lng class="w50" width="short-text"}
-                {include file="skin/admin/form-line-input.tpl" name="prod_priority" value=$config.xml_sitemap.prod_priority title="prod_priority"|lng class="w50" width="short-text"}
-                {include file="skin/admin/form-line-input.tpl" name="post_priority" value=$config.xml_sitemap.post_priority title="post_priority"|lng class="w50" width="short-text"}
+		{block view="category.manage.xml-config" value=$config.xml_sitemap.cat_priority}
+                {block view="product.manage.xml-config" value=$config.xml_sitemap.prod_priority}
+                {block view="post.manage.xml-config" value=$config.xml_sitemap.post_priority}   
 
                 {include file="skin/admin/form-line-input.tpl" name="max_urls" value=$config.xml_sitemap.max_urls title="max_urls"|lng class="w50" width="short-text"}
                 

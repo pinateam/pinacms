@@ -1179,7 +1179,7 @@ Vertical filters
 	text-decoration: none;
 }
 
-.right-narrow-column ul li a:hover {
+.right-narrow-column ul.filter li a:hover {
 	background: #FDEBDF;
 
 	opacity: 0.9;
@@ -2905,6 +2905,16 @@ table.links td.active {
     background: none repeat scroll 0 0 #E5B0C5;
 }
 
+.multi-image-selector .image-selector {
+	display: inline-block;
+	*display:inline;
+	zoom:1;
+	margin-right:10px;
+}
+
+.multi-image-selector .image-selector:hover, .multi-image-selector .image-selector.selected {
+	background-color: #6FADAE;
+}
 
 /*
 --------------------------------------------------------------------------------------

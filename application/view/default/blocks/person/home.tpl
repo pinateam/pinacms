@@ -2,13 +2,7 @@
 <div>	
 	{foreach from=$persons item=person name=person}
 	<div>
-		{if $person.person_photo_filename}
-			<img
-				src="{img img=$person.person_photo_filename type="person_photo"}"
-				alt="{$person.person_title}"
-				class="alignleft"
-			/>
-		{/if}
+		{module action="image.image" image_id=$person.image_id class="alignleft" width=$config.image.person_photo_width|default:400}
 
 		<h3>{$person.person_title}</h3>
 
@@ -16,7 +10,7 @@
 
 		{$person.person_description|format_description}
 
-		<hr />
+		<hr class="clearer" />
 	</div>
 	{/foreach}
 </div>

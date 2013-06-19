@@ -1,0 +1,1 @@
+{module action="image.image" image_id=$config.company.image_id width=$width}

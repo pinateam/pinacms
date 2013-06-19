@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -27,7 +26,7 @@ function smarty_function_site($params, &$view)
 	{
 		global $__loaded_js;
 		$__loaded_js[] = SITE_JS.$params["js"];
-		return SITE_JS.$params["js"];
+		return Site::baseUrl()."js/".$params["js"];
 	}
 
 	if (!empty($params["img"]))
@@ -38,11 +37,11 @@ function smarty_function_site($params, &$view)
 
 			if (file_exists($sitePath))
 			{
-				return SITE .'style/sites/'. Site::path() .'/images/'. $params['img'];
+				return Site::baseUrl() .'style/sites/'. Site::path() .'/images/'. $params['img'];
 			}
 		}
 
-                return SITE_STYLE_IMAGES.$params["img"];
+                return Site::baseUrl()."style/images/".$params["img"];
 	}
 
 	if (!empty($params["css"]))
@@ -52,7 +51,7 @@ function smarty_function_site($params, &$view)
 			global $__loaded_css;
 			$__loaded_css[] = SITE_CSS.$params["css"];
 		}
-		return SITE_CSS.$params["css"];
+		return Site::baseUrl()."style/css/".$params["css"];
 	}
 
 	if (!empty($params["lib"]))

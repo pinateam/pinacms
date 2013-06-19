@@ -1,4 +1,4 @@
-<h2>{lng lng="user_statistics"} <span class="icon-info" onclick="alert('This is help')"></span></h2>
+<h2>{lng lng="user_statistics"}{* <span class="icon-info" onclick="alert('This is help')"></span>*}</h2>
 <table class="vert-lines w100" cellspacing="0">
         <col>
         <col width="50">

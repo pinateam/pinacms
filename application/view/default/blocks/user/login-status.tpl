@@ -4,7 +4,7 @@
 	<li><a href="{link action="user.register-address"}">{lng lng="address"}</a></li>
 	{block view="wishlist.menu-items"}
 	{block view="order.menu-items"}
-	<li><a href="{link action="dashboard"}">{lng lng="dashboard"}</a></li>
+	{ifpermitted action="dashboard"}<li><a href="{link action="dashboard"}">{lng lng="dashboard"}</a></li>{/ifpermitted}
 	<li><a href="{link api="user.logout"}">{lng lng="sign_out"}</a></li>
 {else}
 	<li><a href="{link action="user.enter"}" rel="div.overlay:eq(0)">{lng lng="sign_in"}</a></li>

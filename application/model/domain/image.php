@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -102,121 +101,124 @@ class ImageDomain
 		return $filename;
 	}
 
-	static function newFileName($subject, $souce_filename, $ext)
+	static function newFileName($souce_filename, $ext)
 	{
-		if (empty($ext) || empty($subject)) return '';
+		if (empty($ext)) return '';
 		
 		$postfix = "";
 		do
 		{
 			$filename = $souce_filename.$postfix;
-			$filepath = self::getFilePath($subject, $filename, $ext);
+			$filepath = self::getFilePath($filename, $ext);
 			$postfix = strval(intval($postfix) + 1);
 		} while (file_exists($filepath));
 		
 		return $filename;
 	}
 
-	static function getFileUrl($subject, $filename, $ext = false)
+	static function getFileUrl($filename, $ext = false)
 	{
-		$r = SITE_IMAGES;
+		if (!empty($ext))
+		{
+			$filename .= ".".$ext;
+		}
+
+		$r = Site::baseUrl()."images/";
 		
 		$r .= Site::id()."/";
 		
-		$r .= $subject."/".$filename;
-
-		if (!empty($ext))
-		{
-			$r .= ".".$ext;
-		}
+		$hash = md5($filename);
+		$r .= substr($hash, 0, 2)."/".substr($hash, 2, 2);
+		$r .= "/".$filename;
 
 		return $r;
 	}
 
-	static function getFilePath($subject, $filename, $ext = false)
+	static function getFilePath($filename, $ext = false)
 	{
+		if (!empty($ext))
+		{
+			$filename .= ".".$ext;
+		}
+
 		$r = PATH_IMAGES;
 		
 		$r .= Site::id()."/";
 		
-		$r .= $subject."/".$filename;
-		
-		if (!empty($ext))
-		{
-			$r .= ".".$ext;
-		}
+		$hash = md5($filename);
+		$r .= substr($hash, 0, 2)."/".substr($hash, 2, 2);
+		$r .= "/".$filename;
 
 		return $r;
 	}
 
-	static function init($key, $few = false)
-	{
-		
-		$key .= "_".Site::id();
-		
-		
-		if ($few) $key .= "_few";
-		Session::set($key."_uploaded_file", false);
-	}
-
-	static function upload($key, $few = false)
+	static function upload($item = 'Filedata')
 	{
 		global $_FILES;
-		if (empty($key)) return false;
 
-		
-		$key .= "_".Site::id();
-		
+		if (!is_uploaded_file($_FILES[$item]['tmp_name'])) return false;
 
-		if (!is_uploaded_file($_FILES['Filedata']['tmp_name'])) return false;
+		$pathinfo = pathinfo($_FILES[$item]['name']);
+		$ext = strtolower($pathinfo["extension"]);
 
-		if ($few) $key .= "_few";
+		if (!in_array($ext, array("jpg", "jpeg", "png", "gif"))) return false;
 
-		$pathinfo = pathinfo($_FILES['Filedata']['name']);
-		$filename = ImageDomain::tmpName($pathinfo['extension']);
-		$filepath = PATH_TEMP.$filename;
+		require_once PATH_CORE."core.latin.php";
+		$souce_filename = strtolower(latin_generateToken($pathinfo["filename"]));
 
-		if (!move_uploaded_file($_FILES['Filedata']['tmp_name'], $filepath))
+		$filename = ImageDomain::newFileName($souce_filename, $ext);
+
+		$filepath = ImageDomain::getFilePath($filename, $ext);
+
+		ImageDomain::prepareDir($filename, $ext);
+
+		if (!move_uploaded_file($_FILES[$item]['tmp_name'], $filepath))
 		{
 			return false;
 		}
 
+		$imageId = ImageDomain::prepareData($filename, $ext);
+
+		/*
 		if ($few)
 		{
 			$a = Session::get($key."_uploaded_file");
 			if (!is_array($a)) $a = array();
 			
-			$a[] = $filepath;
-			$filepath = $a;
+			$a[] = $imageId;
+			$imageId = $a;
 			
 		}
 
-		Session::set($key."_uploaded_file", $filepath);
+		Session::set($key."_uploaded_file", $imageId);
 
-		$sitepath = SITE."var/temp/".$filename."?rnd=".rand();
-		return $sitepath;
+		return ImageDomain::getFileUrl($filename);
+		 */
+		return $imageId;
 	}
 
-	static function getUploadedPath($subject)
+	static function prepareDir($filename, $ext = false)
 	{
+		if (!empty($ext))
+		{
+			$filename .= ".".$ext;
+		}
+
+		$baseDir = PATH_IMAGES;
+
 		
-		$key = $subject."_".Site::id();
+		$baseDir .= Site::id();
+		@mkdir($baseDir, 0777);
 		
 
-		return Session::get($key."_uploaded_file");
+		$hash = md5($filename);
+		$first = substr($hash, 0, 2);
+		$second = substr($hash, 2, 2);
+		@mkdir($baseDir."/".$first, 0777);
+		@mkdir($baseDir."/".$first."/".$second, 0777);
 	}
 
-	static function prepareDir($subject)
-	{
-		
-		@mkdir(PATH_IMAGES.Site::id());
-		@mkdir(PATH_IMAGES.Site::id()."/".$subject);
-		
-
-		
-	}
-
-	static function prepareFilename($filepath, $subject, $filename)
+	static function prepareFilename($filepath, $filename)
 	{
 		$sourcePathinfo = pathinfo($filepath);
 		$targetPathinfo = pathinfo($filename);
@@ -226,45 +228,52 @@ class ImageDomain
 			$filename = $filename.".".$sourcePathinfo['extension'];
 		}
 
-		self::prepareDir($subject);
+		self::prepareDir($filename);
 
 		return $filename;
 	}
 
-	static function prepareData($subject, $filename, $data)
+	static function prepareData($filename, $ext = false, $originalImageId = 0)
 	{
-		$imgInfo = getimagesize(self::getFilePath($subject, $filename));
-		
-		$prefix = str_replace(array("product_", "category_"), "", $subject);
-		$data[$prefix.'_filename'] = $filename;
-		$data[$prefix.'_width']  = $imgInfo[0];
-		$data[$prefix.'_height'] = $imgInfo[1];
-		$data[$prefix.'_type'] = $imgInfo['mime'];
-		$data[$prefix.'_size'] = filesize(self::getFilePath($subject, $filename));
+		$imgInfo = getimagesize(self::getFilePath($filename, $ext));
 
-		return $data;
+		if (empty($imgInfo)) return false;
+
+		$data['original_image_id'] = $originalImageId;
+		$data['image_filename'] = $filename.(!empty($ext)?(".".$ext):"");
+		$data['image_width']  = $imgInfo[0];
+		$data['image_height'] = $imgInfo[1];
+		$data['image_type'] = $imgInfo['mime'];
+		$data['image_size'] = filesize(self::getFilePath($filename, $ext));
+
+		require_once PATH_TABLES."image.php";
+		$imageGateway = new ImageGateway;
+		$imageId = $imageGateway->add($data);
+
+		return $imageId;
 	}
 
-	static function saveCopy($subject, $filepath, $gateway, $filename, $data)
+	static function saveCopy($filepath, $gateway, $filename, $data)
 	{
 		if (empty($filepath)) return;
 		if (!file_exists($filepath)) return false;
 
-		$filename = self::prepareFilename($filepath, $subject, $filename);
+		$filename = self::prepareFilename($filepath, $filename);
 
-		copy($filepath, self::getFilePath($subject, $filename));
+		copy($filepath, self::getFilePath($filename));
 
-		$data = self::prepareData($subject, $filename, $data);
+		$data["image_id"] = self::prepareData($filename);
+
 		$gateway->put($data);
 
 		return $filename;
 	}
 
-	static function saveUrl($subject, $source, $gateway, $filename, $data)
+	static function saveUrl($source, $gateway, $filename, $data)
 	{
 		if (empty($source)) return;
 
-		$filename = self::prepareFilename($source, $subject, $filename);
+		$filename = self::prepareFilename($source, $filename);
 
 		$image_content = file_get_contents($source);
 		if (empty($image_content)) return false;
@@ -272,58 +281,42 @@ class ImageDomain
 		file_put_contents(self::getFilePath($subject, $filename), $image_content);
 		unset($image_content);
 
-		$data = self::prepareData($subject, $filename, $data);
+		$data["image_id"] = self::prepareData($filename);
+		
 		$gateway->put($data);
 
 		return $filename;
 	}
 
-	static function save($subject, $gateway, $name, $data, $few = false)
+	static function save($gateway, $data)
 	{
-		$key = $subject;
-		
-		$key .= "_".Site::id();
-		
+		/* deprecated?? */
+	}
 
-		if ($few) $key .= "_few";
-		
-		$paths = Session::get($key."_uploaded_file")?Session::get($key."_uploaded_file"):"";
+	function remove($filename)
+	{
+		@unlink(self::getFilePath($subject, $filename));
+	}
 
-		if (!$few && !is_array($paths)) $paths = array($paths);
-
-		$prefix = str_replace(array("product_", "category_"), "", $subject);
-
-		$i = 1;
-
-		if (is_array($paths))
-		foreach ($paths as $filepath)
+	function parseImageId($text)
+	{
+		preg_match_all('/(<img[^<>]+src[ ]*=[ ]*["\'])([^"\']*images\/)([^&^"^\']*)(["\'])/iUS', $text, $matches);
+		if (!empty($matches) && !empty($matches[3]))
 		{
-			if (!empty($filepath))
+			if (is_array($matches[3]))
+			foreach ($matches[3] as $img)
 			{
-				$pathinfo = pathinfo($filepath);
-				$filename = $name.($few?(".".time().$i++):"").".".strtolower($pathinfo['extension']);
+				$pathinfo = pathinfo($img);
 
-				self::prepareDir($subject);
-
-				copy($filepath, self::getFilePath($subject, $filename));
-				@unlink($filepath);
-				Session::set($key."_uploaded_file", false);
-
-				$data = self::prepareData($subject, $filename, $data);
-				if ($few)
+				require_once PATH_TABLES."image.php";
+				$imageGateway = new ImageGateway;
+				$imageId = $imageGateway->reportIdBy("image_filename", $pathinfo['basename']);
+				if (!empty($imageId))
 				{
-					$gateway->add($data);
-				}
-				else
-				{
-					$gateway->put($data);
+					return $imageId;
 				}
 			}
 		}
-	}
-
-	function remove($subject, $filename)
-	{
-		@unlink(self::getFilePath($subject, $filename));
+		return 0;
 	}
 }

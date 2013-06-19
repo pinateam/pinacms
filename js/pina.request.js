@@ -55,7 +55,7 @@ PinaRequest.submit = function(elem, fnSuccess)
 		dataType: 'json',
 		success: function(data) {
 			PinaRequest.handle(elem, data, function(packet) {
-				if (fnSuccess) fnSuccess();
+				if (fnSuccess) fnSuccess(packet);
 			});
 		},
 		error: function() {

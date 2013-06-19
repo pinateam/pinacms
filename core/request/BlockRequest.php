@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,9 +14,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright � 2010 Dobrosite ltd.
+* @copyright © 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
@@ -53,6 +52,7 @@ class BlockRequest extends BaseRequest
 
 	function ok($message = '')
 	{
+		Breadcrumbs::add($message, href($this->data));
 		// заканчиваем отрисовку блока, запускаем view
 	}
 
@@ -105,6 +105,11 @@ class BlockRequest extends BaseRequest
 		$this->view->assign($name, $value);
 	}
 
+    function addLocation($caption, $url = "")
+    {
+	   Breadcrumbs::add($caption, $url);
+    }
+
     function run()
     {
 	#echo "\r\n<!--\r\nenter ".$this->data["action"]."\r\n-->\r\n";
@@ -139,6 +144,9 @@ class BlockRequest extends BaseRequest
 		echo $e->getMessage();
 		return;
 	}
+
+        $bs = Breadcrumbs::fetch();
+        $this->view->assign("breadcrumbs", $bs);
         
         $t = $request->view->fetch('blocks/'.$action.'.tpl');
 

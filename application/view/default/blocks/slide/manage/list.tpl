@@ -2,9 +2,8 @@
 
 	<ul class="thead">
 		<li class="w10">{lng lng="act_"}</li>
-		<li class="w30">{lng lng="image"}</li>
-		<li class="w20">ALT</li>
-		<li class="w20">{lng lng="link"}</li>
+		<li class="w20">{lng lng="image"}</li>
+		<li class="w50">{lng lng="link"}</li>
 	</ul>
 
 	<div class="tbody">

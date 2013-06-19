@@ -5,7 +5,7 @@
 	</ul>
 </td>
 <td>
-	<img src="{img img=$photo.photo_filename type="photo" width="155"}" />
+	{module action="image.manage.image" image_id=$photo.image_id width="155"}
 </td>
 <td>
 	{$photo.post_title}

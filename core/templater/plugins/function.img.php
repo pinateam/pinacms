@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,16 +14,30 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright © 2010 Dobrosite ltd.
+* @copyright Â© 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
 
 function smarty_function_img($params, &$view)
 {
-	if (empty($params["type"]) || empty($params["img"])) return '';
+	if (empty($params['img']) && !empty($params["image_id"]))
+	{
+		require_once PATH_TABLES."image.php";
+		$imageGateway = new ImageGateway;
+		$image = $imageGateway->get($params["image_id"]);
+		if (!empty($image["image_filename"]))
+		{
+			$params["img"] = $image["image_filename"];
+		}
+	}
+
+	if (empty($params["img"])) return '';
+
+	$hash = md5($params["img"]);
+	$first = substr($hash, 0, 2);
+	$second = substr($hash, 2, 2);
 
 	if (strpos($params["img"], "http") === 0)
 	{
@@ -34,15 +48,40 @@ function smarty_function_img($params, &$view)
 	{
 		require_once PATH_DOMAIN."image.php";
 
-		$srcPath = PATH_IMAGES.Site::id()."/".$params["type"]."/".$params["img"];
+		$srcPath = PATH_IMAGES.Site::id()."/".$first."/".$second."/".$params["img"];
 		
-		$tmpName = ImageDomain::tmpName("png", $params["type"]."-".$params["img"]."-".$params["width"]."-".filectime($srcPath));
-		@mkdir(PATH_IMAGES.Site::id()."/cache/");
-		$filepath = PATH_IMAGES.Site::id()."/cache/".$tmpName;
+
+		if (!file_exists($srcPath))
+		{
+			return '';
+		}
+
+		$key = $params["img"];
+		if (!empty($params["width"])) $key .= "-".$params["width"];
+		if (!empty($params["height"])) $key .= "-".$params["height"];
+		$key .= "-".filectime($srcPath);
+		
+		$tmpName = $key.".png";//ImageDomain::tmpName("png", $key);
+
+		@mkdir(PATH_CACHE."images", 0777);
+		@mkdir(PATH_CACHE."images/".Site::id(), 0777);
+		
+		$hash = md5($tmpName);
+		$first = substr($hash, 0, 2);
+		$second = substr($hash, 2, 2);
+
+		@mkdir(PATH_CACHE."images/".Site::id()."/".$first, 0777);
+		@mkdir(PATH_CACHE."images/".Site::id()."/".$first."/".$second, 0777);
+
+		$filepath = PATH_CACHE."images/".Site::id()."/".$first."/".$second."/".$tmpName;
 
 		if (!file_exists($filepath))
 		{
-			if (!empty($params["width"]))
+			if (!empty($params["width"]) && !empty($params["height"]))
+			{
+				ImageDomain::resize($srcPath, $params["width"], $params["height"], $filepath);
+			}
+			elseif (!empty($params["width"]))
 			{
 				ImageDomain::resize($srcPath, $params["width"], 0, $filepath);
 			}
@@ -53,8 +92,7 @@ function smarty_function_img($params, &$view)
 			}
 		}
 
-		$params["type"] = "cache";
-		$params["img"] = $tmpName;
+		return Site::baseUrl()."cache/images/".Site::id()."/".$first."/".$second."/".$tmpName;
 
 		/*
 		return href(array(
@@ -65,5 +103,5 @@ function smarty_function_img($params, &$view)
 		*/
 	}
 
-	return Site::baseUrl()."images/".Site::id()."/".$params["type"]."/".$params["img"];
+	return Site::baseUrl()."images/".Site::id()."/".$first."/".$second."/".$params["img"];
 }

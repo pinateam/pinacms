@@ -20,7 +20,7 @@
 </td>
 
 <td>
-	{$user.user_created|date_format:"%d.%m.%Y"}
+	{$user.user_created|format_date}
 </td>
 <td>
 	{$user.access_group}

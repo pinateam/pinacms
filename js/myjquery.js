@@ -66,12 +66,3 @@ $(window).load(function(){
 Cufon.replace('.widget-title, .comments_title, .respond_title, .trackback_title', {
 hover: true
 });
-
-/* jQuery jCarousel Lite plugin */
-$(function() {
-    $('.jcarousel').jCarouselLite({
-        btnNext: '.jcarousel-next',
-        btnPrev: '.jcarousel-prev',
-		circular: false
-    });
-});

@@ -392,6 +392,9 @@ FLOATSWRAP
 /*NWS Category and NWS Page Widgets*/
 .widget_categories ul, .widget_subpages ul {padding:0;}
 .widget_categories ul li a, .widget_subpages ul li a, .widget_categories ul li:first-child a, .widget_subpages ul li:first-child a {padding:10px;}
+.widget_categories ul li li {
+	padding-left: 10px;
+}
 .widget ul .children li a {padding-left:20px;}
 .widget ul .children .children li a {padding-left:30px;}
 .widget ul .children .children .children li a {padding-left:40px;}
@@ -661,108 +664,6 @@ input.error {border-color:#cc3333 !important;color: #000000;}
 }
 
 
-
-
-
-
-/*
-	Slideshow
-*/
-
-#slides {
-	z-index:100;
-}
-
-/*
-	Slides container
-	Important:
-	Set the width of your slides container
-	Set to display none, prevents content flash
-*/
-
-.slides_container {
-	width:912px;
-	height:432px;
-}
-
-/*
-	Each slide
-	Important:
-	Set the width of your slides
-	If height not specified height will be set by the slide content
-	Set to display block
-*/
-
-.slides_container a {
-	width:912px;
-	height:432px;
-	display:block;
-}
-
-/*
-	Next/prev buttons
-*/
-
-#slides .next,#slides .prev {
-	width:24px;
-	height:43px;
-	display:block;
-	z-index:101;
-	position: absolute;
-}
-
-#slides .next {
-    left: 1130px;
-    margin-top: -200px;
-}
-
-#slides .prev {
-	margin-left: -20px;
-	margin-top: -200px;
-}
-
-/* custom sliders */
-
-#featured_wrap .slides_container {
-	width:600px;
-}
-
-#featured_wrap #slides .next {
-    left: 818px;
-    margin-top: -200px;
-}
-
-
-/*
-	Pagination
-*/
-
-.pagination {
-	margin:26px auto 0;
-	width:100px;
-}
-
-.pagination li {
-	float:left;
-	margin:0 1px;
-	list-style:none;
-}
-
-.pagination li a {
-	display:block;
-	width:12px;
-	height:0;
-	padding-top:12px;
-	background-image:url(../images/slide/pagination.png);
-	background-position:0 0;
-	float:left;
-	overflow:hidden;
-}
-
-.pagination li.current a {
-	background-position:0 -12px;
-}
-
 /* jquery rating */
 
 div.vote-wrap{
@@ -855,4 +756,83 @@ div.vote-success{
 
 .wizard table td{
     vertical-align: middle;
+}
+
+.products-filters{
+    margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+/* Categories list */
+.categories-list {
+	margin: 10px 0 0 0;
+	vertical-align: top;
+}
+
+.categories-list .categories-item {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	width: 245px;
+	padding: 0;
+	text-align: center;
+	margin-bottom: 15px;
+	vertical-align: top;
+}
+
+.categories-text-list {
+	padding: 0 0 10px 0;
+	margin: 0 0 10px 0;
+}
+
+.categories-text-list .categories-text-item {
+	float: left;
+	width: 340px;
+	padding: 5px;
+	text-align: left;
+}
+/* End categories list */
+
+
+
+
+
+
+
+
+
+/* product images */
+.product-images-wrapper {
+	z-index:100;
+	width: 355px;
+}
+.product-images-wrapper .items {
+	margin: 0px;
+}
+
+.product-images-wrapper .items a {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	padding: 0 5px 0 0;
+	text-align: center;
+}
+
+.product-images-wrapper .prev-image {
+	float: left;
+	margin:0;
+	padding:0;
+}
+
+.product-images-wrapper .next-image {
+	float: right;
+	margin:0;
+	padding:0;
 }

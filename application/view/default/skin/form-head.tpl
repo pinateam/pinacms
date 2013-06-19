@@ -1,0 +1,1 @@
+<form action="api.php" method="POST" {if $id}id="{$id}"{/if} {if $class}class="{$class}"{/if}>

@@ -1,7 +1,7 @@
 <?php
 /*
 * PinaCMS
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -14,39 +14,32 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @copyright � 2010 Dobrosite ltd.
+* @copyright © 2010 Dobrosite ltd.
 */
-
 if (!defined('PATH')){ exit; }
 
 
 
-include_once PATH_CORE."core.latin.php";
-include_once PATH_DOMAIN."image.php";
-include_once PATH_TABLES."photo.php";
+require_once PATH_DOMAIN . "image.php";
+$imageId = ImageDomain::upload('userfile');
 
-ImageDomain::prepareDir("common");
-
-$pathinfo = pathinfo($_FILES['userfile']['name']);
-$ext = strtolower($pathinfo["extension"]);
-
-$souce_filename = latin_generateToken($pathinfo["filename"]);
-
-$filename = ImageDomain::newFileName('common', $souce_filename, $ext);
-$filepath = ImageDomain::getFilePath('common', $filename, $ext);
-
-if (!move_uploaded_file($_FILES['userfile']['tmp_name'], $filepath))
+if (empty($imageId))
 {
-	$request->stop();
+	echo lng("access_denied");
+	exit;
 }
 
-if (isModuleActive("gallery"))
+require_once PATH_TABLES."image.php";
+$imageGateway = new ImageGateway;
+$image = $imageGateway->get($imageId);
+
+if (empty($image))
 {
-	$photoFilename = ImageDomain::newFileName('photo', $souce_filename, $ext);
-	ImageDomain::saveCopy('photo', $filepath, new PhotoGateway(), $photoFilename,
-		array("common_filename" => $filename.".".$ext)
-	);
+	$request->stop(lng('internal_error'));
 }
+
+$request->set("image_id", $imageId);
+$request->run("gallery.manage.add");
 
 $config = getConfig();
 $maxWidth = $config->get("image", "editor_max_width");
@@ -54,20 +47,31 @@ $maxHeight = $config->get("image", "editor_max_height");
 
 if ($maxWidth || $maxHeight)
 {
-	$size = getimagesize($filepath);
-	if ($size[0] > $maxWidth || $size[1] > $maxHeight)
+	if ($image["image_width"] > $maxWidth || $image["image_height"] > $maxHeight)
 	{
+		$filepath = ImageDomain::getFilePath($image["image_filename"]);
+		$pathinfo = pathinfo($filepath);
+		$filenameResized = ImageDomain::newFileName($pathinfo["filename"], $pathinfo["extension"]);
+		ImageDomain::prepareDir($filenameResized, $pathinfo["extension"]);
+		$filepathResized = ImageDomain::getFilePath($filenameResized, $pathinfo["extension"]);
+
 		ImageDomain::resize(
 			$filepath,
-			($size[0] > $maxWidth && ($size[0] > $size[1] || !$maxHeight)) ? $maxWidth : 0,
-			($size[1] > $maxHeight && ($size[1] > $size[0] || !$maxWidth)) ? $maxHeight : 0,
-			$filepath
+			($image["image_width"] > $maxWidth && ($image["image_width"] > $image["image_height"] || !$maxHeight)) ? $maxWidth : 0,
+			($image["image_height"] > $maxHeight && ($image["image_height"] > $image["image_width"] || !$maxWidth)) ? $maxHeight : 0,
+			$filepathResized
 		);
+
+		$imageId = ImageDomain::prepareData($filenameResized, $pathinfo["extension"], $imageId);
+		if (!empty($imageId))
+		{
+			$image = $imageGateway->get($imageId);
+		}
 	}
 }
 
-$resultFilename = ImageDomain::getFileUrl("common", $filename, $ext);
-$result = "Файл загружен";
+$resultFilename = ImageDomain::getFileUrl($image["image_filename"]);
+$result = "File has been uploaded";
 $resultcode = "ok";
 
 echo <<<OUT
