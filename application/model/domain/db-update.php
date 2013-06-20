@@ -25,14 +25,12 @@ if (!defined('PATH')){ exit; }
 	class DBUpdateDomain
 	{
 		var $gatewayFiles = array();
-		var $tables       = array();
 
 		function __construct()
 		{
                         $this->init();
                         
                         $this->db = getDB();
-                        $this->tables = $this->db->col('SHOW TABLES');
                 }
                 
                 private function init()
@@ -74,7 +72,15 @@ if (!defined('PATH')){ exit; }
 
 		public function findAddTables()
 		{
-			return array_diff(array_keys($this->tableGatewayList), $this->tables);
+			$toAdd = array();
+			foreach ($this->tableGatewayList as $table => $v)
+			{
+				if (!$this->db->query("SELECT * FROM ".$table." LIMIT 1", true))
+				{
+					$toAdd [] = $table;
+				}
+			}
+			return $toAdd;
 		}
 
 		public function findEditTables()
@@ -82,7 +88,7 @@ if (!defined('PATH')){ exit; }
                         $tables = array();
                         foreach($this->tableGatewayList as $table => $tableGateway)
                         {
-                                if(!in_array($table, $this->tables))
+				if (!$this->db->query("SELECT * FROM ".$table." LIMIT 1", true))
                                 {
                                        continue;
                                 }

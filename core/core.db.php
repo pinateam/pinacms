@@ -38,7 +38,7 @@ class DB
 		$this->conn = $conn;
 	}
 
-	public function query($sql)
+	public function query($sql, $ignore = false)
 	{
 		if (empty($this->conn)) return false;
 		
@@ -50,7 +50,7 @@ class DB
 		list($msec, $sec) = explode(' ', microtime());
 		$time_total = ((float)$msec + (float)$sec - $s_time);
 
-		if (mysql_errno($this->conn))
+		if (mysql_errno($this->conn) && !$ignore)
 		{
 			$this->outError($sql);
 		}
