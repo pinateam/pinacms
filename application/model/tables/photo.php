@@ -70,6 +70,6 @@ class PhotoGateway extends TableDataGateway
 		{
 			$cond .= " AND photo_enabled = '".$enabled."'";
 		}
-		return $this->db->table("SELECT * FROM ".$this->table." LEFT JOIN cody_post USING(post_id) WHERE 1".$cond.$this->getBySiteAndAccount());
+		return $this->db->table("SELECT ".$this->table.".*, cody_post.post_id, cody_post.post_title FROM ".$this->table." LEFT JOIN cody_post USING(post_id) WHERE 1".$cond.$this->getBySiteAndAccount());
 	}
 }

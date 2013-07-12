@@ -24,9 +24,15 @@ if (!defined('PATH')){ exit; }
     define('DB_PORT', '3306');
     define('DB_USER', '');
     define('DB_PASS', '');
-    define('DB_BASE', 'auction4');
+    define('DB_BASE', '');
     define('DB_CONNECTION_CHARSET', 'utf8');
     define('DB_DEFAULT_ENGINE', 'InnoDB');
+
+    //Important: change SITE_HOST to your core site domain.
+    define('SITE_HOST', 'localhost');
+    define('SITE_PATH', '');
+    define('SITE_BASE', 'http://'.SITE_HOST.'/');
+    define('SITE', SITE_BASE.SITE_PATH);
 
     define ('MEMCACHE_HOST', '');
 
@@ -36,17 +42,12 @@ if (!defined('PATH')){ exit; }
 
     define('COMBINE_RESOURSES', false);
 
-    define('SITE_HOST', 'localhost');
-    define('SITE_PATH', '');
-    define('SITE_BASE', 'http://'.SITE_HOST.'/');
-    define('SITE', SITE_BASE.SITE_PATH);
-
     define('SITE_CHARSET', 'utf-8');
     define('SITE_TIMEZONE', 'Europe/Moscow');
 
     define ('MAIL_ADMIN', '');
     define ("MAIL_CHARSET", "utf-8");
-    define ("MAIL_REPLY", "alex-yashin@ya.ru");
+    define ("MAIL_REPLY", "");
     define ("MAIL_DEBUG", 1);
     define ("MAIL_FOOTER", "
 ---");
