@@ -66,7 +66,13 @@ class DirectoryGateway extends TableDataGateway
 				$this->getBySiteAndAccount()
 		);
 	}
-	public function edit($directory_key, $directory_value, $data)
+
+	public function edit($id, $data)
+	{
+		return false;
+	}
+
+	public function editByKeyAndValue($directory_key, $directory_value, $data)
 	{
 		$directory_key = $this->db->escape($directory_key);
 		$directory_value = $this->db->escape($directory_value);
@@ -77,7 +83,13 @@ class DirectoryGateway extends TableDataGateway
 			".$this->getBySiteAndAccount()
 		);
 	}
-	public function remove($directory_key, $directory_value)
+
+	public function remove($id)
+	{
+		return false;
+	}
+
+	public function removeByKeyAndValue($directory_key, $directory_value)
 	{
 		$directory_key = $this->db->escape($directory_key);
 		$directory_value = $this->db->escape($directory_value);

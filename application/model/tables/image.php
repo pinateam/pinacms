@@ -54,4 +54,41 @@ class ImageGateway extends TableDataGateway
 			WHERE ".$gateway->table.".".$key." = '".$id."'
 		");
 	}
+
+	function reportMaxField($field)
+	{
+		if(!in_array($field, array_keys($this->fields)))
+		{
+			return;
+		}
+
+		return $this->db->one("SELECT MAX(`$field`) FROM `$this->table`");
+	}
+
+	function reportMinField($field)
+	{
+		if(!in_array($field, array_keys($this->fields)))
+		{die($field);
+			return;
+		}
+
+		return $this->db->one("SELECT MIN(`$field`) FROM `$this->table`");
+	}
+
+	function findFilter($type)
+	{
+		$types = array(
+			'width',
+			'height',
+			'type'
+		);
+
+		if(!in_array($type, $types))
+		{
+			return;
+		}
+
+		return $this->db->col("SELECT `image_". $type ."` FROM `$this->table` GROUP BY `image_". $type ."` ORDER BY `image_". $type ."`");
+	}
+
 }

@@ -1,0 +1,43 @@
+<?php
+/*
+* PinaCMS
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+* OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+* LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+* DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+* THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+* OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*
+* @copyright © 2010 Dobrosite ltd.
+*/
+if (!defined('PATH')){ exit; }
+
+
+
+function smarty_modifier_format_datetime($date)
+{
+	if (empty($date) || $date == '0000-00-00 00:00:00')
+	{
+		return '-';
+	}
+
+	if (is_string($date))
+	{
+		$date = strtotime($date);
+	}
+	
+	$config = getConfig();
+	$df = $config->get("appearance", "date_format");
+	if (empty($df)) $df = "d.m.Y";
+	
+	$tf = $config->get("appearance", "time_format");
+	if (empty($tf)) $tf = "H:i";
+
+	return date($df." ".$tf, $date);
+}

@@ -17,7 +17,11 @@
     <input name="site_path" type="text" value="{$site.site_path}" />
 </td>
 <td>
-	<input name="site_template" type="text" value="{$site.site_template}" />
+	<select name="site_template">
+		{foreach from=$templates item=template}
+			<option value="{$template}" {if $site.site_template eq $template}selected="selected"{/if}>{$template}</option>
+		{/foreach}
+	</select>
 </td>
 <td>
 	<a href="{link site_id=$site.site_id action="home"}">{lng lng="frontend"}</a> |

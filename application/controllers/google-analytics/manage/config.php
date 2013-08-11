@@ -20,12 +20,11 @@ if (!defined('PATH')){ exit; }
 
 
 
-	include_once PATH_DOMAIN.'cart.php';
+	$request->result("use_ecommerce_values", array(
+	    array("value" => "Y", "caption" => lng('filter_yes'), "color" => "green"),
+	    array("value" => "N", "caption" => lng('filter_no'), "color" => "red"),
+	));
 
-	$cart = new CartDomain();
-
-	$data = $request->params();
-
-	if($cart->update($data['products'])) $request->stop(lng("no_products_available_in_store"));
-
-	$request->ok();
+	$request->addLocation(lng("settings"), href(array("action" => "config.manage.home")));
+	$request->setLayout("admin");
+	$request->ok('Google Analytics');

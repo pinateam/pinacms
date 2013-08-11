@@ -24,7 +24,7 @@ include_once PATH_TABLES."string.php";
 
 if (!$request->param("string_key") || !$request->param("language_code")) $request->stop(lng("wrong_data_format"));
 
-$string = new StringGateway;
-$string->remove($request->param("string_key"), $request->param("language_code"));
+$stringGateway = new StringGateway;
+$stringGateway->removeByKeyAndLanguageCode($request->param("string_key"), $request->param("language_code"));
 
 $request->ok(lng('string_has_been_deleted'));

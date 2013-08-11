@@ -1,5 +1,9 @@
 <h1><span class="section-icon icon-asterix"></span> {lng lng="sites_management"}</h1>
 
+<section class="filters css3">
+    {module action="site.manage.search-form" wrapper="site-search-form"}
+</section>
+
 {module action="site.manage.list" wrapper="site-list"}
 
 {literal}
@@ -12,6 +16,7 @@ $(".site-list").manageTable({
         api_edit: "site.manage.edit",
         api_delete: "site.manage.delete",
         api_add: "site.manage.add",
+	wrapper_form: ".site-search-form",
         object: "site_manage"
 });
 

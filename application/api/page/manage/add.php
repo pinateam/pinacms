@@ -54,6 +54,9 @@ $request->set('menu_item_title', $request->param("page_title"));
 $request->set('menu_item_enabled', $request->param("page_enabled"));
 $request->run('menu.manage.set-show');
 
+$request->set("post_id", $pageId);
+$request->set('subject', 'post');
+$request->run('attachment.manage.edit');
 
 $request->setRedirect(href(array('action' => 'page.manage.edit', 'page_id' => $pageId)));
 $request->ok();

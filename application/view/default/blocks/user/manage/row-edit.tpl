@@ -18,7 +18,7 @@
 </td>
 
 <td>
-	{$user.user_created|format_date}
+	{$user.user_created|format_datetime}
 </td>
 <td>
 	{$user.access_group}

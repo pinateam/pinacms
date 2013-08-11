@@ -23,5 +23,6 @@
 	</div>
 
 	{include file="skin/page-footer.tpl"}
+	{block view="google-analytics.code"}
 </body>
 </html>

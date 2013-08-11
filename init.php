@@ -67,5 +67,19 @@
 
     $config = getConfig();
 
-    $l = $config->get('core', 'language_code');
-    Language::code(!empty($l)?$l:'en');
+$l = $config->get('core', 'language_code');
+if (empty($l) && defined("DEFAULT_LANGUAGE_CODE") && DEFAULT_LANGUAGE_CODE)
+{
+	$l = DEFAULT_LANGUAGE_CODE;
+}
+Language::code(!empty($l)?$l:'en');
+
+if (Session::get("auth_user_id"))
+{
+	require_once PATH_TABLES."user.php";
+	$userGateway = new UserGateway;
+	if (!$userGateway->reportExists(Session::get("auth_user_id")))
+	{
+		Session::drop("auth_user_id");
+	}
+}

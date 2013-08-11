@@ -24,6 +24,7 @@ if (!defined('PATH')){ exit; }
 
     define('PATH_CONTROLLERS', PATH.'application/controllers/');
     define('PATH_API', PATH.'application/api/');
+    define('PATH_INSTALL', PATH.'application/install/');
     define('PATH_TABLES', PATH.'application/model/tables/');
     define('PATH_DOMAIN', PATH.'application/model/domain/');
     define('PATH_FILTERS', PATH.'application/filters/');

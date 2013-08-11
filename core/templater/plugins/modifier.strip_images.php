@@ -22,5 +22,5 @@ if (!defined('PATH')){ exit; }
 
 function smarty_modifier_strip_images($value)
 {
-	return strip_tags($value, "<p><br><a><strong>");
+	return strip_tags($value, "<p><br><a><strong><ul><li>");
 }

@@ -30,6 +30,7 @@ class BlogGateway extends TableDataGateway
 		'site_id' => "int(10) NOT NULL DEFAULT '0'",
 		'user_id' => "int(1) NOT NULL DEFAULT '0'",
 		'blog_title' => "varchar(255) NOT NULL DEFAULT '0'",
+		'blog_description' => "text NULL",
 		'blog_public' => "varchar(1) NOT NULL DEFAULT 'N'",
 		'blog_enabled' => "varchar(1) NOT NULL DEFAULT 'N'"
 	);

@@ -307,8 +307,8 @@ class BaseFinder
 	}
 	
 	// Извлечение одного объекта
-	protected function getOne() {}
+	//protected function getOne() {}
 	
 	// Извлечение списка объектов
-	protected function getList() {}
+	//protected function getList() {}
 }

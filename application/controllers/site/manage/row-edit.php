@@ -27,4 +27,16 @@ if (!defined('PATH')){ exit; }
 	$shipping = new SiteGateway();
 	$request->result('site', $shipping->get($siteId));
 
+	$templates = array("");
+	if (is_dir(PATH_VIEW."templates/"))
+	{
+	    $files = scandir(PATH_VIEW."templates/");
+	    foreach ($files as $file)
+	    {
+		    if (strpos($file, ".") !== false) continue;
+		    $templates[] = $file;
+	    }
+	}
+	$request->result("templates", $templates);
+
 	$request->ok();

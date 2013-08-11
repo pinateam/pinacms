@@ -183,7 +183,7 @@ class DB
 		echo '</div>';
 		flush();
 
-		$fp = fopen(PATH."var/log/mysql-".date("Y-m-d-H-i-s").".log", "a");
+		$fp = fopen(PATH."var/log/mysql-".@date("Y-m-d-H-i-s").".log", "a");
 		fwrite($fp, "\r\n\r\n".$err."\r\n\r\n".$sql);
 		fclose($fp);
 		//exit;

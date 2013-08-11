@@ -1,0 +1,1 @@
+{include file="skin/form-line-select.tpl" title="variant"|lng name="build" list=$builds}

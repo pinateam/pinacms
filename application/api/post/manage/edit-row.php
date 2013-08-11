@@ -22,6 +22,7 @@ if (!defined('PATH')){ exit; }
 
 $request->filterParams("intval", "post_id");
 $request->filterParams("strip_tags trim", "post_title");
+$request->filterParams("filter_datetime", "post_published");
 
 validateNotEmpty($request, 'post_id', lng('internal_error'));
 validateNotEmpty($request, 'post_title', lng('enter_post_title'));
@@ -30,6 +31,6 @@ $request->trust();
 
 require_once PATH_TABLES .'post.php';
 $postGateway = new PostGateway();
-$postGateway->edit($request->param('post_id'),  $request->params("post_title"));
+$postGateway->edit($request->param('post_id'),  $request->params("post_title post_published"));
 
 $request->ok();

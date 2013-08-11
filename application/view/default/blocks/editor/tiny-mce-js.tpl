@@ -9,8 +9,8 @@
 		plugins : "jbimages,paste,table,fullscreen,searchreplace,advimage,advlink,contextmenu,nonbreaking,emotions,xhtmlxtras,inlinepopups",
 
 		// Theme options
-		theme_advanced_buttons1 : "bold,italic,underline,strikethrough,bullist,numlist,table,nonbreaking,|,link,unlink",
-		theme_advanced_buttons2 : "emotions,|,search,replace,paste,|,fullscreen,code,|,image,jbimages",
+		theme_advanced_buttons1 : "formatselect,bold,italic,underline,strikethrough,bullist,numlist,table,nonbreaking,|,link,unlink,|,emotions,|,search,replace,paste,|,fullscreen,code,|,image,jbimages",
+		theme_advanced_buttons2 : "",
 		theme_advanced_buttons3 : "",
 		theme_advanced_buttons4 : "",
 		theme_advanced_toolbar_location : "top",

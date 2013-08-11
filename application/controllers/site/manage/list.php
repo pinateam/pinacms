@@ -20,9 +20,17 @@ if (!defined('PATH')){ exit; }
 
 
 
-require_once PATH_TABLES."site.php";
+require_once PATH_CORE.'classes/Sorting.php';
+$sorting = new Sorting($request->param("sort"), $request->param("sort_up"));
 
-$site = new SiteGateway();
-$ss = $site->findAll();
+require_once PATH_CORE.'classes/Paging.php';
+$paging = new Paging($request->param('page'), 10);
+
+require_once PATH_MODEL."finder/site.php";
+$site = new SiteFinder();
+$ss = $site->search($request->param("rules"), $sorting, $paging);
 $request->result("sites", $ss);
+
+$request->result('paging', $paging->fetch());
+$request->result('sorting', $sorting->fetch());
 $request->ok();

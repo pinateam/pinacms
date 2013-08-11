@@ -16,6 +16,14 @@
     </fieldset>
 {include file="skin/form-bottom.tpl"}
 
+{if $facebook}
+<a href="javascript:void(0);" onclick="javascript: window.location.href = '{link api="user.facebook.login"}';" style="display:block;"><img src="style/images/sign-in-with-facebook.png"></a>
+{/if}
+
+{if $twitter}
+<a href="javascript:void(0);" onclick="javascript: window.location.href = '{link api="user.twitter.login"}';" style="margin-top: 25px; display:block;"><img src="style/images/sign-in-with-twitter.png"></a>
+{/if}
+
 {literal}
 <script type="text/javascript">
 

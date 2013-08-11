@@ -38,6 +38,7 @@ class PostGateway extends TableDataGateway
 		'post_approved' => "varchar(1) NOT NULL DEFAULT 'N'",
 		'post_created' => "timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP",
 		'post_updated' => "timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'",
+		'post_published' => "timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'",
 	);
 
 	var $indexes = array(
@@ -45,7 +46,7 @@ class PostGateway extends TableDataGateway
 		'KEY site_id' => 'site_id',
 		'KEY blog_id' => 'blog_id',
 		'KEY user_id' => 'user_id',
-		'KEY post_created' => 'post_created'
+		'KEY post_published' => 'post_published'
 	);
 
 	var $useSiteId = true;

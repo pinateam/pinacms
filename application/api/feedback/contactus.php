@@ -34,6 +34,7 @@ $mailer->setTo($config->get("feedback", "email")?$config->get("feedback", "email
 $mailer->setSubject(lng('contact_us_form').": ".$request->param("subject"));
 
 $mailer->setBodyAction("feedback.contactus-notification", array(
+    "site_domain" => Site::domain(),
     "name" => $request->param("name"),
     "user_email" => $request->param("user_email"),
     "order_id" => $request->param("order_id"),

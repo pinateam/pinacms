@@ -3,7 +3,20 @@
 	<input type="hidden" name="action" value="post.manage.edit" />
 	<input type="hidden" name="post_id" value="{$post.post_id}" />
 
-	{include file="skin/admin/page-operations-save-cancel-delete.tpl" sid=$post.post_id}
+	<div class="right-narrow-column">
+		<fieldset class="operations">
+			<h2>{lng lng="actions"}</h2>
+			<div class="button-bar">
+				<button class="css3 button-edit">{lng lng="save"}</button>
+				<button class="css3 additional button-cancel">{lng lng="cancel"}</button>
+			</div>
+			<div class="button-bar-2">
+				<button class="css3 delete button-delete" sid="{$post.post_id}">{lng lng="delete"}</button>
+			</div>
+		</fieldset>
+
+		{module action="attachment.manage.form" subject="post" post_id=$post.post_id}
+	</div>
 
 	<div class="left-wide-column">
 		{block view="post.manage.form-common"}

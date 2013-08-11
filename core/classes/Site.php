@@ -26,6 +26,7 @@ class Site {
 	private static $accountId = 0;
 	private static $domain = "";
 	private static $path = "";
+	private static $isTest = "";
 	
 	private static $template = "";
 
@@ -53,6 +54,24 @@ class Site {
 	static function domain()
 	{
 		
+		if (!empty(self::$isTest))
+		{
+			$postfix = '';
+			$config = getConfig();
+			$rootTestDomain = $config->get("wizard", "root_test_domain");
+			if (!empty(self::$isTest) && !empty($rootTestDomain))
+			{
+				$pos = strpos($domain, ".".$rootTestDomain);
+				if (
+					$pos === false ||
+					($pos !== false && strlen($domain) != $pos + strlen(".".$rootTestDomain))
+				)
+				{
+					$postfix = ".".$rootTestDomain;
+				}
+			}
+			return self::$domain.$postfix;
+		}
 		if (!empty(self::$domain)) return self::$domain;
 		
 
@@ -81,7 +100,7 @@ class Site {
 			self::$template = $config->get("site", "template");
 		}
 
-		if (empty(self::$template) && defined(defined("TEMPLATE_DEFAULT") && TEMPLATE_DEFAULT != ''))
+		if (empty(self::$template) && defined("TEMPLATE_DEFAULT") && TEMPLATE_DEFAULT != '')
 		{
 			self::$template = TEMPLATE_DEFAULT;
 		}
@@ -89,45 +108,70 @@ class Site {
 		return self::$template;
 	}
 
-	static function baseUrl($id = false)
+	static function baseUrl($id = false, $isTest = NULL)
 	{
 		
 
 		
 		if ($id === false) $id = self::$id;
+		if ($isTest === NULL) $isTest = self::$isTest;
 
 		$id = intval($id);
 		if (empty($id)) return SITE;
 
 		$domain = self::$domain;
-		$path = self::$path;
+		$path = '';
 		if ($id != self::$id)
 		{
 			$db = getDB();
 			$site = $db->row("SELECT * FROM cody_site WHERE site_id = '".$id."'");
 			$domain = $site["site_domain"];
-			$path = $site["site_path"];
 		}
 
 		if (empty($domain))
 		{
 			$domain = SITE_BASE;
-			$path = SITE_PATH.$path."/";
+			$path = SITE_PATH;
 		}
 		else
 		{
-			$domain = "http://".$domain."/";
+			$postfix = '';
+			$config = getConfig();
+			$rootTestDomain = $config->get("wizard", "root_test_domain");
+			if (!empty($isTest) && $rootTestDomain)
+			{
+				$pos = strpos($domain, ".".$rootTestDomain);
+				if (
+					$pos === false ||
+					($pos !== false && strlen($domain) != $pos + strlen(".".$rootTestDomain))
+				)
+				{
+					$postfix = ".".$rootTestDomain;
+				}
+			}
+			$domain = "http://".$domain.$postfix."/";
 			$path = "";
 		}
-		
+
 		return $domain.$path;
 		
 	}
 
 	
-	static function initById($siteId)
+	static function initById($siteId, $isTest = false)
 	{
 		$siteId = intval($siteId);
+
+		if ($siteId == 0)
+		{
+			self::$id = 0;
+			self::$accountId = 0;
+			self::$domain = SITE_HOST;
+			self::$path = 'root';
+			self::$template = '';
+			self::$isTest = $isTest;
+		}
+
 		$db = getDB();
 		$site = $db->row("SELECT * FROM cody_site WHERE site_id = '".$siteId."'");
 		if (empty($site)) return false;
@@ -137,6 +181,7 @@ class Site {
 		self::$domain = $site["site_domain"];
 		self::$path = $site["site_path"];
 		self::$template = $site["site_template"];
+		self::$isTest = $isTest;
 
 		return true;
 	}
@@ -150,16 +195,22 @@ class Site {
 		if (strcasecmp($host, SITE_HOST) == 0 || strcasecmp("www.".$host, SITE_HOST) == 0)
 		{
 			self::$id = 0;
+			self::$accountId = 0;
 			self::$domain = SITE_HOST;
                         self::$path = 'root';
+			self::$template = '';
+			self::$isTest = false;
 			return true;
 		}
 
 		if (false && strpos($path, "lib/") !== false)
 		{
 			self::$id = 0;
+			self::$accountId = 0;
 			self::$domain = SITE_HOST;
 			self::$path = 'root';
+			self::$template = '';
+			self::$isTest = false;
 			return true;
 		}
 
@@ -167,7 +218,22 @@ class Site {
 		#echo "PATH: ".$path."<br />";
 
 		$db = getDB();
+		$isTest = false;
 		$site = $db->row("SELECT * FROM cody_site WHERE site_domain = '".$db->escape($host)."' OR site_domain = 'www.".$db->escape($host)."'");
+
+		$config = getConfig();
+		$rootTestDomain = $config->get("wizard", "root_test_domain");
+		if (empty($site) && $rootTestDomain)
+		{
+			$pos = strpos($host, ".".$rootTestDomain);
+			if ($pos !== false && strlen($host) == $pos + strlen(".".$rootTestDomain))
+			{
+				$host = substr($host, 0, $pos);
+				$isTest = true;
+				$site = $db->row("SELECT * FROM cody_site WHERE site_domain = '".$db->escape($host)."' OR site_domain = 'www.".$db->escape($host)."'");
+			}
+		}
+
 		if (empty($site)) return false;
 
 		self::$id = $site["site_id"];
@@ -175,6 +241,7 @@ class Site {
 		self::$domain = $site["site_domain"];
 		self::$path = $site["site_path"];
 		self::$template = $site["site_template"];
+		self::$isTest = $isTest;
 
 		return true;
 	}

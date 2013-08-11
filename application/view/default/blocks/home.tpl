@@ -1,5 +1,4 @@
 {module action="slide.home"}
-{module action="wizard.button"}
 {*
 {module action="category.featured" category_id=1095865 nowrapper=1}
 <div class="sidebar frontPage_sidebar noprint alignright">

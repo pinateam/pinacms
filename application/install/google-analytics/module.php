@@ -20,13 +20,30 @@ if (!defined('PATH')){ exit; }
 
 
 
-	include_once PATH_DOMAIN.'cart.php';
+require_once PATH_TABLES."module.php";
 
-	$cart = new CartDomain();
+$moduleGateway = new ModuleGateway();
+$moduleGateway->put(array(
+	"module_key" => "google-analytics",
+	"module_enabled" => "Y",
+	"module_version" => "1.00",
+	"module_config_action" => "google-analytics.manage.config",
+	"module_group" => "other",
+	"module_title" => "Google Analytics",
+	"module_description" => lng_key("google_analytics_module_explanation"),
+));
 
-	$key = $request->param('key');
-	if (empty($key)) $request->stop();
-
-	$cart->delete($key);
-
-	$request->ok();
+require_once PATH_TABLES."access.php";
+$accessGateway = new AccessGateway();
+$accessGateway->put(array(
+	"module_key" => "google-analytics.manage",
+	"access_title" => lng_key("google_analytics_management"),
+	"access_group_id" => 2,//admin
+    	"access_enabled" => "Y"
+));
+$accessGateway->put(array(
+	"module_key" => "google-analytics.manage",
+	"access_title" => lng_key("google_analytics_management"),
+	"access_group_id" => 3,//merchant
+    	"access_enabled" => "Y"
+));

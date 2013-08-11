@@ -32,8 +32,8 @@ validateTokenChars($request, "string_key", lng("only_letters_numbers_dash_accept
 
 $request->trust();
 
-$string = new StringGateway();
-if ($string->reportExists($data["string_key"], $data["language_code"]))
+$stringGateway = new StringGateway();
+if ($stringGateway->reportExistsByKeyAndLanguageCode($data["string_key"], $data["language_code"]))
 {
 	$request->stop(lng("enter_string_value_exists"));
 }

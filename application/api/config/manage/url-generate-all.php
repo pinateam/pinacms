@@ -62,7 +62,7 @@ while ($pos < $count)
 				$index ++;
 			}
 
-			$urlGateway->add($key, "category.view", "category_id=".$c["category_id"]);
+			$urlGateway->addUrl($key, "category.view", "category_id=".$c["category_id"]);
 		}
 	}
 
@@ -109,7 +109,7 @@ while ($pos < $count)
 				$index ++;
 			}
 
-			$urlGateway->add($key, "product.view", "product_id=".$p["product_id"]);
+			$urlGateway->addUrl($key, "product.view", "product_id=".$p["product_id"]);
 		}
 	}
 

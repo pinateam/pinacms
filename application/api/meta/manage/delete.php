@@ -22,4 +22,4 @@ if (!defined('PATH')){ exit; }
 
 require_once PATH_TABLES.'meta.php';
 $metaGateway = new MetaGateway();
-$metaGateway->remove($request->param("url_action"), $request->param("url_params"));
+$metaGateway->removeMeta($request->param("url_action"), $request->param("url_params"));

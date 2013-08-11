@@ -26,6 +26,7 @@ if (Session::get('auth_user_id'))
     {
             redirect(href(array('action' => $redirectAction)));
     }
+    $request->setRedirect(href(array('action' => 'home')));
     $request->stop(lng('registration_is_disabled_because_you_are_signed_in'));
 }
 $request->result('redirect_action', $redirectAction);

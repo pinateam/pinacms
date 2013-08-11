@@ -19,5 +19,33 @@
 if (!defined('PATH')){ exit; }
 
 
-$config_widget   = array();
-$config_widget [] = array('action' => 'category.view');
+/*
+	require_once PATH_TABLES.'attachment.php';
+	$productId = $request->param('product_id');
+	
+	$attachmentGateway = new AttachmentGateway();
+	
+	$attachments = $attachmentGateway->getAttachments(
+		'cody_product',
+		$productId
+	);
+	
+	if (is_array($attachments))
+	{
+		foreach ($attachments as $k => $attachment)
+		{
+			if (is_file(PATH_ATTACHMENTS.$attachment['attachment_filename']))
+			{
+				$attachments[$k]['attachment_filesize'] =
+					round($attachment['attachment_filesize'] / 1024, 2);
+			}
+			else
+			{
+				unset($attachments[$k]);
+			}
+		}
+	}
+	
+	$request->result('attachments', $attachments);
+	$request->ok();
+ */

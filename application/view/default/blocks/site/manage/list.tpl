@@ -1,3 +1,5 @@
+{include file="skin/admin/paging.tpl"}
+
 <table class="w100" cellspacing="0">
 <col width="20">
 <col width="20">
@@ -9,14 +11,14 @@
 <col>
 <thead>
     <tr>
-	<th>ID</th>
+	<th>{include file="skin/admin/table-header-sort.tpl" value="id" title="ID"}</th>
         <th>{lng lng="act_"}</th>
         <th>{lng lng="account"}</th>
-	<th>{lng lng="domain"}</th>
-	<th>{lng lng="path"}</th>
-        <th>{lng lng="template"}</th>
+	<th>{include file="skin/admin/table-header-sort.tpl" value="domain" title="domain"|lng}</th>
+	<th>{include file="skin/admin/table-header-sort.tpl" value="path" title="path"|lng}</th>
+        <th>{include file="skin/admin/table-header-sort.tpl" value="template" title="template"|lng}</th>
 	<th></th>
-        <th>{lng lng="frontend_status"}</th>
+        <th></th>
     </tr>
 </thead>
 <tbody>
@@ -51,6 +53,8 @@
 	</tr>
 </tbody>
 </table>
+
+{include file="skin/admin/paging.tpl"}
 
 {literal}
 <script language="JavaScript">

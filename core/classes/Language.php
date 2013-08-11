@@ -35,7 +35,7 @@ class Language extends BaseConfig
 	 * Функция возвращает код языка (текущий или предыдущий)
 	 *
 	 */
-	public function code($code = '')
+	public static function code($code = '')
 	{
 		if ($code == '') return self::$code;
 		

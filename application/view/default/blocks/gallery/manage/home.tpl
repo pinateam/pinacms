@@ -1,3 +1,5 @@
+<h1><span class="section-icon icon-colors"></span>{lng lng="gallery"}</h1>
+
 <div class="right-narrow-column gallery-search-form">
 	<fieldset class="operations">
 		<h2>{lng lng="actions"}</h2>

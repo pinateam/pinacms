@@ -20,10 +20,26 @@ if (!defined('PATH')){ exit; }
 
 
 
-	include_once PATH_DOMAIN.'cart.php';
 
-	$cart = new CartDomain();
+//depends of menu
+@include_once PATH_INSTALL."menu/demo.php";
 
-	$cart->clear();
 
-	$request->ok();
+require_once PATH_TABLES.'menu_item.php';
+$menuItemGateway = new MenuItemGateway();
+
+require_once PATH_TABLES.'menu.php';
+$menuGateway = new MenuGateway();
+
+$mainMenuId = $menuGateway->reportIdBy("menu_key", "main");
+$menuItemGateway->add(array(
+	"menu_id" => $mainMenuId,
+	"menu_item_title" => lng("setup_site"),
+	"url_action" => "wizard.install",
+	"url_params" => "",
+	"menu_item_enabled" => "Y",
+	"menu_item_order" => 100,
+));
+
+$config = getConfig();
+$config->set("wizard", "root_test_domain", SITE_HOST);

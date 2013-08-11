@@ -32,8 +32,9 @@
 				<td colspan="2">
 					<table cellspacing="0" cellpadding="0" width="100%" class="no-border">
 					<tr>
-						<td align="left"><span id="spanUploadProgress{if $postfix}_{$postfix}{/if}"></span></td>
-						<td align="right"><span id="spanUploadBtn{if $postfix}_{$postfix}{/if}"></span></td>
+						<td style="text-align:left;width:10%;">{block view="image.navigator.button"}</td>
+						<td style="text-align:center;"><span id="spanUploadProgress{if $postfix}_{$postfix}{/if}"></span></td>
+						<td style="text-align:right;width:10%;"><span id="spanUploadBtn{if $postfix}_{$postfix}{/if}"></span></td>
 					</tr>
 					</table>
 				</td>
@@ -42,6 +43,7 @@
 	</table>
 </div>
 
+{block view="image.navigator.js"}
 
 {literal}
 <script type="text/javascript">

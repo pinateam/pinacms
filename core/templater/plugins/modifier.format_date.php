@@ -31,6 +31,10 @@ function smarty_modifier_format_date($date)
 	{
 		$date = strtotime($date);
 	}
-
-	return date("d.m.Y H:i:s", $date);
+	
+	$config = getConfig();
+	$f = $config->get("appearance", "date_format");
+	if (empty($f)) $f = "d.m.Y";
+	
+	return date($f, $date);
 }

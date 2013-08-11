@@ -70,6 +70,7 @@
 		{block view="config.manage.background-image-config-home"}
 		{block view="config.manage.template-config-home"}
 		{block view="config.manage.image-config-home"}
+		{block view="config.manage.date-time-config-home"}
 	</fieldset>
 
 	{module action="payment.manage.config-home"}

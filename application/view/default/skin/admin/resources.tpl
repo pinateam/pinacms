@@ -23,6 +23,19 @@
 
 	{block view="editor.tiny-mce-js"}
 
+	<link rel="stylesheet" href="{site css="jslider/jslider.css"}">
+	<link rel="stylesheet" href="{site css="jslider/jslider.blue.css"}">
+	<link rel="stylesheet" href="{site css="jslider/jslider.plastic.css"}">
+	<link rel="stylesheet" href="{site css="jslider/jslider.round.css"}">
+	<link rel="stylesheet" href="{site css="jslider/jslider.round.plastic.css"}">
+
+	<script src="{site js="jslider/jshashtable-2.1_src.js"}"></script>
+	<script src="{site js="jslider/jquery.numberformatter-1.2.3.js"}"></script>
+	<script src="{site js="jslider/tmpl.js"}"></script>
+	<script src="{site js="jslider/jquery.dependClass-0.1.js"}"></script>
+	<script src="{site js="jslider/draggable-0.1.js"}"></script>
+	<script src="{site js="jslider/jquery.slider.js"}"></script>
+
 {literal}
 <script type="text/javascript">
   var uvOptions = {};

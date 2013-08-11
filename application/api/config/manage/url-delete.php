@@ -22,4 +22,4 @@ if (!defined('PATH')){ exit; }
 
 require_once PATH_TABLES.'url.php';
 $urlGateway = new UrlGateway();
-$urlGateway->remove($request->param("url_action"), $request->param("url_params"));
+$urlGateway->removeUrl($request->param("url_action"), $request->param("url_params"));

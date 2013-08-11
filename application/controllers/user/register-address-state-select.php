@@ -24,17 +24,17 @@ require_once PATH_TABLES."directory.php";
 
 $code = $request->param("country_key");
 
-$directory = new DirectoryGateway();
+$directoryGateway = new DirectoryGateway();
 
 if (empty($code))
 {
 	//если страна не инициализирована, берем первую из списка
 	//TODO: сделать домен, который будет говорить, какая страна должна идти по умолчанию.
-	$cs = $directory->findByKey("country");
+	$cs = $directoryGateway->findByKey("country");
 	$code = $cs[0]['directory_value'];
 }
 
-$ss = $directory->findByKey("state_".$code);
+$ss = $directoryGateway->findByKey("state_".$code);
 
 $states = array();
 foreach ($ss as $k => $v)

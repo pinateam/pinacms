@@ -41,7 +41,7 @@ class MetaGateway extends TableDataGateway
 		'UNIQUE KEY meta_key' => array('site_id','meta_action','meta_params')
 	);
 
-	public function edit($action, $params, $data)
+	public function editMeta($action, $params, $data)
 	{
 		if (!is_array($data) || empty($data)) return false;
 		
@@ -60,7 +60,7 @@ class MetaGateway extends TableDataGateway
 		return $this->db->query("INSERT INTO `".$this->table."` SET ".$set.", `meta_action` = '$action', `meta_params` = '$params'".$this->getBySiteAndAccount(",")." ON DUPLICATE KEY UPDATE $set");
 	}
 	
-	public function remove($action, $params)
+	public function removeMeta($action, $params)
 	{
 		$action = $this->db->escape($action);
 		$params = $this->db->escape($params);

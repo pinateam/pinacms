@@ -27,7 +27,6 @@ $request->filterParams("filter_only_y_n", "post_enabled");
 validateNotEmpty($request, 'post_id', lng('internal_error'));
 
 validateNotEmpty($request, 'post_title', lng('enter_post_title'));
-validateNotEmpty($request, 'post_text', lng('enter_post_text'));
 validateNotEmpty($request, 'post_enabled', lng('enter_status'));
 validateNotEmpty($request, 'blog_id', lng('enter_blog'));
 
@@ -50,6 +49,9 @@ $postGateway->edit($postId, $params);
 
 require_once PATH_DOMAIN."photo.php";
 PhotoDomain::updatePhotosPostId($request->param('post_text'), $postId);
+
+$request->set('subject', 'post');
+$request->run('attachment.manage.edit');
 
 $request->set('url_action', 'post.view');
 $request->set('url_params', 'post_id='.$postId);

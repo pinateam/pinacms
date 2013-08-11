@@ -30,13 +30,6 @@ class SlideGateway extends TableDataGateway
 		'slide_id' => "int(10) NOT NULL AUTO_INCREMENT",
 		'site_id' => "int(10) NOT NULL DEFAULT '0'",
 		'image_id' => "int(10) NOT NULL DEFAULT '0'",
-	    
-		'slide_filename' => "varchar(255) NOT NULL DEFAULT '0'",
-		'slide_width' => "int(1) NOT NULL DEFAULT '0'",
-		'slide_height' => "int(1) NOT NULL DEFAULT '0'",
-		'slide_type' => "varchar(20) NOT NULL DEFAULT ''",
-		'slide_size' => "int(10) NOT NULL DEFAULT '0'",
-		'slide_alt' => "varchar(32) NOT NULL DEFAULT ''",
 
 		'slide_href' => "varchar(255) NOT NULL DEFAULT ''",
 		'slide_enabled' => "varchar(1) NOT NULL DEFAULT 'N'",

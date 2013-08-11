@@ -126,3 +126,12 @@ function validateInArray($request, $field, $values, $message)
                 $request->error($message, $field);
         }
 }
+
+function validateLength($request, $field, $length, $message)
+{
+        $value = $request->param($field);
+        if(mb_strlen($value) > $length)
+        {
+                $request->error($message, $field);
+        }
+}

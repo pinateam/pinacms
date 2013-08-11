@@ -22,8 +22,8 @@ if (!defined('PATH')){ exit; }
 
 require_once PATH_TABLES."directory.php";
 
-$directory = new DirectoryGateway();
-$cs = $directory->findByKey("country");
+$directoryGateway = new DirectoryGateway();
+$cs = $directoryGateway->findByKey("country");
 
 $counties = array();
 foreach ($cs as $k => $v)

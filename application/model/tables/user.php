@@ -39,15 +39,50 @@ class UserGateway extends TableDataGateway
 		'user_gender' => "enum('male','female','unspecified') NOT NULL DEFAULT 'unspecified'",
 		'user_created' => "timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP",
 		'user_updated' => "timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'",
+		'facebook_id' => 'bigint(64) UNSIGNED NOT NULL DEFAULT 0',
+		'twitter_id' => 'bigint(64) UNSIGNED NOT NULL DEFAULT 0'
 	);
 
 	var $indexes = array(
-                'PRIMARY KEY' => 'user_id',
+        'PRIMARY KEY' => 'user_id',
 		'UNIQUE KEY user_login' => 'user_login',
-		'UNIQUE KEY user_email' => 'user_email'
+		'UNIQUE KEY user_email' => 'user_email',
+		'KEY facebook_id' => 'facebook_id',
+		'KEY twitter_id' => 'twitter_id'
 	);
 
 	var $useAccountId = true;
+
+	public function reportAccessGroupIdByUserId($user_id)
+	{
+		$q = "SELECT access_group_id FROM cody_user ";
+
+		
+		//if (Site::id()) $q .= "LEFT JOIN cody_site ON cody_site.account_id = cody_user.account_id ";
+		
+
+		$q .= "WHERE cody_user.user_id = '".Session::get('auth_user_id')."' ";
+
+		
+		$q .= "AND (cody_user.account_id = '".Site::accountId()."' OR cody_user.access_group_id = 2) LIMIT 1";
+		//if (Site::id()) $q .= "AND (cody_site.site_id = '".Site::id()."' OR access_group_id = 2)";
+		
+
+		return $this->db->one($q);
+	}
+
+	public function reportExists($id)
+	{
+		$q = "SELECT count(*) FROM cody_user ";
+
+		$q .= "WHERE cody_user.user_id = '".Session::get('auth_user_id')."' ";
+
+		
+		$q .= "AND (cody_user.account_id = '".Site::accountId()."' OR cody_user.access_group_id = 2) LIMIT 1";
+		
+
+		return $this->db->one($q);
+	}
 
 	public function getByLoginOrEmail($user_login, $user_email)
 	{

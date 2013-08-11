@@ -16,7 +16,7 @@ $.fn.pfd = function(options)
 				} else {
 						value = options.filters[filterId]["min"]+";"+options.filters[filterId]["max"];
 				}
-				html += "<input id=\""+filterId+"\" class=\"slider\" type=\"slider\" value=\""+value+"\" /></div>";
+				html += "<input id=\""+filterId+"\" class=\"slider\" type=\"slider\" value=\""+value+"\" /></div><br />";
 				$(".products_filters").append(html);
 
 				//инициализация слайдера
@@ -91,7 +91,7 @@ $.fn.pfd = function(options)
 
 				xy = [];
 				xi = x[0];
-				yi = 0;
+				yi = 1;
 				j = 0;				
 				dy = options.filters[findFilterId]["dy"];
 
@@ -126,10 +126,10 @@ $.fn.pfd = function(options)
 						xy[j] = getXY(findFilterId, xi, getY(yi, dy));
 				}
 
-				for(i in xy) {
-						//console.log(xy[i][0], xy[i][1], xy[i][2]);
-				}
-				
+				/*for(i in xy) {
+						console.log(xy[i][0], xy[i][1], xy[i][2]);
+				}*/
+								
 				return xy;
 		}
 

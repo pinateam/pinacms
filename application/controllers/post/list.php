@@ -26,10 +26,10 @@ if (!defined('PATH')){ exit; }
 
     if (!$request->param("blog_id"))
     {
-        $request->stop(lng("wrong_data_format"));
+        $request->stop("");//lng("wrong_data_format"));
     }
 
-    $sorting = new Sorting("post_created", "desc");
+    $sorting = new Sorting("published", "desc");
     $paging = new Paging($request->param('page'), $request->param("paging")?$request->param("paging"):10);
 
     $rules = array(

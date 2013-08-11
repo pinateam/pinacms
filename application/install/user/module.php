@@ -37,6 +37,7 @@ $accessGateway->put(array(
 
 require_once PATH_TABLES."user.php";
 $userGateway = new UserGateway();
+$userGateway->useAccountId = false;
 $userAdmin = $userGateway->getBy("access_group_id", "2");
 if (empty($userAdmin))
 {

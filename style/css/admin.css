@@ -627,6 +627,67 @@ span.collapsed {
 	background-position: 5px 0;
 }
 
+
+/*
+----------------
+Image navigator
+----------------
+*/
+
+div.image-navigator {
+	min-width: 400px;
+	max-width: 761;
+	min-height: 400px;
+	min-height: 400px;
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+
+div.image-navigator div.right-narrow-column {
+	float: right;
+	width: 200px;
+	height: 200px;
+}
+
+div.image-navigator div.left-wide-column {
+	max-width: 550px;
+	min-width: 190px;
+}
+
+
+
+div.image-navigator div.image-list {
+	height: 360px;
+	overflow: auto;
+}
+
+div.image-navigator div.left-wide-column div.image-selector {
+	display: inline-block;
+	width: 170px;
+}
+
+div.image-navigator span.search-text button.search-button{
+	background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    box-shadow: none;
+    height: 23px;
+    margin: 0 2px 0 -26px;
+    vertical-align: middle;
+    width: 18px;
+}
+
+.navigator-filter { padding: 10px; font-family: Georgia, serif; }
+.navigator-slider { margin-bottom: 10px; width: 50%; }
+
+.navigator-filter .jslider {
+	top: 10px;
+}
+
+div.image-navigator div.image:hover  {
+	background-color: #e4f6f9;
+}
+
 /*
 -----------------
 Operation toolbar
@@ -833,6 +894,18 @@ Image selector
 
 	width: 170px;
 	margin-bottom: 5px;
+}
+
+.image-selector-empty{
+	cursor: pointer;
+	cursor: hand;
+
+	width: 170px;
+	margin-bottom: 5px;
+}
+
+.image-row {
+	width: 100%;
 }
 
 .image-selector:hover {

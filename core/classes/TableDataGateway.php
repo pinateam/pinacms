@@ -278,7 +278,7 @@ class TableDataGateway
 	{
 		$field = $this->db->escape($field);
 		$needle = $this->db->escape($needle);
-
+		//echo "SELECT * FROM `".$this->table."` WHERE `".$this->table."`.`".$field."` = '".$needle."'".$this->getBySiteAndAccount()." LIMIT 1";die;
 		$row = $this->db->row("SELECT * FROM `".$this->table."` WHERE `".$this->table."`.`".$field."` = '".$needle."'".$this->getBySiteAndAccount()." LIMIT 1");
 		return $row;
 	}

@@ -20,9 +20,10 @@ if (!defined('PATH')){ exit; }
 
 
 
-$request->filterAllParams("strip_tags trim");
-$request->filterParams("filter_only_y_n", "blog_enabled");
+$request->filterAllParams("trim");
 $request->filterParams("intval", "blog_id");
+$request->filterParams("filter_only_y_n", "blog_enabled");
+$request->filterParams("strip_tags", "blog_title");
 
 validateNotEmpty($request, 'blog_id', lng('internal_error'));
 validateNotEmpty($request, 'blog_title', lng('enter_blog_title'));
@@ -38,7 +39,7 @@ $blogId = $request->param('blog_id');
 require_once PATH_TABLES .'blog.php';
 $blogGateway = new BlogGateway();
 
-$params = $request->params("blog_title blog_enabled");
+$params = $request->params("blog_title blog_description blog_enabled");
 $blogGateway->edit($blogId, $params);
 
 $request->set('url_action', 'blog.view');

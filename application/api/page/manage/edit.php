@@ -54,4 +54,8 @@ $request->set('menu_item_title', $request->param("page_title"));
 $request->set('menu_item_enabled', $request->param("page_enabled"));
 $request->run('menu.manage.set-show');
 
+$request->set("post_id", $request->param('page_id'));
+$request->set('subject', 'post');
+$request->run('attachment.manage.edit');
+
 $request->ok();

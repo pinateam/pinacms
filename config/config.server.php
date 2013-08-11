@@ -28,19 +28,18 @@ if (!defined('PATH')){ exit; }
     define('DB_CONNECTION_CHARSET', 'utf8');
     define('DB_DEFAULT_ENGINE', 'InnoDB');
 
-    //Important: change SITE_HOST to your core site domain.
-    define('SITE_HOST', 'localhost');
+    define ('MEMCACHE_HOST', '127.0.0.1');
+
+    #define ('SPHINXSEARCH_HOST', '127.0.0.1');
+    #define ('SPHINXSEARCH_PORT', 3312);
+    #define ('SPHINXSEARCH_PREFIX', 'grainger');
+
+    define('COMBINE_RESOURSES', false);
+
+    define('SITE_HOST', '');
     define('SITE_PATH', '');
     define('SITE_BASE', 'http://'.SITE_HOST.'/');
     define('SITE', SITE_BASE.SITE_PATH);
-
-    define ('MEMCACHE_HOST', '');
-
-    #define ('SPHINXSEARCH_HOST', '');
-    #define ('SPHINXSEARCH_PORT', 3312);
-    #define ('SPHINXSEARCH_PREFIX', '');
-
-    define('COMBINE_RESOURSES', false);
 
     define('SITE_CHARSET', 'utf-8');
     define('SITE_TIMEZONE', 'Europe/Moscow');
@@ -64,4 +63,4 @@ if (!defined('PATH')){ exit; }
     define('CATALOG_ADMIN_SUBCATEGORIES_PRODUCTS_SHOW', true);
     define('BLOCK_EXCEPTIONS', true);
 
-    define('TEMPLATE_DEFAULT', '');
+    define('TEMPLATE_DEFAULT', 'lingerie');

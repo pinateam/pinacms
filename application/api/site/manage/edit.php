@@ -20,22 +20,23 @@ if (!defined('PATH')){ exit; }
 
 
 
-	require_once PATH_TABLES.'site.php';
+require_once PATH_TABLES.'site.php';
 
-	$siteId = $request->param("site_manage_id");
+$siteId = $request->param("site_manage_id");
 
-	$data = $request->params("account_id site_domain site_path site_template");
-	$site = new SiteGateway();
-	$site->edit($siteId, $data);
-	
-	$accountId = $request->param("account_id");
+$data = $request->params("account_id site_domain site_path site_template");
+$site = new SiteGateway();
+$site->edit($siteId, $data);
 
+$accountId = $request->param("account_id");
+if (!empty($accountId))
+{
 	include_once PATH_TABLES."account.php";
 	$accountGateway = new AccountGateway();
 	$userId = $accountGateway->reportUserId($accountId);
 
 	include_once PATH_TABLES."user.php";
 	$userGateway = new UserGateway();
+	$userGateway->accountId = 0;
 	$userGateway->edit($userId, array("account_id" => $accountId));
-
-	$request->ok();
+}

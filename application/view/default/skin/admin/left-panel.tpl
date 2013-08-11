@@ -48,6 +48,7 @@
 				{block view="work.manage.left-pane"}
 				{block view="gift-certificate.manage.left-pane"}
                                 {block view="delivery.manage.left-pane"}
+				{block view="vacancy.manage.left-pane"}
 				{block view="menu.manage.left-pane"}
 			</ul>
 		</li>

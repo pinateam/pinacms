@@ -893,6 +893,16 @@ class CI_Input {
 	*/
 	function _sanitize_naughty_html($matches)
 	{
+		if ($matches[2] == "iframe" && strpos($matches[3], 'youtube') !== false)
+		{
+		    require_once PATH_CORE."core.parse.php";
+		    $url = parseBetweenMarkers($matches[3], ' src="', '"');
+		    $parsed = parse_url($url);
+		    if (!empty($parsed["host"]) && in_array($parsed["host"], array("www.youtube.com", "www.youtube-nocookie.com")))
+		    {
+			return $matches[0];
+		    }
+		}
 		// encode opening brace
 		$str = '&lt;'.$matches[1].$matches[2].$matches[3];
 

@@ -32,7 +32,7 @@ if(!isset($_POST['action']) || $_POST['action'] != 'template.manage.edit')
 $data = array();
 if ($_SERVER['REQUEST_METHOD'] == "POST")
 {
-	$data = $_POST;
+	$data = $_REQUEST;//$_POST;
 }
 else
 {

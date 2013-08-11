@@ -23,7 +23,7 @@ if (!defined('PATH')){ exit; }
 require_once PATH_TABLES .'meta.php';
 $metaGateway = new MetaGateway();
 
-$metaGateway->edit(
+$metaGateway->editMeta(
 	$request->param("url_action"),
 	$request->param("url_params"),
 	$request->params("meta_h1 meta_title meta_keys meta_description")

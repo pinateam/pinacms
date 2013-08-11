@@ -20,23 +20,22 @@ if (!defined('PATH')){ exit; }
 
 
 
-include_once PATH_DOMAIN.'cart.php';
-$cart = new CartDomain();
-
-if (
-	!$cart->add(
-		$request->param('product_id'), 
-		$request->param('options'), 
-		$request->param('order_product_amount')
-	)
-)
+function smarty_modifier_nl2ul($data)
 {
-	$request->stop(lng("product_disabled"));
+	if (empty($data)) return '';
+	
+	if (strpos($data, "<ul") === false)
+	{
+		$r = "<ul>";
+		$a = explode("\n", $data);
+		foreach ($a as $v)
+		{
+			$v = trim($v);
+			if (empty($v)) continue;
+			$r .= '<li>'.$v.'</li>';
+		}
+		$r .= "</ul>";
+		return $r;
+	}
+	return $data;
 }
-
-$config = getConfig();
-if ($config->get("order", "redirect_customer_to_cart") == "Y")
-{
-	$request->setRedirect(href(array("action" => "order.cart")));
-}
-$request->ok();

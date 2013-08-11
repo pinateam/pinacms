@@ -40,7 +40,8 @@ class ModuleGateway extends TableDataGateway
 
 	var $indexes = array(
 		'PRIMARY KEY' => array('module_key','site_id'),
-		'KEY module_enabled' => array('module_enabled', 'site_id')
+		'KEY module_enabled' => array('module_enabled', 'site_id'),
+		'KEY site_id' => 'site_id',
 	);
 
 	var $useSiteId = true;

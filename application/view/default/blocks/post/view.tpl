@@ -2,7 +2,9 @@
 
 {$post.post_text|format_description|format_photos:$post.post_id}
 
-{$post.post_created|format_date}
+{module action="attachment.links" subject="post" post_id=$post.post_id}
+
+{$post.post_created|format_datetime}
 
 {block view="post-comment.post-view" post_id=$post.post_id}
 {literal}

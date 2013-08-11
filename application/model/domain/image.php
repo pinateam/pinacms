@@ -253,7 +253,7 @@ class ImageDomain
 		return $imageId;
 	}
 
-	static function saveCopy($filepath, $gateway, $filename, $data)
+	static function saveCopy($filepath, $filename)
 	{
 		if (empty($filepath)) return;
 		if (!file_exists($filepath)) return false;
@@ -262,14 +262,10 @@ class ImageDomain
 
 		copy($filepath, self::getFilePath($filename));
 
-		$data["image_id"] = self::prepareData($filename);
-
-		$gateway->put($data);
-
-		return $filename;
+		return self::prepareData($filename);
 	}
 
-	static function saveUrl($source, $gateway, $filename, $data)
+	static function saveUrl($source, $filename)
 	{
 		if (empty($source)) return;
 
@@ -281,11 +277,7 @@ class ImageDomain
 		file_put_contents(self::getFilePath($subject, $filename), $image_content);
 		unset($image_content);
 
-		$data["image_id"] = self::prepareData($filename);
-		
-		$gateway->put($data);
-
-		return $filename;
+		return self::prepareData($filename);
 	}
 
 	static function save($gateway, $data)

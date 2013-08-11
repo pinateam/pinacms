@@ -38,12 +38,12 @@ class ExtManager
 		return self::$instance;
 	}
 	
-	public function add($method, $extension)
+	public static function add($method, $extension)
 	{
 		self::$extensions[$method][] = $extension;
 	}
 	
-	public function get($method = '')
+	public static function get($method = '')
 	{
 		if ($method == '')
 		{
@@ -63,7 +63,7 @@ class ExtManager
 		return $return;
 	}
 
-	public function clear($method)
+	public static function clear($method)
 	{
 		self::$extensions[$method] = array();
 	}

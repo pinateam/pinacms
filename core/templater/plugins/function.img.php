@@ -48,8 +48,11 @@ function smarty_function_img($params, &$view)
 	{
 		require_once PATH_DOMAIN."image.php";
 
-		$srcPath = PATH_IMAGES.Site::id()."/".$first."/".$second."/".$params["img"];
+		$srcPath = PATH_IMAGES;
 		
+		$srcPath .= Site::id()."/";
+		
+		$srcPath .= $first."/".$second."/".$params["img"];
 
 		if (!file_exists($srcPath))
 		{
@@ -64,16 +67,22 @@ function smarty_function_img($params, &$view)
 		$tmpName = $key.".png";//ImageDomain::tmpName("png", $key);
 
 		@mkdir(PATH_CACHE."images", 0777);
+		
 		@mkdir(PATH_CACHE."images/".Site::id(), 0777);
+		
 		
 		$hash = md5($tmpName);
 		$first = substr($hash, 0, 2);
 		$second = substr($hash, 2, 2);
+		
+		$cacheBase = PATH_CACHE."images/";
+		
+		$cacheBase .= Site::id()."/";
+		
+		@mkdir($cacheBase.$first, 0777);
+		@mkdir($cacheBase.$first."/".$second, 0777);
 
-		@mkdir(PATH_CACHE."images/".Site::id()."/".$first, 0777);
-		@mkdir(PATH_CACHE."images/".Site::id()."/".$first."/".$second, 0777);
-
-		$filepath = PATH_CACHE."images/".Site::id()."/".$first."/".$second."/".$tmpName;
+		$filepath = $cacheBase.$first."/".$second."/".$tmpName;
 
 		if (!file_exists($filepath))
 		{
@@ -92,7 +101,11 @@ function smarty_function_img($params, &$view)
 			}
 		}
 
-		return Site::baseUrl()."cache/images/".Site::id()."/".$first."/".$second."/".$tmpName;
+		$cacheBase = Site::baseUrl()."cache/images/";
+		
+		$cacheBase .= Site::id()."/";
+		
+		return $cacheBase.$first."/".$second."/".$tmpName;
 
 		/*
 		return href(array(
@@ -103,5 +116,9 @@ function smarty_function_img($params, &$view)
 		*/
 	}
 
-	return Site::baseUrl()."images/".Site::id()."/".$first."/".$second."/".$params["img"];
+	$baseUrl = Site::baseUrl()."images/";
+	
+	$baseUrl .= Site::id()."/";
+	
+	return $baseUrl.$first."/".$second."/".$params["img"];
 }

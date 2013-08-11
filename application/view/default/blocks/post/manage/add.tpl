@@ -1,8 +1,18 @@
 <h1><span class="section-icon icon-book"></span>{lng lng="post_addition"}</h1>
 <form action="api.php" method="POST" name="post_add_form" id="post_add_form">
 	<input type="hidden" name="action" value="post.manage.add" />
+	
+	<div class="right-narrow-column">
+		<fieldset class="operations">
+			<h2>{lng lng="actions"}</h2>
+			<div class="button-bar">
+				<button class="css3 button-edit">{lng lng="create"}</button>
+				<button class="css3 additional button-cancel">{lng lng="cancel"}</button>
+			</div>
+		</fieldset>
 
-	{include file="skin/admin/page-operations-create-cancel.tpl"}
+		{module action="attachment.manage.form" subject="post" post_id=$post.post_id}
+	</div>
 
 	<div class="left-wide-column">
 		{block view="post.manage.form-common"}

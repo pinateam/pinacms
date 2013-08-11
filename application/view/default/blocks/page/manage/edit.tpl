@@ -3,8 +3,20 @@
     <form action="api.php" method="POST" name="page_edit_form" id="page_edit_form">
         <input type="hidden" name="action" value="page.manage.edit" />
         <input type="hidden" name="page_id" value="{$page_data.post_id}" />
+	
 	<div class="right-narrow-column">
-		{include file="skin/admin/page-operations-save-cancel-delete.tpl" sid=$page_data.post_id}
+		<fieldset class="operations">
+			<h2>{lng lng="actions"}</h2>
+			<div class="button-bar">
+				<button class="css3 button-edit">{lng lng="save"}</button>
+				<button class="css3 additional button-cancel">{lng lng="cancel"}</button>
+			</div>
+			<div class="button-bar-2">
+				<button class="css3 delete button-delete" sid="{$page_data.post_id}">{lng lng="delete"}</button>
+			</div>
+		</fieldset>
+
+		{module action="attachment.manage.form" subject="post" post_id=$page_data.post_id}
 	</div>
 
 	<div class="left-wide-column">

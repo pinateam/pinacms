@@ -38,6 +38,6 @@ class AccountGateway extends TableDataGateway
 	public function reportUserId($accountId)
 	{
 		$accountId = intval($accountId);
-		return $this->db->one("SELECT `user_id` FROM $this->table WHERE account_id = '.$accountId.'");
+		return $this->db->one("SELECT `user_id` FROM $this->table WHERE account_id = '".$accountId."'");
 	}
 }

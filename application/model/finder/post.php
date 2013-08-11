@@ -76,7 +76,7 @@ class PostFinder extends BaseFinder
 
 		// Фильтруем поле сортировки
 		$sortTable = 'cody_post';
-		if (!in_array($sortField, array('title', 'created', 'enabled')))
+		if (!in_array($sortField, array('title', 'created', 'published', 'enabled')))
 		{
 			$sortField = 'post_id';
 			$sortDir   = 'desc';

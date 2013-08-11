@@ -18,8 +18,8 @@
 	{/if}
     </a>
 </td>
-<td>
-	{$post.post_created|format_date}
+<td class="editable">
+	{$post.post_published|replace:"0000-00-00 00:00:00":""|default:$post.post_created|format_datetime}
 </td>
 <td>
     {module action="post.manage.status" enabled=$post.post_enabled sid=$post.post_id input=false}

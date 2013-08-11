@@ -45,7 +45,7 @@ class UrlGateway extends TableDataGateway
 		return $this->db->one("SELECT url_key FROM ".$this->table." WHERE url_action = '".$this->db->escape($action)."' AND url_params = '".$this->db->escape($params)."'".$this->getBySiteAndAccount());
 	}
 
-	function add($key, $action, $params)
+	function addUrl($key, $action, $params)
 	{
 		$this->db->query("INSERT INTO ".$this->table." SET url_key = '".$this->db->escape($key)."', url_action = '".$this->db->escape($action)."', url_params = '".$this->db->escape($params)."'".$this->getBySiteAndAccount());
 	}
@@ -64,7 +64,7 @@ class UrlGateway extends TableDataGateway
 		return !$this->db->one($q = "SELECT count(*) FROM ".$this->table." WHERE url_key = '".$this->db->escape($key)."' AND (url_action != '".$this->db->escape($action)."' OR url_params != '".$this->db->escape($params)."')".$this->getBySiteAndAccount());
 	}
 
-        public function remove($action, $params)
+        public function removeUrl($action, $params)
         {
                 return $this->db->query("DELETE FROM `".$this->table."` WHERE `url_action` = '".$this->db->escape($action)."' AND `url_params` = '".$this->db->escape($params)."'".$this->getBySiteAndAccount());
         }

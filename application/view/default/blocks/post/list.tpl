@@ -8,7 +8,7 @@
 
 		<p>{$post.post_text|format_description|format_photos:$post.post_id}</p>
 
-		<p>{$post.post_created|format_date}</p>
+		<p>{$post.post_created|format_datetime}</p>
 
 	{/foreach}
 

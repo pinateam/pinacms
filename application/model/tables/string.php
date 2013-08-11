@@ -37,7 +37,7 @@ class StringGateway extends TableDataGateway
 		'KEY language_code' => array('language_code', 'module_key')
 	);
 
-	function remove($string_key, $language_code)
+	function removeByKeyAndLanguageCode($string_key, $language_code)
 	{
 		$string_key = $this->db->escape($string_key);
 		$language_code = $this->db->escape($language_code);
@@ -60,7 +60,7 @@ class StringGateway extends TableDataGateway
 		$this->db->query($sql);
 	}
 
-	function  reportExists($string_key, $language_code) {
+	function  reportExistsByKeyAndLanguageCode($string_key, $language_code) {
 		return $this->db->one("SELECT count(*) FROM `".$this->table."` WHERE string_key = '".$this->db->escape($string_key)."' AND language_code = '".$this->db->escape($language_code)."' LIMIT 1");
 	}
 }

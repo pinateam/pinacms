@@ -3,7 +3,7 @@
 
 {$post.post_text|strip_images|format_description}
 
-<p>{$post.post_created|format_date}</p>
+<p>{$post.post_created|format_datetime}</p>
 
 <p><a href="{link action="blog.view" blog_id=$blog.blog_id}">{$blog.blog_title}</a></p>
 

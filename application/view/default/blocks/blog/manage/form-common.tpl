@@ -7,4 +7,8 @@
         </div>
 
 	{include file="skin/admin/form-line-input.tpl" name="blog_title" title="title"|lng help="" width="" value=$blog.blog_title}
+
+	{include file="skin/admin/form-line-textarea.tpl"
+		 name="blog_description" value=$blog.blog_description title="description"|lng
+		 width="html-text" rows="20" help="description_explanation"|lng}
 </fieldset>

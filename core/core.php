@@ -150,8 +150,9 @@ function href($params = array())
     
     if (!empty($params["site_id"]))
     {
-	    $base_url = Site::baseUrl($params["site_id"]);
+	    $base_url = Site::baseUrl($params["site_id"], isset($params["site_test"])?$params["site_test"]:NULL);
 	    unset($params["site_id"]);
+	    unset($params["site_test"]);
     }
     
 
@@ -216,6 +217,10 @@ function use_base_params($params)
 		$base = array();
 		parse_str($params["base"], $base);
 		$params = array_merge($base, $params);
+		unset($params["base"]);
+	}
+	elseif (isset($params["base"]) && empty($params["base"]))
+	{
 		unset($params["base"]);
 	}
 
@@ -501,8 +506,13 @@ function isModulePermitted($module)
 		if (isset($agids[$siteId][Session::get('auth_user_id')]))
 			$agid = $agids[$siteId][Session::get('auth_user_id')];
 		else
-			$agid = $agids[$siteId][Session::get('auth_user_id')] = $db->one("SELECT access_group_id FROM cody_user LEFT JOIN cody_site ON cody_site.account_id = cody_user.account_id  WHERE cody_user.user_id = '".Session::get('auth_user_id')."' AND (cody_site.site_id = '".$siteId."' OR access_group_id = 2)");
+		{
+			require_once PATH_TABLES."user.php";
+			$userGateway = new UserGateway;
+			$agid = $agids[$siteId][Session::get('auth_user_id')] = $userGateway->reportAccessGroupIdByUserId(Session::get('auth_user_id'));
+		}
 	}
+
 	
 
 	
@@ -682,6 +692,67 @@ function filter_http($v)
 		$v = 'http://'.$v;
 	}
 	return $v;
+}
+
+function filter_datetime($v)
+{
+	$config = getConfig();
+	$df = $config->get("appearance", "date_format");
+	if (empty($df)) $df = "d.m.Y";
+	
+	$tf = $config->get("appearance", "time_format");
+	if (empty($tf)) $tf = "H:i";
+
+	$data = parseByDataTimeFormat($df." ".$tf, $v);
+
+	if (empty($data["Y"]))
+	{
+		$data["Y"] = date("Y");
+	}
+	if (!isset($data["H"]) && isset($data["h"]) && isset($data["A"]))
+	{
+		if (strcasecmp($data["A"], "PM") == 0) $data["H"] = $data["h"] + 12;
+	}
+
+	if (!isset($data["H"]) && isset($data["h"]))
+	{
+		$data["H"] = $data["h"];
+	}
+
+	if (!isset($data["s"])) $data["s"] = 0;
+
+	return date("Y-m-d H:i:s", mktime($data["H"], $data["i"], $data["s"], $data["m"], $data["d"], $data["Y"]));
+}
+
+function parseByDataTimeFormat($f, $v)
+{
+	$base = array("d", "m", "Y", "H", "h", "i", "s", "A");
+	$vals = array("(\d+)", "(\d+)", "(\d+)", "(\d+)", "(\d+)", "(\d+)", "(\d+)", "(\w+)");
+
+	$f_pattern = $f;
+	$f_pattern = str_replace(array("/", ".", ":", " "), array("\/", "\.", "\:", "[ ]+"), $f_pattern);
+	$f_pattern = str_replace($base, $vals, $f_pattern);
+	$f_pattern = "/".$f_pattern."/si";
+
+	preg_match($f_pattern, $v, $f_matches);
+
+	//print_r($f_matches);
+
+	$f_base_pattern = $f;
+	$f_base_pattern = str_replace(array("/", ".", ":"), array("\/", "\.", "\:"), $f_base_pattern);
+	$f_base_pattern = str_replace($base, "(\w)", $f_base_pattern);
+	$f_base_pattern = "/".$f_base_pattern."/si";
+
+	preg_match($f_base_pattern, $f, $f_base_matches);
+
+	//print_r($f_base_matches);
+
+	$parsed = array();
+	foreach ($f_matches as $k => $temp)
+	{
+		$parsed[$f_base_matches[$k]] = $temp;
+	}
+	return $parsed;
 }
 
 function parseDate($str)
@@ -881,3 +952,35 @@ function parseDate($str)
                 $zipArchive->extractTo($extractDir);
                 $zipArchive->close();
         }
+
+        function base64UrlDecode($input) 
+		{
+			return base64_decode(strtr($input, '-_', '+/'));
+ 		}
+ 
+		function parseSignedRequest($signed_request, $secret) 
+		{
+			list($encoded_sig, $payload) = explode('.', $signed_request, 2);
+
+			// decode the data
+			$sig = base64UrlDecode($encoded_sig);
+			$data = json_decode(base64UrlDecode($payload), true);
+
+			if (strtoupper($data['algorithm']) !== 'HMAC-SHA256') {
+				return null;
+			}
+
+			// check sig
+			$expected_sig = hash_hmac('sha256', $payload, $secret, $raw = true);
+				if ($sig !== $expected_sig) {
+				error_log('Bad Signed JSON signature!');
+				return null;
+			}
+ 
+			return $data;
+		}
+
+		function prepareIntElem($elem)
+		{
+			return (int)$elem;
+		}

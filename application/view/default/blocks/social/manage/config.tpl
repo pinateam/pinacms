@@ -17,17 +17,21 @@
 
 <div class="left-wide-column">
 	<fieldset>
-		<h2>{lng lng="common_data"}</h2>
+		<h2>Facebook</h2>
 
-		{include file="skin/admin/form-line-input.tpl" name="facebook" value=$config.social.facebook title="facebook_profile"|lng class="w50" width="long-text"}
+		{include file="skin/admin/form-line-input.tpl" name="twitter" value=$config.social.facebook title="facebook_profile"|lng width="long-text"}
+		{include file="skin/admin/form-line-input.tpl" name="facebook_app_id" value=$config.social.facebook_app_id title="APP ID" class="w50" width="long-text"}
+		{include file="skin/admin/form-line-input.tpl" name="facebook_app_secret" value=$config.social.facebook_app_secret title="APP SECRET" class="w50" width="long-text"}
+		{include file="skin/admin/form-line-input.tpl" name="facebook_redirect_url" value=$config.social.facebook_redirect_url title="REDIRECT URL" class="w50" width="long-text"}
 
 		<h2>Twitter</h2>
 
 		{include file="skin/admin/form-line-input.tpl" name="twitter" value=$config.social.twitter title="twitter_profile"|lng width="long-text"}
 		{include file="skin/admin/form-line-input.tpl" name="twitter_consumer_key" value=$config.social.twitter_consumer_key title="CONSUMER KEY" class="w50" width="long-text"}
 		{include file="skin/admin/form-line-input.tpl" name="twitter_consumer_secret" value=$config.social.twitter_consumer_secret title="CONSUMER SECRET" class="w50" width="long-text"}
-		{include file="skin/admin/form-line-input.tpl" name="twitter_oauth_token" value=$config.social.twitter_oauth_token title="OAUTH TOKEN" class="w50" width="long-text"}
-		{include file="skin/admin/form-line-input.tpl" name="twitter_oauth_secret" value=$config.social.twitter_oauth_secret title="OAUTH SECRET" class="w50" width="long-text"}
+		{include file="skin/admin/form-line-input.tpl" name="twitter_access_token" value=$config.social.twitter_access_token title="ACCESS TOKEN" class="w50" width="long-text"}
+		{include file="skin/admin/form-line-input.tpl" name="twitter_access_token_secret" value=$config.social.twitter_access_token_secret title="ACCESS TOKEN SECRET" class="w50" width="long-text"}
+		{include file="skin/admin/form-line-input.tpl" name="twitter_callback_url" value=$config.social.twitter_callback_url title="CALLBACK URL" class="w50" width="long-text"}
 
 	</fieldset>
 </div>

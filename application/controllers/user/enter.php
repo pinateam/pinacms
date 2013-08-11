@@ -44,4 +44,25 @@ if (Session::get("auth_user_id"))
 
 $request->result('redirect_action', $redirectAction);
 
+$config = getConfig();
+$facebookAppId = $config->get('social', 'facebook_app_id');
+$facebookAppSecret = $config->get('social', 'facebook_app_secret');
+$facebookRedirectUrl = href(array('api' => $config->get('social', 'facebook_redirect_url')));
+if(!empty($facebookAppId) && !empty($facebookAppSecret) && !empty($facebookRedirectUrl))
+{
+	$request->result('facebook', true);
+}
+
+$twitterConsumerKey = $config->get('social', 'twitter_consumer_key');
+$twitterConsumerSecret = $config->get('social', 'twitter_consumer_secret');
+$twitterCallbackUrl = href(array('api' => $config->get('social', 'twitter_callback_url')));
+if(
+	!empty($twitterConsumerKey) 
+	&& !empty($twitterConsumerSecret) 
+	&& !empty($twitterCallbackUrl)
+)
+{
+	$request->result('twitter', true);
+}
+
 $request->ok();
