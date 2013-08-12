@@ -33,10 +33,11 @@ if (!defined('PATH')){ exit; }
 		);
 	}
 
+	require_once PATH_DOMAIN."environment.php";
 	$request->result('php_version', EnvironmentDomain::checkPhpVersion());
 	$request->result('php_extensions_required', EnvironmentDomain::checkPhpExtensions());
 	$request->result('php_directives', EnvironmentDomain::checkPhpDirectives());
-	$request->result('apache_modules_recommended', EnvironmentDomain::checktRecommendedApacheModules());
+	$request->result('apache_modules_recommended', EnvironmentDomain::checkRecommendedApacheModules());
 
 	$request->addLocation(lng("settings"), href(array("action" => "config.manage.home")));
 	$request->setLayout('admin');
