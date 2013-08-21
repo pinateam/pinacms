@@ -167,7 +167,7 @@ class Site {
 			self::$id = 0;
 			self::$accountId = 0;
 			self::$domain = SITE_HOST;
-			self::$path = 'root';
+			self::$path = '';
 			self::$template = '';
 			self::$isTest = $isTest;
 		}
@@ -197,7 +197,7 @@ class Site {
 			self::$id = 0;
 			self::$accountId = 0;
 			self::$domain = SITE_HOST;
-                        self::$path = 'root';
+                        self::$path = '';
 			self::$template = '';
 			self::$isTest = false;
 			return true;
@@ -208,7 +208,7 @@ class Site {
 			self::$id = 0;
 			self::$accountId = 0;
 			self::$domain = SITE_HOST;
-			self::$path = 'root';
+			self::$path = '';
 			self::$template = '';
 			self::$isTest = false;
 			return true;

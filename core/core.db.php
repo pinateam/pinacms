@@ -253,7 +253,8 @@ function getDB($alias = 'default')
         );
 
 	$rc = @mysql_pconnect($configDB[$alias]['host'].':'.$configDB[$alias]['port'], $configDB[$alias]['user'], $configDB[$alias]['pass']);//, true);
-	if (empty($rc) || mysql_errno($rc)) die('db connect error');
+	if (empty($rc) || !in_array(mysql_errno($rc), array(0, 1146))) die('db connect error');
+	//if (empty($rc) || mysql_errno($rc)) die('db connect error');
 
 	mysql_select_db($configDB[$alias]['base'], $rc);
 	if (empty($rc) || mysql_errno($rc)) die('db access error');

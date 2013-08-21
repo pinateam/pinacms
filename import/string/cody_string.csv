@@ -3455,7 +3455,6 @@
 "ru";"root_test_domain";"Корневой тестовый домен";
 "ru";"create_profile";"Создание профиля";
 "ru";"do_complete_the_registration_please_enter_email";"Для завершения регистрации введите email";
-
 "ru";"enter_return_total";"Введите сумму возврата";
 "ru";"this_order_already_exists_statement";"по этому заказу уже существует заявление";
 "ru";"incomplete";"не завершена";
@@ -3463,9 +3462,20 @@
 "ru";"comment_explanation";"Максимальная длина - 255 символов";
 "ru";"return_add";"Создать заявку на возврат товара";
 "ru";"return_management";"Управление заявками на возрат товара";
-"ru";"order_not_isset";"Такого заказа не существует";
-"ru";"refund_total_not_exceed_total_order";"Сумма возврата не должна превышать сумму заказа";
 "ru";"order_has_no_product";"В этом заказе нет продуктов";
 "ru";"enter_products_for_returns";"Укажите продукты для возврата";
 "ru";"enter_corrent_amount";"Укажите корректное количество";
 "ru";"amount";"Количество";
+"ru";"declined";"Отменен";
+"ru";"authorized";"Принят";
+"ru";"completed";"Завершен";
+"ru";"amount_request";"Количество на возврат";
+"ru";"amount_confirm";"Одобренное количество";
+"ru";"return_edit";"Редактирование заявки на возврат товара";
+"ru";"return_type";"Тип возврата";
+"ru";"certificate";"Сертификат";
+"ru";"standart";"Стандарт";
+"ru";"enter_return_type";"Укажите тип возврата";
+"ru";"enter_amount";"Введите количество";
+"ru";"enter_total";"Введите сумму";
+"ru";"return";"Возвращено";

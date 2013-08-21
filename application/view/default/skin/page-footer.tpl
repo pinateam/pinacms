@@ -20,7 +20,7 @@
 			</div><!-- footer_box -->
 
 			<p class="footer_notes">
-				<span class="copyright">&copy; {php}echo date("Y");{/php}. <a href="http://dobrosite.ru/">ООО "Добросайт"</a>
+				<span class="copyright">&copy; {php}echo date("Y");{/php}. <a href="http://dobrosite.ru/">Dobrosite ltd</a>
 				{block view="feedback.link"}</span>
 				<span>{include file="skin/copyright.tpl"}</span>
 			</p>

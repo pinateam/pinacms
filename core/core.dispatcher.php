@@ -84,6 +84,7 @@ function dispatch_getPattern($pattern)
 
 function url_rewrite($content, $onlyAHref = true)
 {
+	if (defined("SIMPLE_URL")) return $content;
 	#return preg_replace_callback('/(<a[^<>]+href[ ]*=[ ]*["\'])([^"\']*page.php)\?(action=[^"\'>]+)((#[^"\'>]+)?["\'])/iUS', "url_rewrite_callback", $content);
 	if($onlyAHref)
         {

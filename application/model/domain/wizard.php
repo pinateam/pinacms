@@ -65,8 +65,8 @@ if (!defined('PATH')){ exit; }
                 'description' => file_exists(PATH_VIEW .'default/description.txt') ? htmlspecialchars(file_get_contents(PATH_VIEW .'default/description.txt')) : ''
             );
 
-            $dh  = opendir($this->dir);
-            while (false !== ($filename = readdir($dh)))
+            $dh  = @opendir($this->dir);
+            while (false !== ($filename = @readdir($dh)))
             {
                 if (in_array($filename, array('.', '..', '.svn')) || !is_dir($this->dir . $filename)) continue;
 

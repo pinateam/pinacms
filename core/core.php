@@ -345,6 +345,14 @@ function doMagicQuotesGpc()
 	global $_POST, $_GET;
 	if (ini_get("magic_quotes_gpc"))
 	{
+		foreach ($_REQUEST as $k=>$v)
+		{
+			if (is_string($_REQUEST[$k]))
+			{
+				$_REQUEST[$k] = stripslashes($_REQUEST[$k]);
+			}
+		}
+
 		foreach ($_POST as $k=>$v)
 		{
 			if (is_string($_POST[$k]))

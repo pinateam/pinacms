@@ -28,11 +28,11 @@ if (!defined('PATH')){ exit; }
     define('DB_CONNECTION_CHARSET', 'utf8');
     define('DB_DEFAULT_ENGINE', 'InnoDB');
 
-    define ('MEMCACHE_HOST', '127.0.0.1');
+    define ('MEMCACHE_HOST', '');
 
-    #define ('SPHINXSEARCH_HOST', '127.0.0.1');
+    #define ('SPHINXSEARCH_HOST', '');
     #define ('SPHINXSEARCH_PORT', 3312);
-    #define ('SPHINXSEARCH_PREFIX', 'grainger');
+    #define ('SPHINXSEARCH_PREFIX', '');
 
     define('COMBINE_RESOURSES', false);
 
@@ -64,3 +64,4 @@ if (!defined('PATH')){ exit; }
     define('BLOCK_EXCEPTIONS', true);
 
     define('TEMPLATE_DEFAULT', 'lingerie');
+    define('SIMPLE_URL', true);

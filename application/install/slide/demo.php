@@ -25,7 +25,7 @@ require_once PATH_DOMAIN."image.php";
 require_once PATH_TABLES."slide.php";
 $slideGateway = new SlideGateway;
 
-if (!$slideGateway->reportCountBy("slide_href", "http://www.pinacart.com/"))
+if (!$slideGateway->reportCountBy("slide_href", "http://www.pinacms.com/"))
 {
 	$imageId = ImageDomain::saveCopy(
 		PATH .'import/demo/slide-1.png',
@@ -34,7 +34,7 @@ if (!$slideGateway->reportCountBy("slide_href", "http://www.pinacart.com/"))
 
 	$slideGateway->add(array(
 		"image_id" => $imageId,
-		"slide_href" => "http://www.pinacart.com/",
+		"slide_href" => "http://www.pinacms.com/",
 		"slide_enabled" => "Y"
 	));
 }

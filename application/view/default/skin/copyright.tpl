@@ -1,1 +1,1 @@
-Разработано на <a href="http://www.pinacart.com">Pinacart - скрипт интернет-магазина</a>
+Powered by <a href="http://www.pinacms.com">PinaCMS - software for creating a Sitebuilder and SaaS platform</a>

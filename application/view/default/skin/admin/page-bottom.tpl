@@ -14,7 +14,7 @@
                 {*module action="menu.manage.home"*}
 	</menu>
 	<div class="copyrights">
-		<a href="http://pinacart.com/">Pinacart</a> © 2010 &laquo;Dobrosite Ltd&raquo;. All rights reserved.
+		<a href="http://pinacms.com/">Pinacart</a> © 2010 &laquo;Dobrosite Ltd&raquo;. All rights reserved.
 	</div>
 
 </footer>
