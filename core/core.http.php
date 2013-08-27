@@ -52,7 +52,7 @@ class HttpCurl
 		$query = "";
 		foreach ($params as $ppp => $vvv)
 		{
-			$query .= "&".$ppp."=".$vvv;
+			$query .= "&".urlencode($ppp)."=".urlencode($vvv);
 		}
 		return substr($query, 1);
 	}

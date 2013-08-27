@@ -1,1 +1,1 @@
-По Вашему запросу {if $substring}&laquo;{$substring}&raquo;{/if} найден{if $count>1}о{/if} {$count|number_end_ru:"товар":"товара":"товаров"}.
+По Вашему запросу {if $substring}&laquo;{$substring}&raquo;{/if} найден{if $count>1}о{/if} {$count|number_end_ru:"результат":"результата":"результатов"}.

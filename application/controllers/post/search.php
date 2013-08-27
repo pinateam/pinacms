@@ -20,20 +20,20 @@ if (!defined('PATH')){ exit; }
 
 
 
-class Config extends BaseConfig
-{
-	var $baseName = 'config';
-}
+	$rules = Session::get("search_rules");
+	$request->result('search_rules', $rules);
 
-function getConfig($siteId = false)
-{
-	static $config = array();
-	$siteId = Site::id();
-	if (!empty($config[$siteId]))
-        {
-                return $config[$siteId];
-        }
+	require_once PATH_CORE.'classes/Sorting.php';
+	$sorting = new Sorting($request->param('sort_field'), $request->param('sort_dir'));
 
-	$config[$siteId] = new Config;
-	return $config[$siteId];
-}
+	require_once PATH_CORE.'classes/Paging.php';
+	$paging = new Paging($request->param('page'), CATALOG_PAGING_PER_PAGE);
+
+	require_once PATH_MODEL.'finder/post.php';
+	$pf = new PostFinder();
+	$posts = $pf->search($rules, $sorting, $paging);
+
+	$request->result('posts', $posts);
+	$request->result("paging", $paging->fetch());
+	$request->result('sorting', $sorting->fetch());
+	$request->ok();

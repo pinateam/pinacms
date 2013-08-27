@@ -3479,3 +3479,7 @@
 "ru";"enter_amount";"Введите количество";
 "ru";"enter_total";"Введите сумму";
 "ru";"return";"Возвращено";
+"ru";"post_search";"Поиск по записям";
+"en";"post_search";"Post search";
+"ru";"search_other_posts_on_query_";"Посмотреть остальные записи в результатах поиска";
+"en";"search_other_posts_on_query_";"Search other posts on query";
